@@ -1,9 +1,3 @@
-// master
-// get data from the slaves
-// save to database
-
-// serve requests for GUI via rest interface
-
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
