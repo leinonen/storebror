@@ -1,5 +1,5 @@
 var GPIO = require('onoff').Gpio;
-var led = new GPIO(18, 'out');
+var led = new GPIO(17, 'out');
 
 var clients = {};
 
@@ -13,7 +13,7 @@ function flashLed() {
 exports.report = function(req, res) {
 
 	flashLed();
-	
+
 	var info = req.body;
 
 	clients[info.local] = info;
