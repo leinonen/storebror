@@ -7,7 +7,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(function(req,res,next){
-	console.log(req.baseUrl);
+	console.log(req.originalUrl);
+	next();
 });
 
 app.post('/report', controller.report);
