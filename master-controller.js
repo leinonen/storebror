@@ -1,7 +1,6 @@
 var GPIO = require('onoff').Gpio;
 var led = new GPIO(17, 'out');
-var clients = {};
-
+var clients = [];
 
 exports.connect = function(req, res) {
 	var payload = req.body;
@@ -21,7 +20,7 @@ exports.sysinfo = function(req, res) {
 
 	info.client_id = client_id;
 
-	clients[client_id] = info;
+	clients.push(info);
 
 	console.log( 'hostname: ' + info.hostname );
 	console.log( 'local: ' + info.local );

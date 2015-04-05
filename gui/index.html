@@ -8,6 +8,8 @@
 
 	<div ng-controller="AppController as vm">
 		{{vm.title}}
+
+		<p ng-repeat="client in vm.clients">{{client.local}} {{client.hostname}}</p>
 	</div>
 
 	<script src="components/angular/angular.js"></script>

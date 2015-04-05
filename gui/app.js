@@ -7,4 +7,10 @@ app.controller('AppController', function($http){
 
 	vm.title = 'hello world';
 
+	vm.clients = [];
+
+	$http.get('/clients').then(function(response){
+		vm.clients = response.data;
+	});
+
 });
