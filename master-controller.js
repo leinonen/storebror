@@ -2,6 +2,19 @@ var GPIO = require('onoff').Gpio;
 var led = new GPIO(17, 'out');
 var clients = {};
 
+
+exports.connect = function(req, res) {
+	var payload = req.body;
+
+	console.log(payload);
+	// create client if it does not already exist
+	// update 
+	res.json({
+		client_id: 'random.client.id'
+	});
+};
+
+
 exports.sysinfo = function(req, res) {
 	var info = req.body;
 	var client_id = req.params.client_id;
@@ -15,20 +28,11 @@ exports.sysinfo = function(req, res) {
 
 };
 
+
 exports.clients = function(req, res) {
 	res.json(clients);
 };
 
-exports.connect = function(req, res) {
-	var payload = req.body;
-
-	console.log(payload);
-	// create client if it does not already exist
-	// update 
-	res.json({
-		client_id: 'random.client.id'
-	});
-};
 
 exports.log = function(req, res, next) {
 	flash();

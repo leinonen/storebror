@@ -1,43 +1,22 @@
-// slave
-// gather info about the system and send to master
-// TODO
-
-var os = require('os');
 var http = require('http');
 var request = require('request');
 var rp = require('request-promise');
-
+var util = require('./util');
+var events = require('events');
+var eventEmitter = events.eventEmitter();
 var master_url = process.argv[2] || 'http://127.0.0.1:8080';
 
-function getLocalIP(){
-	var ifaces = os.networkInterfaces();
-	var result = '';
 
-	Object.keys(ifaces).forEach(function (ifname) {
-	  var alias = 0;
+eventEmitter.on('connect', connect);
+eventEmitter.on('report', report);
 
-	  ifaces[ifname].forEach(function (iface) {
-	    if ('IPv4' !== iface.family || iface.internal !== false) {
-	      // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-	      return;
-	    }
+eventEmitter.emit('connect');
+// ---------------------
 
-	    if (alias >= 1) {
-	      // this single interface has multiple ipv4 addresses
-	      //console.log(ifname + ':' + alias, iface.address);
-	    } else {
-	      // this interface has only one ipv4 adress
-	      //console.log(ifname, iface.address);
-	      result = iface.address;
-	    }
-	  });
-	});
-	return result;
-}
 
 function sysinfo() {
 	return {
-		local: getLocalIP(),
+		local: util.getLocalIP(),
 		hostname: os.hostname(),
 		type: os.type(),
 		platform: os.platform(),
@@ -63,26 +42,26 @@ function post(uri, data) {
 function connect() {
 	console.log('connecting to master');
 
-	post('/connect', {test:123})
-		.then(function(response){
-			console.log(response);
-		})
-		.catch(console.error);
-
+	post('/connect', {
+		ip: util.getLocalIP(),
+		test: 'hej'
+	})
+	.then(function(response){
+		console.log(response);
+		eventEmitter.emit('report', 'slask');
+	})
+	.catch(console.error);
 }
 
 
-function report() {
-	console.log('sending report to master');
+function report(client_id) {
+	console.log('sending report to master for client %s', client_id);
 
-	request
-	.post(master_url + '/report', {form:sysinfo()})
-	.on('error', function(err){
-		console.log(err);
-	});
+	post(util.format('/clients/%s/sysinfo', client_id), sysinfo())
+	.then(function(response){
+		console.log(response.status);
+	})
+	.catch(console.error);
 }
 
-//console.log('slave started on ' + os.hostname())
-//setInterval(report, 10000);
-//report();
-connect();
+
