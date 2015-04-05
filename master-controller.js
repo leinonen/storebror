@@ -8,17 +8,18 @@ exports.log = function(req, res, next) {
 	next();
 };
 
-exports.flash = function(req, res, next){
+function flash(){
 	led.writeSync(1); // on
 	console.log('led on');
 	setTimeout(function(){
 		led.writeSync(0); // off
 		console.log('led off');
 	}, 1000);
-	next();
-};
+}
 
 exports.report = function(req, res) {
+	flash();
+
 	var info = req.body;
 
 	clients['' + info.local] = info;
@@ -32,10 +33,12 @@ exports.report = function(req, res) {
 
 
 exports.clients = function(req, res) {
+	flash();
 	res.json(clients);
 };
 
 exports.connect = function(req, res) {
+	flash();
 	var payload = req.body;
 	res.json({
 		client_id: '123'
