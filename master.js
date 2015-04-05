@@ -4,8 +4,12 @@ var bodyParser = require('body-parser');
 var controller = require('./master-controller');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/upload', controller.upload);
+app.post('/report', controller.report);
+
+app.get('/clients', controller.clients);
+
 
 app.listen(8080);
 

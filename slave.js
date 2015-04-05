@@ -3,52 +3,42 @@
 // TODO
 
 var os = require('os');
-//var querystring = require('querystring');
 var http = require('http');
+var request = require('request');
 
-function post(url, data) {
-	var postData = JSON.stringify(data);
-	
-	var options = {
-	  hostname: '127.0.0.1',
-	  port: 8080,
-	  path: '/upload',
-	  method: 'POST',
-	  headers: {
-	    'Content-Type': 'application/json',
-	    'Content-Length': postData.length
-	  }
-	};
+var master_url = process.argv[2] || 'http://127.0.0.1:8080';
 
-	var req = http.request(options, function(res) {
-	//  console.log('STATUS: ' + res.statusCode);
-	  //console.log('HEADERS: ' + JSON.stringify(res.headers));
-	  res.setEncoding('utf8');
-	  
-	  var resp = '';
+console.log(process.argv[2]);
 
-	  res.on('data', function (chunk) {
-	    //console.log('BODY: ' + chunk);
-	  	resp += chunk;
+function getLocalIP(){
+	var ifaces = os.networkInterfaces();
+	var result = '';
+
+	Object.keys(ifaces).forEach(function (ifname) {
+	  var alias = 0;
+
+	  ifaces[ifname].forEach(function (iface) {
+	    if ('IPv4' !== iface.family || iface.internal !== false) {
+	      // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+	      return;
+	    }
+
+	    if (alias >= 1) {
+	      // this single interface has multiple ipv4 addresses
+	      //console.log(ifname + ':' + alias, iface.address);
+	    } else {
+	      // this interface has only one ipv4 adress
+	      //console.log(ifname, iface.address);
+	      result = iface.address;
+	    }
 	  });
-
-	  res.on('end', function(e) {
-	  	console.log(resp);
-		});
 	});
-
-	req.on('error', function(e) {
-	  console.log('problem with request: ' + e.message);
-	  process.exit();
-	});
-
-	// write data to request body
-	req.write(postData);
-	req.end();
+	return result;
 }
 
 function sysinfo() {
 	return {
+		local: getLocalIP(),
 		hostname: os.hostname(),
 		type: os.type(),
 		platform: os.platform(),
@@ -63,12 +53,15 @@ function sysinfo() {
 	};
 }
 
-function sendToMaster() {
-	console.log('about to send data to master');
-	post('', sysinfo());
+function report() {
+	console.log('sending report to master');
+	request
+	.post(master_url + '/report', {form:sysinfo()})
+	.on('error', function(err){
+		console.log('error..' + err);
+	})
 }
 
-
-console.log('slave started on ' + os.hostname())
-
-setInterval(sendToMaster, 10000);
+//console.log('slave started on ' + os.hostname())
+//setInterval(report, 10000);
+report();
