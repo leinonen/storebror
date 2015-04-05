@@ -1,29 +1,34 @@
-storebror aka "big brother"
+# Storebror aka "big brother"
 
-server monitoring software.
+Server monitoring software. Let's say you have a bunch of computers in your network that you want to monitor. Run the client on each computer, and the master on your raspberry pi. The master has a graphical interface that let's you view info about all the connected clients. The clients will report data to the master periodically, or by request from the master.
+The GPIO pins are used to flash LEDs to display status when data is recieved by the master (just to make use of the GPIO pins!).
 
-# master
-runs on raspberry pi
-accepts data from clients, and keeps track of them
-angularjs user interface for viewing the clients
-use rpi GPIO ports to display status by flashing leds for requests.
+## master.js
+Runs on raspberry pi.
+Accepts data from clients, and keeps track of them.
+Angularjs user interface for viewing the clients.
+Use rpi GPIO ports to display status by flashing leds for requests.
 
-# slave
-client that sends system information to the master
-
-
-still thinking about how the communication protocol should work
+## slave.js
+client that sends system information to the master.
+Takes the master ip as an argument, defaults to http://127.0.0.1:8080
 
 
-# API for master
-
+## API for master
 
 POST /connect
-connect to master. get client_id back
+connect to master. must provide a unique identifier for the client.
 
 GET  /clients
-get all the clients
+get all the connected clients. used by the GUI.
 
 POST /clients/:client_id/sysinfo
-send system info to master for specific client
+send system info for a client system to the master.
 
+This is a work in progress..
+
+# Installation
+Run npm install, and bower install if installing on master.
+
+# Copyright
+No, free to use by everybody! Have fun! :D
