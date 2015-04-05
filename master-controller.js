@@ -4,14 +4,16 @@ var led = new GPIO(17, 'out');
 var clients = {};
 
 exports.log = function(req, res, next) {
-	console.log(req.originalUrl);
+	console.log(req.originalUrl + ' - ' + req.ip);
 	next();
 };
 
 exports.flash = function(req, res, next){
 	led.writeSync(1); // on
+	console.log('led on');
 	setTimeout(function(){
 		led.writeSync(0); // off
+		console.log('led off');
 	}, 1000);
 	next();
 };

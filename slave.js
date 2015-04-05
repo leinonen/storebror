@@ -57,16 +57,23 @@ function sysinfo() {
 function connect() {
 	console.log('connecting to master');
 
-	request
-	.post(master_url + '/connect', {form:{
-		test: '123'
-	}})
-	.on('response', function(response){
-		console.log(response);
-	})
-	.on('error', function(err){
-		console.log(err);
+	var opts = { 
+		uri: master_url + '/connect', 
+		method: 'POST',
+		json: {
+			test: 123
+		}
+
+	};
+
+	request(opts, function(error, response, body){
+		if (!error && response.statusCode == 200) {
+    	console.log(body);
+  	} else {
+  		console.log(error);
+  	}
 	});
+
 }
 
 
@@ -82,5 +89,5 @@ function report() {
 
 //console.log('slave started on ' + os.hostname())
 //setInterval(report, 10000);
-//report();
-connect();
+report();
+//connect();
