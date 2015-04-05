@@ -53,15 +53,34 @@ function sysinfo() {
 	};
 }
 
+
+function connect() {
+	console.log('connecting to master');
+
+	request
+	.post(master_url + '/connect', {form:{
+
+	}})
+	.on('response', function(response){
+		console.log(response);
+	})
+	.on('error', function(err){
+		console.log(err);
+	});
+}
+
+
 function report() {
 	console.log('sending report to master');
+
 	request
 	.post(master_url + '/report', {form:sysinfo()})
 	.on('error', function(err){
-		console.log('error..' + err);
-	})
+		console.log(err);
+	});
 }
 
 //console.log('slave started on ' + os.hostname())
 //setInterval(report, 10000);
-report();
+//report();
+connect();
