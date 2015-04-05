@@ -21,11 +21,9 @@ function Client() {
 
 
 	this.report = function(client_id) {
-		console.log('sending report');
-
 		http.post(util.format('%s/clients/%s/sysinfo', master_url, client_id), util.sysinfo())
 		.then(function(response) {
-			console.log(response.status);
+			console.log('report sent: ' + response.status);
 		})
 		.catch(console.error);
 	};

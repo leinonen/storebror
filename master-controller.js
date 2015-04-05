@@ -11,9 +11,7 @@ exports.connect = function(req, res) {
 
 	var identifier = payload.identifier;
  
-	res.json({
-		client_id: identifier
-	});
+	res.json({ client_id: identifier });
 };
 
 
@@ -23,11 +21,10 @@ exports.sysinfo = function(req, res) {
 
 	info.client_id = client_id;
 
+	// save to database :P
 	clients.push(info);
 
-	console.log( 'hostname: ' + info.hostname );
-	console.log( 'local: ' + info.local );
-	console.log( 'uptime: ' + info.uptime );
+	console.log(info);
 
 	res.json({status: 'ok'});
 };
@@ -46,7 +43,6 @@ exports.log = function(req, res, next) {
 	if (!isStatic(req.originalUrl)){
 		console.log('-> ' + req.originalUrl + ' - ' + req.ip);
 	}
-	
 	next();
 };
 

@@ -20,12 +20,18 @@
 				<th>IP</th>
 				<th>Hostname</th>
 				<th>Platform</th>
+				<th>Architecture</th>
+				<th>FreeMem</th>
+				<th>TotalMem</th>
 			</tr>
 			<tr ng-repeat="client in vm.clients">
 				<th>{{client.client_id}}</th>
 				<th>{{client.local}}</th>
 				<th>{{client.hostname}}</th>
 				<th>{{client.platform}}</th>
+				<th>{{client.arch}}</th>
+				<th>{{client.freemem}}</th>
+				<th>{{client.totalmem}}</th>
 			</tr>
 		</table>
 

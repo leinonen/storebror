@@ -5,7 +5,7 @@ app.controller('AppController', function($http){
 
 	var vm = this;
 
-	vm.title = 'hello world';
+	vm.title = 'Storebror';
 
 	vm.clients = [];
 
