@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var GPIO = require('onoff').Gpio;
 var led = new GPIO(17, 'out');
 var clients = [];
@@ -36,10 +37,16 @@ exports.clients = function(req, res) {
 	res.json(clients);
 };
 
+function isStatic(url){
+	return _.contains(['components','.js'], url);
+}
 
 exports.log = function(req, res, next) {
 	flash();
-	console.log(req.originalUrl + ' - ' + req.ip);
+	if (!isStatic(req.originalUrl)){
+		console.log('-> ' + req.originalUrl + ' - ' + req.ip);
+	}
+	
 	next();
 };
 
