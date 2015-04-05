@@ -5,10 +5,10 @@ var status = true;
 
 function ledStuff(){
 	if (status){
-		console.log('led on');
+//		console.log('led on');
 		led.writeSync(1);
 	} else {
-		console.log('led off');
+//		console.log('led off');
 		led.writeSync(0);
 	}
 	status = !status;
