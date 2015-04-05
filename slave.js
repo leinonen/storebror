@@ -47,9 +47,9 @@ function sysinfo() {
 		uptime: os.uptime(),
 		loadavg: os.loadavg(),
 		totalmem: os.totalmem(),
-		freemem: os.freemem(),
-		cpus: os.cpus(),
-		networkInterfaces: os.networkInterfaces()
+		freemem: os.freemem()
+		//cpus: os.cpus(),
+		//networkInterfaces: os.networkInterfaces()
 	};
 }
 
@@ -60,7 +60,7 @@ function connect() {
 	var opts = { 
 		uri: master_url + '/connect', 
 		method: 'POST',
-		json: {
+		form: {
 			test: 123
 		}
 
@@ -89,5 +89,5 @@ function report() {
 
 //console.log('slave started on ' + os.hostname())
 //setInterval(report, 10000);
-report();
-//connect();
+//report();
+connect();
