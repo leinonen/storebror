@@ -1,11 +1,14 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var bodyParser = require('body-parser');
 var controller = require('./master-controller');
 
 app.use(controller.log);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static(path.join(__dirname, '/gui')));
 
 app.post('/connect', controller.connect);
 app.post('/clients/:client_id/sysinfo', controller.sysinfo);
