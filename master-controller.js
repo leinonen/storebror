@@ -19,13 +19,15 @@ exports.sysinfo = function(req, res) {
 	var info = req.body;
 	var client_id = req.params.client_id;
 
+	info.client_id = client_id;
+	
 	clients['' + info.local] = info;
 
 	console.log( 'hostname: ' + info.hostname );
 	console.log( 'local: ' + info.local );
 	console.log( 'uptime: ' + info.uptime );
-	res.json({status: 'ok', info:info});
 
+	res.json({status: 'ok'});
 };
 
 
