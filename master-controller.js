@@ -1,12 +1,19 @@
-//var GPIO = require('onoff').Gpio;
-//var led = new GPIO(18, 'out');
-//led.writeSync(1); // on
-//led.writeSync(0); // off
+var GPIO = require('onoff').Gpio;
+var led = new GPIO(18, 'out');
 
 var clients = {};
 
+function flashLed() {
+	led.writeSync(1); // on
+	setTimeout(function(){
+		led.writeSync(0); // off
+	}, 1000);
+}
+
 exports.report = function(req, res) {
 
+	flashLed();
+	
 	var info = req.body;
 
 	clients[info.local] = info;
