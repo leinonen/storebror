@@ -10,7 +10,7 @@ exports.connect = function(req, res) {
 	// create client if it does not already exist
 	// update 
 	res.json({
-		client_id: 'random.client.id'
+		client_id: 'acb123-abc123'
 	});
 };
 
