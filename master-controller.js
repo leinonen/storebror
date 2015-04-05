@@ -1,27 +1,10 @@
 var GPIO = require('onoff').Gpio;
 var led = new GPIO(17, 'out');
-
 var clients = {};
-
-function flash(){
-	led.writeSync(1); // on
-	console.log('led on');
-	setTimeout(function(){
-		led.writeSync(0); // off
-		console.log('led off');
-	}, 1000);
-}
-
-exports.log = function(req, res, next) {
-	flash();
-	console.log(req.originalUrl + ' - ' + req.ip);
-	next();
-};
-
-
 
 exports.report = function(req, res) {
 	var info = req.body;
+	var client_id = req.params.client_id;
 
 	clients['' + info.local] = info;
 
@@ -32,14 +15,31 @@ exports.report = function(req, res) {
 
 };
 
-
 exports.clients = function(req, res) {
 	res.json(clients);
 };
 
 exports.connect = function(req, res) {
 	var payload = req.body;
+
+	console.log(payload);
+	// create client if it does not already exist
+	// update 
 	res.json({
-		client_id: '123'
+		client_id: 'random.client.id'
 	});
 };
+
+exports.log = function(req, res, next) {
+	flash();
+	console.log(req.originalUrl + ' - ' + req.ip);
+	next();
+};
+
+
+function flash() {
+	led.writeSync(1);
+	setTimeout(function(){
+		led.writeSync(0);
+	}, 500);
+}

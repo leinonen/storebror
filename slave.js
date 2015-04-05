@@ -5,10 +5,9 @@
 var os = require('os');
 var http = require('http');
 var request = require('request');
+var rp = require('request-promise');
 
 var master_url = process.argv[2] || 'http://127.0.0.1:8080';
-
-console.log(process.argv[2]);
 
 function getLocalIP(){
 	var ifaces = os.networkInterfaces();
@@ -53,26 +52,22 @@ function sysinfo() {
 	};
 }
 
+function post(uri, data) {	
+	return rp({ 
+		uri: master_url + uri, 
+		method: 'POST',
+		form: data
+	});
+}
 
 function connect() {
 	console.log('connecting to master');
 
-	var opts = { 
-		uri: master_url + '/connect', 
-		method: 'POST',
-		form: {
-			test: 123
-		}
-
-	};
-
-	request(opts, function(error, response, body){
-		if (!error && response.statusCode == 200) {
-    	console.log(body);
-  	} else {
-  		console.log(error);
-  	}
-	});
+	post('/connect', {test:123})
+		.then(function(response){
+			console.log(response);
+		})
+		.catch(console.error);
 
 }
 
