@@ -3,11 +3,6 @@ var led = new GPIO(17, 'out');
 
 var clients = {};
 
-exports.log = function(req, res, next) {
-	console.log(req.originalUrl + ' - ' + req.ip);
-	next();
-};
-
 function flash(){
 	led.writeSync(1); // on
 	console.log('led on');
@@ -17,9 +12,15 @@ function flash(){
 	}, 1000);
 }
 
-exports.report = function(req, res) {
+exports.log = function(req, res, next) {
 	flash();
+	console.log(req.originalUrl + ' - ' + req.ip);
+	next();
+};
 
+
+
+exports.report = function(req, res) {
 	var info = req.body;
 
 	clients['' + info.local] = info;
@@ -33,12 +34,10 @@ exports.report = function(req, res) {
 
 
 exports.clients = function(req, res) {
-	flash();
 	res.json(clients);
 };
 
 exports.connect = function(req, res) {
-	flash();
 	var payload = req.body;
 	res.json({
 		client_id: '123'
