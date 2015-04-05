@@ -6,6 +6,10 @@ var controller = require('./master-controller');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(function(req,res,next){
+	console.log(req.baseUrl);
+});
+
 app.post('/report', controller.report);
 
 app.get('/clients', controller.clients);
