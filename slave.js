@@ -59,7 +59,7 @@ function connect() {
 
 	request
 	.post(master_url + '/connect', {form:{
-
+		test: '123'
 	}})
 	.on('response', function(response){
 		console.log(response);
