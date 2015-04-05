@@ -2,7 +2,7 @@ var GPIO = require('onoff').Gpio;
 var led = new GPIO(17, 'out');
 var clients = {};
 
-exports.report = function(req, res) {
+exports.sysinfo = function(req, res) {
 	var info = req.body;
 	var client_id = req.params.client_id;
 
