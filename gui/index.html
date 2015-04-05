@@ -2,14 +2,33 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Storebror</title>
+	<link rel="stylesheet" href="components/dist/css/bootstrap.css">
 </head>
 <body ng-app="app">
 
-	<div ng-controller="AppController as vm">
-		{{vm.title}}
+	<div class="container" ng-controller="AppController as vm">
+		<h1>{{vm.title}}</h1>
 
-		<p ng-repeat="client in vm.clients">{{client.local}} {{client.hostname}}</p>
+		<h2>Connected clients</h2>
+
+		<table class="table">
+			<tr>
+				<th>client-id</th>
+				<th>IP</th>
+				<th>Hostname</th>
+				<th>Platform</th>
+			</tr>
+			<tr ng-repeat="client in vm.clients">
+				<th>{{client.client_id}}</th>
+				<th>{{client.local}}</th>
+				<th>{{client.hostname}}</th>
+				<th>{{client.platform}}</th>
+			</tr>
+		</table>
+
 	</div>
 
 	<script src="components/angular/angular.js"></script>
