@@ -20,8 +20,8 @@ exports.sysinfo = function(req, res) {
 	var client_id = req.params.client_id;
 
 	info.client_id = client_id;
-	
-	clients['' + info.local] = info;
+
+	clients[client_id] = info;
 
 	console.log( 'hostname: ' + info.hostname );
 	console.log( 'local: ' + info.local );
