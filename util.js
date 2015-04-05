@@ -1,5 +1,6 @@
 var os = require('os');
 var util = require('util');
+var crypto = require('crypto');
 
 function getLocalIP(){
 	var ifaces = os.networkInterfaces();
@@ -27,6 +28,12 @@ function getLocalIP(){
 	return result;
 }
 
+function systemIdentifier(){
+	var identifier = util.format('%s-%s-%s', 
+		os.hostname(), os.platform(), os.release());
+	return crypto.createHash('md5').update(identifier).digest('hex');
+}
+
 function sysinfo() {
 	return {
 		local: getLocalIP(),
@@ -44,7 +51,7 @@ function sysinfo() {
 	};
 }
 
+exports.systemIdentifier = systemIdentifier;
 exports.sysinfo = sysinfo;
 exports.getLocalIP = getLocalIP;
-
 exports.format = util.format;

@@ -41,7 +41,10 @@ client.on('connected', function(client_id) {
 	client.report(client_id);
 });
 
-client.connect({ ip: util.getLocalIP(),	test: 'hej'	});
+client.connect({ 
+	ip: util.getLocalIP(),	
+	identifier: util.systemIdentifier()
+});
 
 
 

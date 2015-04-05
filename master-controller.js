@@ -5,11 +5,13 @@ var clients = [];
 exports.connect = function(req, res) {
 	var payload = req.body;
 
+	console.log('client connected:');
 	console.log(payload);
-	// create client if it does not already exist
-	// update 
+
+	var identifier = payload.identifier;
+ 
 	res.json({
-		client_id: 'acb123-abc123'
+		client_id: identifier
 	});
 };
 
