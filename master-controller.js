@@ -35,7 +35,7 @@ exports.clients = function(req, res) {
 };
 
 function isStatic(url){
-	return _.contains(['components','.js'], url);
+	return _.contains(url, ['components','.js']);
 }
 
 exports.log = function(req, res, next) {
