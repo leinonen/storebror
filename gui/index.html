@@ -38,10 +38,16 @@
 				</tr>
 				<tr>
 					<td colspan="8">
-						<p ng-repeat="disk in client.diskinfo">
-							{{disk.filesystem}}
-							{{disk.size}}
-						</p>
+						<table class="table">
+							<tr ng-repeat="disk in client.diskinfo">
+									<td>{{disk.filesystem}}</td>
+									<td>{{disk.size}}</td>
+									<td>{{disk.used}}</td>
+									<td>{{disk.avail}}</td>
+									<td>{{disk.capacity}}</td>
+									<td>{{disk.mounted}}</td>
+							</tr>
+						</table>
 					</td>
 				</tr>
 			</tbody>
