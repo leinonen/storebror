@@ -16,9 +16,9 @@
 
 		<div ng-repeat="client in vm.clients">
 
+			<h3>Client: {{client.client_id}}</h3>
 			<table class="table">
 				<tr>
-					<th>client-id</th>
 					<th>IP</th>
 					<th>Hostname</th>
 					<th>Platform</th>
@@ -28,7 +28,6 @@
 					<th>Last Update</th>
 				</tr>
 				<tr>
-					<td>{{client.client_id}}</td>
 					<td>{{client.sysinfo.local}}</td>
 					<td>{{client.sysinfo.hostname}}</td>
 					<td>{{client.sysinfo.platform}}</td>
@@ -57,7 +56,7 @@
 			</table>
 
 		</div>
-		
+
 	</div>
 
 	<script src="components/angular/angular.js"></script>
