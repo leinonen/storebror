@@ -39,62 +39,54 @@ function systemIdentifier(){
 
 function sysinfo() {
 	return {
-		local: getLocalIP(),
+		local:    getLocalIP(),
 		hostname: os.hostname(),
-		type: os.type(),
+		type:     os.type(),
 		platform: os.platform(),
-		arch: os.arch(),
-		release: os.release(),
-		uptime: os.uptime(),
-		loadavg: os.loadavg(),
+		arch:     os.arch(),
+		release:  os.release(),
+		uptime:   os.uptime(),
+		loadavg:  os.loadavg(),
 		totalmem: os.totalmem(),
-		freemem: os.freemem()
+		freemem:  os.freemem()
 		//cpus: os.cpus(),
 		//networkInterfaces: os.networkInterfaces()
 	};
 }
 
-function getLinuxItems(items) {
-	return {
+function getDriveData(items) {
+	var result = {
 		filesystem: items[0],
 		size: items[1],
 		used: items[2],
-		avail: items[3],
-		capacity: items[4],
-		mounted: items[5],
+		avail: items[3]
 	};
+
+	if (items.length <= 7) {
+		// Linux
+		result.mounted = items[5];
+	} else if (items.length <= 10) {
+		// OSX
+		result.mounted = items[8];
+	}
+
+	return result;
 }
 
-function getMacItems(items) {
-	return {
-		filesystem: items[0],
-		size: items[1],
-		used: items[2],
-		avail: items[3],
-		capacity: items[4],
-		mounted: items[8],
+function parseDiskInfo(result) {
+	var drives = [];
+	var handleRow = function(row) {
+		var columns = row.replace(/\s+/g, ' ').split(' ');
+		if (columns.length > 1) {
+			drives.push(getDriveData(columns));
+		}
 	};
+	result.stdout.split('\n').forEach(handleRow);
+	return drives;
 }
 
 function diskinfo() {
-	return exec('df -h').then(function(result) {
-		var response = result.stdout;
-		var result = [];
-		var test = response.split('\n');
-		test.forEach(function(row) {
-			var items = row.replace(/\s+/g, ' ').split(' ');
-			console.log('length: ' + items.length);
-			if (items.length > 1) {
-				if (items.length <= 7){
-					result.push(getLinuxItems(items));
-				} else if (items.length <= 10){
-					result.push(getMacItems(items));
-				}
-				
-			}
-		});
-		return result;
-	});
+	return exec('df -h').then(parseDiskInfo);
 }
 
 exports.systemIdentifier = systemIdentifier;
