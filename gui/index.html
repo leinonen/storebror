@@ -25,16 +25,26 @@
 				<th>Total Memory</th>
 				<th>Last Update</th>
 			</tr>
-			<tr ng-repeat="client in vm.clients">
-				<th>{{client.client_id}}</th>
-				<th>{{client.sysinfo.local}}</th>
-				<th>{{client.sysinfo.hostname}}</th>
-				<th>{{client.sysinfo.platform}}</th>
-				<th>{{client.sysinfo.arch}}</th>
-				<th>{{client.sysinfo.freemem}}</th>
-				<th>{{client.sysinfo.totalmem}}</th>
-				<th>{{client.lastUpdate}}</th>
-			</tr>
+			<tbody ng-repeat="client in vm.clients">
+				<tr>
+					<td>{{client.client_id}}</td>
+					<td>{{client.sysinfo.local}}</td>
+					<td>{{client.sysinfo.hostname}}</td>
+					<td>{{client.sysinfo.platform}}</td>
+					<td>{{client.sysinfo.arch}}</td>
+					<td>{{client.sysinfo.freemem}}</td>
+					<td>{{client.sysinfo.totalmem}}</td>
+					<td>{{client.lastUpdate}}</td>
+				</tr>
+				<tr>
+					<td colspan="8">
+						<p ng-repeat="disk in client.diskinfo">
+							{{disk.filesystem}}
+							{{disk.size}}
+						</p>
+					</td>
+				</tr>
+			</tbody>
 		</table>
 
 	</div>

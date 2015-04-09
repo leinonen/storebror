@@ -21,14 +21,19 @@ function Client() {
 
 
 	this.report = function(client_id) {
-		http.post(util.format('%s/clients/%s/sysinfo', master_url, client_id), {
+
+		util.diskinfo().then(function(diskinfo){
+			http.post(util.format('%s/clients/%s/sysinfo', master_url, client_id), {
 				lastUpdate: new Date(),
-				sysinfo: util.sysinfo()
+				sysinfo: util.sysinfo(),
+				diskinfo: diskinfo
 			})
-		.then(function(response) {
-			console.log('report sent: ' + response.status);
-		})
-		.catch(console.error);
+			.then(function(response) {
+				console.log('report sent: ' + response.status);
+			})
+			.catch(console.error);
+		});
+		
 	};
 
 }

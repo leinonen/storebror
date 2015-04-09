@@ -1,6 +1,9 @@
 var os = require('os');
 var util = require('util');
 var crypto = require('crypto');
+//var child_process = require('child_process');
+var exec = require('child-process-promise').exec;
+var _ = require('lodash');
 
 function getLocalIP(){
 	var ifaces = os.networkInterfaces();
@@ -51,7 +54,31 @@ function sysinfo() {
 	};
 }
 
+function diskinfo() {
+	return exec('df -h').then(function(result) {
+		var response = result.stdout;
+		var result = [];
+		var test = response.split('\n');
+		test.forEach(function(row) {
+			var items = row.replace(/\s+/g, ' ').split(' ');
+			if (items.length > 1) {
+				var data = {
+					filesystem: items[0],
+					size: items[1],
+					used: items[2],
+					avail: items[3],
+					capacity: items[4],
+					mounted: items[8],
+				};
+				result.push(data);
+			}
+		});
+		return result;
+	});
+}
+
 exports.systemIdentifier = systemIdentifier;
 exports.sysinfo = sysinfo;
+exports.diskinfo = diskinfo;
 exports.getLocalIP = getLocalIP;
 exports.format = util.format;
