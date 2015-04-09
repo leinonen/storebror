@@ -54,6 +54,28 @@ function sysinfo() {
 	};
 }
 
+function getLinuxItems(items) {
+	return {
+		filesystem: items[0],
+		size: items[1],
+		used: items[2],
+		avail: items[3],
+		capacity: items[4],
+		mounted: items[5],
+	};
+}
+
+function getMacItems(items) {
+	return {
+		filesystem: items[0],
+		size: items[1],
+		used: items[2],
+		avail: items[3],
+		capacity: items[4],
+		mounted: items[8],
+	};
+}
+
 function diskinfo() {
 	return exec('df -h').then(function(result) {
 		var response = result.stdout;
@@ -61,16 +83,14 @@ function diskinfo() {
 		var test = response.split('\n');
 		test.forEach(function(row) {
 			var items = row.replace(/\s+/g, ' ').split(' ');
+			console.log('length: ' + items.length);
 			if (items.length > 1) {
-				var data = {
-					filesystem: items[0],
-					size: items[1],
-					used: items[2],
-					avail: items[3],
-					capacity: items[4],
-					mounted: items[8],
-				};
-				result.push(data);
+				if (items.length <= 7){
+					result.push(getLinuxItems(items));
+				} else if (items.length <= 10){
+					result.push(getMacItems(items));
+				}
+				
 			}
 		});
 		return result;
