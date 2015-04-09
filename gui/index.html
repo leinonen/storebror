@@ -14,6 +14,8 @@
 
 		<h2>Connected clients</h2>
 
+		<p ng-show="vm.clients.length === 0">No connected clients</p>
+
 		<div ng-repeat="client in vm.clients">
 
 			<h3>Client: {{client.client_id}}</h3>
@@ -21,16 +23,16 @@
 			<h4>System information</h4>
 			<table class="table">
 				<tr>
-					<th class="col-sm-2">IP</th>
 					<th class="col-sm-2">Hostname</th>
+					<th class="col-sm-2">IP</th>
 					<th class="col-sm-2">Platform</th>
 					<th class="col-sm-2">Architecture</th>
 					<th class="col-sm-2">Free Memory</th>
 					<th class="col-sm-2">Total Memory</th>
 				</tr>
 				<tr>
-					<td>{{client.sysinfo.local}}</td>
 					<td>{{client.sysinfo.hostname}}</td>
+					<td>{{client.sysinfo.local}}</td>
 					<td>{{client.sysinfo.platform}}</td>
 					<td>{{client.sysinfo.arch}}</td>
 					<td>{{client.sysinfo.freemem}}</td>
@@ -42,17 +44,18 @@
 			<table class="table">
 				<tr>
 						<th class="col-sm-2">Filesystem</th>
+						<th class="col-sm-4">Mounted on</th>
 						<th class="col-sm-2">Size</th>
 						<th class="col-sm-2">Used</th>
 						<th class="col-sm-2">Avail</th>
-						<th class="col-sm-4">Mounted on</th>
+						
 				</tr>
 				<tr ng-repeat="disk in client.diskinfo">
 						<td>{{disk.filesystem}}</td>
+						<td>{{disk.mounted}}</td>
 						<td>{{disk.size}}</td>
 						<td>{{disk.used}}</td>
 						<td>{{disk.avail}}</td>
-						<td>{{disk.mounted}}</td>
 				</tr>
 			</table>
 
