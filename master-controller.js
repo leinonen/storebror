@@ -2,7 +2,7 @@ var _    = require('lodash');
 var GPIO = require('onoff').Gpio;
 var led  = new GPIO(17, 'out');
 
-var clients = {};
+var clients = [];
 
 exports.connect = function(req, res) {
 	var payload = req.body;
@@ -20,7 +20,7 @@ exports.sysinfo = function(req, res) {
 	info.client_id = client_id;
 
 	// save to database :P
-	clients[client_id] = info;
+	clients.push(info);
 
 	console.log(info);
 
@@ -29,11 +29,7 @@ exports.sysinfo = function(req, res) {
 
 
 exports.clients = function(req, res) {
-	var list = [];
-	Object.keys(clients).forEach(function(client){
-		list.push(client);
-	});
-	res.json(list);
+	res.json(clients);
 };
 
 function isStatic(url) {
