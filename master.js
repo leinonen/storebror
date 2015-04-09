@@ -1,8 +1,8 @@
-var express = require('express');
-var app = express();
-var path = require('path');
+var express    = require('express');
+var path       = require('path');
 var bodyParser = require('body-parser');
 var controller = require('./master-controller');
+var app        = express();
 
 app.use(controller.log);
 app.use(bodyParser.json());

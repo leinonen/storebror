@@ -1,10 +1,10 @@
-var http = require('http');
-//var request = require('request');
-var http = require('request-promise-json');
-var util = require('./util');
+var http   = require('http');
+var http   = require('request-promise-json');
+var util   = require('./util');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var master_url = process.argv[2] || 'http://127.0.0.1:8080';
+var master_url   = process.argv[2] || 'http://127.0.0.1:8080';
+
 
 function Client() {
 

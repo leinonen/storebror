@@ -1,16 +1,14 @@
-var _ = require('lodash');
+var _    = require('lodash');
 var GPIO = require('onoff').Gpio;
-var led = new GPIO(17, 'out');
+var led  = new GPIO(17, 'out');
+
 var clients = [];
 
 exports.connect = function(req, res) {
 	var payload = req.body;
-
 	console.log('client connected:');
 	console.log(payload);
-
 	var identifier = payload.identifier;
- 
 	res.json({ client_id: identifier });
 };
 
@@ -34,7 +32,7 @@ exports.clients = function(req, res) {
 	res.json(clients);
 };
 
-function isStatic(url){
+function isStatic(url) {
 	return _.contains(url, ['components','.js']);
 }
 

@@ -1,9 +1,8 @@
-var os = require('os');
-var util = require('util');
+var os     = require('os');
+var util   = require('util');
 var crypto = require('crypto');
-//var child_process = require('child_process');
-var exec = require('child-process-promise').exec;
-var _ = require('lodash');
+var exec   = require('child-process-promise').exec;
+var _      = require('lodash');
 
 function getLocalIP(){
 	var ifaces = os.networkInterfaces();
@@ -61,7 +60,6 @@ function getDriveData(items) {
 		used: items[2],
 		avail: items[3]
 	};
-
 	if (items.length <= 7) {
 		// Linux
 		result.mounted = items[5];
@@ -69,20 +67,21 @@ function getDriveData(items) {
 		// OSX
 		result.mounted = items[8];
 	}
-
 	return result;
 }
 
 function parseDiskInfo(result) {
 	var drives = [];
-	var handleRow = function(row) {
+	result.stdout.split('\n').forEach(function(row) {
 		var columns = row.replace(/\s+/g, ' ').split(' ');
 		if (columns.length > 1) {
 			drives.push(getDriveData(columns));
 		}
-	};
-	result.stdout.split('\n').forEach(handleRow);
-	return drives;
+	});
+	//filter out relevant drive details
+	return drives.filter(function(drive){
+		return drive.filesystem.indexOf('/dev') === 0;
+	});
 }
 
 function diskinfo() {
