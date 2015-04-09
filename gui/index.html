@@ -17,15 +17,16 @@
 		<div ng-repeat="client in vm.clients">
 
 			<h3>Client: {{client.client_id}}</h3>
+			<p>Last updated {{client.lastUpdate}}</p>
+			<h4>System information</h4>
 			<table class="table">
 				<tr>
-					<th>IP</th>
-					<th>Hostname</th>
-					<th>Platform</th>
-					<th>Architecture</th>
-					<th>Free Memory</th>
-					<th>Total Memory</th>
-					<th>Last Update</th>
+					<th class="col-sm-2">IP</th>
+					<th class="col-sm-2">Hostname</th>
+					<th class="col-sm-2">Platform</th>
+					<th class="col-sm-2">Architecture</th>
+					<th class="col-sm-2">Free Memory</th>
+					<th class="col-sm-2">Total Memory</th>
 				</tr>
 				<tr>
 					<td>{{client.sysinfo.local}}</td>
@@ -34,17 +35,17 @@
 					<td>{{client.sysinfo.arch}}</td>
 					<td>{{client.sysinfo.freemem}}</td>
 					<td>{{client.sysinfo.totalmem}}</td>
-					<td>{{client.lastUpdate}}</td>
 				</tr>
 			</table>
 
+			<h4>Mounted drives</h4>
 			<table class="table">
 				<tr>
-						<th>Filesystem</th>
-						<th>Size</th>
-						<th>Used</th>
-						<th>Avail</th>
-						<th>Mounted on</th>
+						<th class="col-sm-2">Filesystem</th>
+						<th class="col-sm-2">Size</th>
+						<th class="col-sm-2">Used</th>
+						<th class="col-sm-2">Avail</th>
+						<th class="col-sm-4">Mounted on</th>
 				</tr>
 				<tr ng-repeat="disk in client.diskinfo">
 						<td>{{disk.filesystem}}</td>
