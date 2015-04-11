@@ -3,13 +3,15 @@ var GPIO   = require('onoff').Gpio;
 var config = require('./master-config.json');
 var diskinfo = require('./diskinfo-promise');
 
-var leds = {
-		status: new GPIO(config.leds.status, 'out'),
-		error:  new GPIO(config.leds.error, 'out'),
-		test:   new GPIO(config.leds.test, 'out')
-};
-
 var clients = {};
+var leds = {};
+
+if (config.gpioEnabled) {
+		leds.status = new GPIO(config.leds.status, 'out');
+		leds.error  = new GPIO(config.leds.error, 'out');
+		leds.test   = new GPIO(config.leds.test, 'out');
+}
+
 
 exports.connect = function(req, res) {
 	var payload = req.body;
@@ -28,8 +30,6 @@ exports.sysinfo = function(req, res) {
 };
 
 
-
-
 exports.clients = function(req, res) {
 	var list = getClients();
 	res.json(list);
@@ -42,9 +42,11 @@ exports.stats = function(req, res) {
 	res.json(totals);
 }
 
+
 exports.config = function(req, res){
 	res.json(config);
 }
+
 
 exports.logRequest = function(req, res, next) {
 	flash();
@@ -57,11 +59,12 @@ exports.logRequest = function(req, res, next) {
 
 // Helper functions 
 
-function getClients(){
-	var list = [];
-	Object.keys(clients).forEach(function(client_id) {
-		list.push(clients[client_id]);
+function getClients() {
+	
+	var list = Object.keys(clients).map(function(client_id) {
+		return clients[client_id];
 	});
+	
 	return list;
 }
 
@@ -77,22 +80,28 @@ function flash() {
 }
 
 function flashStatus() {
-	leds.status.writeSync(1);
-	setTimeout(function(){
-		leds.status.writeSync(0);
-	}, 250);
+	if (config.gpioEnabled) {
+		leds.status.writeSync(1);
+		setTimeout(function(){
+			leds.status.writeSync(0);
+		}, 250);
+	}
 }
 
 function flashError() {
-	leds.error.writeSync(1);
-	setTimeout(function(){
-		leds.error.writeSync(0);
-	}, 500);
+	if (config.gpioEnabled) {
+		leds.error.writeSync(1);
+		setTimeout(function(){
+			leds.error.writeSync(0);
+		}, 500);
+	}
 }
 
 function flashTest() {
-	leds.test.writeSync(1);
-	setTimeout(function(){
-		leds.test.writeSync(0);
-	}, 750);
+	if (config.gpioEnabled) {
+		leds.test.writeSync(1);
+		setTimeout(function(){
+			leds.test.writeSync(0);
+		}, 750);
+	}
 }

@@ -4,6 +4,8 @@
 
 	"port": 8080,
 
+	"gpioEnabled": true,
+
 	"leds": {
 		"status": 17,
 		"error": 18,

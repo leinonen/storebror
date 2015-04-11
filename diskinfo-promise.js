@@ -12,10 +12,9 @@ exports.get = get;
  * Parse the output from stdout.
  */
 function parseOutput(result) {
-	var drives = [];
-	result.stdout.split('\n').forEach(function(row) {
+	var drives = result.stdout.split('\n').map(function(row) {
 		var columns = row.trim().replace(/\s+/g, ' ').split(' ');
-		drives.push(getDriveData(columns));
+		return getDriveData(columns);
 	});
 	//filter out relevant drive details
 	var filtered = drives.filter(function(drive) {
