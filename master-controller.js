@@ -1,6 +1,7 @@
 var _      = require('lodash');
 var GPIO   = require('onoff').Gpio;
 var config = require('./master-config.json');
+var diskinfo = require('./diskinfo-promise');
 
 var leds = {
 		status: new GPIO(config.leds.status, 'out'),
@@ -36,9 +37,9 @@ exports.clients = function(req, res) {
 
 
 exports.stats = function(req, res) {
-	var list = getClients();
-	var result = _.pluck(list, 'diskinfo');
-	res.json(result);
+	var totals = _.pluck(_.pluck(clients, 'diskinfo'), 'totals')
+		.reduceRight(diskinfo.sum);
+	res.json(totals);
 }
 
 exports.logRequest = function(req, res, next) {

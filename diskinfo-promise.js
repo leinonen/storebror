@@ -28,7 +28,7 @@ function parseOutput(result) {
 }
 
 // Convert "522G" -> {unit: 'G', value: 522}
-// Also convert terrabyte to gigabyte to make summary calculations easier
+// Also convert megabyte or terrabyte to gigabyte to make summary calculations easier
 function parseUnit(str){
 	str = str.replace('i',''); // OSX..
 	var unit = str.substr(str.length - 1);
@@ -47,16 +47,7 @@ function parseUnit(str){
 }
 
 
-function driveSummary(drives){
-	return _(drives)
-	.map(function(x){
-		return {
-			size: parseUnit(x.size),
-			used: parseUnit(x.used),
-			avail: parseUnit(x.avail)
-		}
-	})
-	.reduceRight(function(a,b){
+function sum(a,b){
 		return {
 			size: {
 				value: a.size.value + b.size.value,
@@ -71,7 +62,22 @@ function driveSummary(drives){
 				unit: a.avail.unit
 			}
 		};
-	});
+}
+
+exports.sum = sum;
+
+
+
+function driveSummary(drives){
+	return _(drives)
+	.map(function(x){
+		return {
+			size: parseUnit(x.size),
+			used: parseUnit(x.used),
+			avail: parseUnit(x.avail)
+		}
+	})
+	.reduceRight(sum);
 }
 
 exports.driveSummary = driveSummary;
