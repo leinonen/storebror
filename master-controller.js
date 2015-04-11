@@ -40,7 +40,7 @@ function isStatic(url) {
 	return _.contains(url, ['components','.js']);
 }
 
-exports.log = function(req, res, next) {
+exports.logRequest = function(req, res, next) {
 	flash();
 	if (!isStatic(req.originalUrl)){
 		console.log('-> ' + req.originalUrl + ' - ' + req.ip);

@@ -11,28 +11,49 @@ function Client() {
 	var me = this;
 	events.EventEmitter.call(this);
 
-	this.connect = function(payload) {
+
+
+	this.connect = function() {
+		var payload = { 
+			ip: util.getLocalIP(),	
+			identifier: util.systemIdentifier()
+		};
+
 		http.post(util.format('%s/connect', master_url), payload)
 		.then(function(response) {
 			me.emit('connected', response.client_id);
 		})
-		.catch(console.error);
+		.catch(function(err){
+			me.emit('report.error', err);
+		});
 	};
 
 
 	this.report = function(client_id) {
 
-		util.diskinfo().then(function(diskinfo){
-			http.post(util.format('%s/clients/%s/sysinfo', master_url, client_id), {
+		var reportSuccess = function(response) {
+			me.emit('report.sent', response);
+		};
+		var reportError = function(err) {
+			me.emit('report.error', err);
+		};
+
+		util.diskinfo()
+		.then(function(diskinfo) {
+
+			var url = util.format('%s/clients/%s/sysinfo', master_url, client_id)
+			var message = {
 				lastUpdate: new Date(),
 				sysinfo: util.sysinfo(),
 				diskinfo: diskinfo
-			})
-			.then(function(response) {
-				console.log('report sent: ' + response.status);
-			})
-			.catch(console.error);
-		});
+			};
+
+			http.post(url, message)
+			.then(reportSuccess)
+			.catch(reportError);
+
+		})
+		.fail(reportError);
 		
 	};
 
@@ -47,10 +68,15 @@ client.on('connected', function(client_id) {
 	client.report(client_id);
 });
 
-client.connect({ 
-	ip: util.getLocalIP(),	
-	identifier: util.systemIdentifier()
+client.on('report.sent', function(response) {
+	console.log('report sent: ' + response.status);
 });
+
+client.on('report.error', function(err) {
+	console.error(err);
+});
+
+client.connect();
 
 
 

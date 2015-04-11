@@ -4,10 +4,9 @@ var bodyParser = require('body-parser');
 var controller = require('./master-controller');
 var app        = express();
 
-app.use(controller.log);
+app.use(controller.logRequest);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(express.static(path.join(__dirname, '/gui')));
 
 app.post('/connect', controller.connect);
