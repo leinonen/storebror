@@ -1,5 +1,8 @@
 {
-	"port" : 8080,
+
+	"name": "Pharatropic",
+
+	"port": 8080,
 
 	"leds": {
 		"status": 17,

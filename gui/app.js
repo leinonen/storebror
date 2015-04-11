@@ -19,5 +19,9 @@ app.controller('AppController', function($http){
 		vm.total = response.data;
 	});
 
+	$http.get('/config').then(function(response){
+		vm.title = response.data.name;
+	});
+
 
 });

@@ -42,6 +42,10 @@ exports.stats = function(req, res) {
 	res.json(totals);
 }
 
+exports.config = function(req, res){
+	res.json(config);
+}
+
 exports.logRequest = function(req, res, next) {
 	flash();
 	if (!isStatic(req.originalUrl)){
