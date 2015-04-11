@@ -9,8 +9,15 @@ app.controller('AppController', function($http){
 
 	vm.clients = [];
 
+	vm.total = {};
+
 	$http.get('/clients').then(function(response){
 		vm.clients = response.data;
 	});
+
+	$http.get('/stats').then(function(response){
+		vm.total = response.data;
+	});
+
 
 });
