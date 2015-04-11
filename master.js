@@ -3,6 +3,8 @@ var path       = require('path');
 var bodyParser = require('body-parser');
 var controller = require('./master-controller');
 var app        = express();
+var config     = require('./master-config.json');
+var port       = process.env.PORT || config.port;
 
 app.use(controller.logRequest);
 app.use(bodyParser.json());
@@ -13,6 +15,6 @@ app.post('/connect', controller.connect);
 app.post('/clients/:client_id/sysinfo', controller.sysinfo);
 app.get('/clients', controller.clients);
 
-app.listen(8080);
+app.listen(port);
 
-console.log('master started at port 8080');
+console.log('master started at port %d', port);

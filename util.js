@@ -48,24 +48,24 @@ function sysinfo() {
 		loadavg:  os.loadavg(),
 		totalmem: os.totalmem(),
 		freemem:  os.freemem()
-		//cpus: os.cpus(),
+		cpus: os.cpus(),
 		//networkInterfaces: os.networkInterfaces()
 	};
 }
 
-function getDriveData(items) {
+function getDriveData(columns) {
 	var result = {
-		filesystem: items[0],
-		size: items[1],
-		used: items[2],
-		avail: items[3]
+		filesystem: columns[0],
+		size:  columns[1],
+		used:  columns[2],
+		avail: columns[3]
 	};
-	if (items.length <= 7) {
+	if (columns.length <= 7) {
 		// Linux
-		result.mounted = items[5];
-	} else if (items.length <= 10) {
+		result.mounted = columns[5];
+	} else if (columns.length <= 10) {
 		// OSX
-		result.mounted = items[8];
+		result.mounted = columns[8];
 	}
 	return result;
 }
@@ -73,10 +73,8 @@ function getDriveData(items) {
 function parseDiskInfo(result) {
 	var drives = [];
 	result.stdout.split('\n').forEach(function(row) {
-		var columns = row.replace(/\s+/g, ' ').split(' ');
-		if (columns.length > 1) {
-			drives.push(getDriveData(columns));
-		}
+		var columns = row.trim().replace(/\s+/g, ' ').split(' ');
+		drives.push(getDriveData(columns));
 	});
 	//filter out relevant drive details
 	return drives.filter(function(drive){

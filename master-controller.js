@@ -1,15 +1,24 @@
-var _    = require('lodash');
-var GPIO = require('onoff').Gpio;
+var _      = require('lodash');
+var GPIO   = require('onoff').Gpio;
+var config = require('./master-config.json');
+
 var leds = {
-		status: new GPIO(17, 'out'),
-		error:  new GPIO(18, 'out'),
-		test:   new GPIO(14, 'out')
+		status: new GPIO(config.leds.status, 'out'),
+		error:  new GPIO(config.leds.error, 'out'),
+		test:   new GPIO(config.leds.test, 'out')
 };
 
 var clients = [];
 
 exports.connect = function(req, res) {
 	var payload = req.body;
+
+	if (req.ip === payload.ip){
+		console.log('Ip numbers match!');
+	} else {
+		console.log('Ip numbers does not match %s -> %s', req.ip, payload.ip);
+	}
+
 	console.log('client connected:');
 	console.log(payload);
 	var identifier = payload.identifier;
@@ -43,12 +52,12 @@ function isStatic(url) {
 exports.logRequest = function(req, res, next) {
 	flash();
 	if (!isStatic(req.originalUrl)){
-		console.log('-> ' + req.originalUrl + ' - ' + req.ip);
+		console.log('-> %s - %s', req.originalUrl, req.ip);
 	}
 	next();
 };
 
-function flash(){
+function flash() {
 	flashStatus();
 	flashError();
 	flashTest();
