@@ -38,22 +38,20 @@ function ReportClient() {
 			me.emit('report.error', err);
 		};
 
-		util.diskinfo()
-		.then(function(diskinfo) {
+		util.diskinfo().then(function(diskinfo) {
 
 			var url = util.format('%s/clients/%s/sysinfo', master_url, client_id)
 			var message = {
-				lastUpdate: new Date(),
-				sysinfo: util.sysinfo(),
-				diskinfo: diskinfo
+				lastUpdate : new Date(),
+				sysinfo    : util.sysinfo(),
+				diskinfo   : diskinfo
 			};
 
 			http.post(url, message)
 			.then(reportSuccess)
 			.catch(reportError);
 
-		})
-		.fail(reportError);
+		}).fail(reportError);
 		
 	};
 

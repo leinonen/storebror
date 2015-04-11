@@ -52,10 +52,6 @@ exports.clients = function(req, res) {
 	res.json(list);
 };
 
-function isStatic(url) {
-	return _.contains(url, ['components','.js']);
-}
-
 exports.logRequest = function(req, res, next) {
 	flash();
 	if (!isStatic(req.originalUrl)){
@@ -63,6 +59,13 @@ exports.logRequest = function(req, res, next) {
 	}
 	next();
 };
+
+
+// Helper functions 
+
+function isStatic(url) {
+	return _.contains(url, ['components','.js']);
+}
 
 function flash() {
 	flashStatus();
