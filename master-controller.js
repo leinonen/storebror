@@ -1,6 +1,10 @@
 var _    = require('lodash');
 var GPIO = require('onoff').Gpio;
-var led  = new GPIO(17, 'out');
+var leds = {
+		status: new GPIO(17, 'out');
+		error:  new GPIO(18, 'out');
+		test:   new GPIO(14, 'out');
+};
 
 var clients = [];
 
@@ -44,10 +48,29 @@ exports.log = function(req, res, next) {
 	next();
 };
 
+function flash(){
+	flashStatus();
+	flashError();
+	flashTest();
+}
 
-function flash() {
-	led.writeSync(1);
+function flashStatus() {
+	leds.status.writeSync(1);
 	setTimeout(function(){
-		led.writeSync(0);
+		leds.status.writeSync(0);
 	}, 500);
+}
+
+function flashError() {
+	leds.error.writeSync(1);
+	setTimeout(function(){
+		leds.error.writeSync(0);
+	}, 800);
+}
+
+function flashTest() {
+	leds.test.writeSync(1);
+	setTimeout(function(){
+		leds.test.writeSync(0);
+	}, 1000);
 }
