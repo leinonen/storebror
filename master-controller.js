@@ -43,7 +43,11 @@ exports.sysinfo = function(req, res) {
 
 
 exports.clients = function(req, res) {
-	res.json(clients);
+	var list = [];
+	Object.keys(clients, function(client_id){
+		list.push(clients[client_id]);
+	});
+	res.json(list);
 };
 
 function isStatic(url) {

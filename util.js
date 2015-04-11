@@ -47,7 +47,7 @@ function sysinfo() {
 		uptime:   os.uptime(),
 		loadavg:  os.loadavg(),
 		totalmem: os.totalmem(),
-		freemem:  os.freemem()
+		freemem:  os.freemem(),
 		cpus: os.cpus(),
 		//networkInterfaces: os.networkInterfaces()
 	};
