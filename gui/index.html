@@ -40,19 +40,21 @@
 				</tr>
 			</table>
 
-			<h4>{{client.sysinfo.cpus.length}} Processor Cores</h4>
+			<h4>CPU</h4>
 			<table class="table">
 				<tr>
+					<th class="col-sm-2">Number of Cores</th>
 					<th class="col-sm-2">Model</th>
 					<th class="col-sm-2">Speed</th>
 				</tr>
-				<tr ng-repeat="cpu in client.sysinfo.cpus">
-					<td>{{cpu.model}}</td>
-					<td>{{cpu.speed}} MHz</td>
+				<tr>
+					<td>{{client.sysinfo.cpus.length}}</td>
+					<td>{{client.sysinfo.cpus[0].model}}</td>
+					<td>{{client.sysinfo.cpus[0].speed}} MHz</td>
 				</tr>
 			</table>
 
-			<h4>Mounted drives</h4>
+			<h4>Mounted filesystems</h4>
 			<table class="table">
 				<tr>
 						<th class="col-sm-2">Filesystem</th>
@@ -60,7 +62,6 @@
 						<th class="col-sm-2">Size</th>
 						<th class="col-sm-2">Used</th>
 						<th class="col-sm-2">Avail</th>
-						
 				</tr>
 				<tr ng-repeat="disk in client.diskinfo">
 						<td>{{disk.filesystem}}</td>
