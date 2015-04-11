@@ -33,7 +33,10 @@ function parseUnit(str){
 	str = str.replace('i',''); // OSX..
 	var unit = str.substr(str.length - 1);
 	var value = parseFloat( str.replace(unit, '') );
-	if (unit === 'T') {
+	if (unit === 'M') {
+		unit = 'G';
+		value /= 1000;
+	} else if (unit === 'T') {
 		unit = 'G';
 		value *= 1000;
 	}
@@ -71,6 +74,7 @@ function driveSummary(drives){
 	});
 }
 
+exports.driveSummary = driveSummary;
 
 function getDriveData(columns) {
 	var result = {
