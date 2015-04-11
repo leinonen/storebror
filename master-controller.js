@@ -1,9 +1,9 @@
 var _    = require('lodash');
 var GPIO = require('onoff').Gpio;
 var leds = {
-		status: new GPIO(17, 'out');
-		error:  new GPIO(18, 'out');
-		test:   new GPIO(14, 'out');
+		status: new GPIO(17, 'out'),
+		error:  new GPIO(18, 'out'),
+		test:   new GPIO(14, 'out')
 };
 
 var clients = [];
