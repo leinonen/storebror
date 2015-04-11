@@ -8,7 +8,7 @@ var leds = {
 		test:   new GPIO(config.leds.test, 'out')
 };
 
-var clients = [];
+var clients = {};
 
 exports.connect = function(req, res) {
 	var payload = req.body;
@@ -33,7 +33,8 @@ exports.sysinfo = function(req, res) {
 	info.client_id = client_id;
 
 	// save to database :P
-	clients.push(info);
+	//clients.push(info);
+	clients[client_id] = info;
 
 	console.log(info);
 
