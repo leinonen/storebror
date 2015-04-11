@@ -12,32 +12,17 @@ var clients = {};
 
 exports.connect = function(req, res) {
 	var payload = req.body;
-
-	if (req.ip === payload.ip){
-		console.log('Ip numbers match!');
-	} else {
-		console.log('Ip numbers does not match %s -> %s', req.ip, payload.ip);
-	}
-
-	console.log('client connected:');
-	console.log(payload);
-	var identifier = payload.identifier;
-	res.json({ client_id: identifier });
+	console.log('client connected: %s', payload.identifier);
+	res.json({ client_id: payload.identifier });
 };
 
 
 exports.sysinfo = function(req, res) {
 	var info = req.body;
 	var client_id = req.params.client_id;
-
 	info.client_id = client_id;
-
-	// save to database :P
-	//clients.push(info);
 	clients[client_id] = info;
-
-	console.log(clients);
-
+	console.log('got sysinfo from %s', client_id);
 	res.json({status: 'ok'});
 };
 
@@ -45,17 +30,16 @@ exports.sysinfo = function(req, res) {
 exports.clients = function(req, res) {
 	var list = [];
 	Object.keys(clients).forEach(function(client_id) {
-		console.log(client_id);
-		console.log(clients[client_id]);
 		list.push(clients[client_id]);
 	});
 	res.json(list);
 };
 
+
 exports.logRequest = function(req, res, next) {
 	flash();
 	if (!isStatic(req.originalUrl)){
-		console.log('-> %s - %s', req.originalUrl, req.ip);
+		console.log('REQ -> %s by %s', req.originalUrl, req.ip);
 	}
 	next();
 };
@@ -77,19 +61,19 @@ function flashStatus() {
 	leds.status.writeSync(1);
 	setTimeout(function(){
 		leds.status.writeSync(0);
-	}, 500);
+	}, 250);
 }
 
 function flashError() {
 	leds.error.writeSync(1);
 	setTimeout(function(){
 		leds.error.writeSync(0);
-	}, 800);
+	}, 500);
 }
 
 function flashTest() {
 	leds.test.writeSync(1);
 	setTimeout(function(){
 		leds.test.writeSync(0);
-	}, 1000);
+	}, 750);
 }

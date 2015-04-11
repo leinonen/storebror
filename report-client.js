@@ -4,7 +4,7 @@ var util   = require('./util');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var master_url   = process.argv[2] || 'http://127.0.0.1:8080';
-
+var config = require('./slave-config.json');
 
 function ReportClient() {
 
@@ -44,7 +44,8 @@ function ReportClient() {
 			var message = {
 				lastUpdate : new Date(),
 				sysinfo    : util.sysinfo(),
-				diskinfo   : diskinfo
+				diskinfo   : diskinfo,
+				config:    : config
 			};
 
 			http.post(url, message)
