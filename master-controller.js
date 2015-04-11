@@ -36,7 +36,7 @@ exports.sysinfo = function(req, res) {
 	//clients.push(info);
 	clients[client_id] = info;
 
-	console.log(info);
+	console.log(clients);
 
 	res.json({status: 'ok'});
 };
@@ -45,6 +45,8 @@ exports.sysinfo = function(req, res) {
 exports.clients = function(req, res) {
 	var list = [];
 	Object.keys(clients, function(client_id){
+		console.log(client_id);
+		console.log(clients[client_id]));
 		list.push(clients[client_id]);
 	});
 	res.json(list);
