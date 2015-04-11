@@ -14,7 +14,7 @@ exports.get = get;
 function parseOutput(result) {
 	var drives = result.stdout.split('\n').map(function(row) {
 		var columns = row.trim().replace(/\s+/g, ' ').split(' ');
-		return getDriveData(columns);
+		return extractColumns(columns);
 	});
 	//filter out relevant drive details
 	var filtered = drives.filter(function(drive) {
@@ -81,7 +81,7 @@ function driveSummary(drives){
 
 exports.driveSummary = driveSummary;
 
-function getDriveData(columns) {
+function extractColumns(columns) {
 	var result = {
 		filesystem: columns[0],
 		size:  columns[1],
