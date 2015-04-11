@@ -1,7 +1,8 @@
 var util = require('./util');
+var diskinfo = require('./diskinfo-promise');
 var _ = require('lodash');
 
-util.diskinfo().then(function(drives) {
+diskinfo.get().then(function(drives) {
 
 	console.log(drives);
 	/*drives.forEach(function(drive) {

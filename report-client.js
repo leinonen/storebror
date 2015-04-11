@@ -1,5 +1,6 @@
 var http   = require('http');
 var http   = require('request-promise-json');
+var diskinfo = require('./diskinfo-promise');
 var util   = require('./util');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
@@ -38,7 +39,7 @@ function ReportClient() {
 			me.emit('report.error', err);
 		};
 
-		util.diskinfo().then(function(diskinfo) {
+		diskinfo.get().then(function(diskinfo) {
 
 			var url = util.format('%s/clients/%s/sysinfo', master_url, client_id)
 			var message = {
