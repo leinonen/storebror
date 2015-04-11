@@ -20,7 +20,9 @@
 				<p ng-show="vm.clients.length === 0">No connected clients</p>
 			</div>
 			<div class="col-sm-6">
-				<h1>Total capacity: {{vm.total.size.value}}{{vm.total.size.unit}}</h1>
+				<h1>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</h1>
+				<h2>Used: {{vm.used.size.value}}{{vm.used.size.unit}}</h2>
+				<h2>Avail: {{vm.avail.size.value}}{{vm.avail.size.unit}}</h2>
 			</div>
 		</div>
 
@@ -28,6 +30,7 @@
 
 			<h3>Client: {{client.client_id}}</h3>
 			<p>Last updated {{client.lastUpdate}}</p>
+			<p>Report interval {{client.config.reportInterval}} ms</p>
 			<h4>System information</h4>
 			<table class="table">
 				<tr>
