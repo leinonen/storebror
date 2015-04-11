@@ -88,6 +88,3 @@ function getDriveData(columns) {
 	}
 	return result;
 }
-
-
-
