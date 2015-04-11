@@ -40,6 +40,18 @@
 				</tr>
 			</table>
 
+			<h4>{{client.sysinfo.cpus.length}} Processor Cores</h4
+			<table class="table">
+				<tr>
+					<th class="col-sm-2">Model</th>
+					<th class="col-sm-2">Speed</th>
+				</tr>
+				<tr ng-repeat="cpu in client.sysinfo.cpus">
+					<td>{{cpu.model}}</td>
+					<td>{{cpu.speed}} MHz</td>
+				</tr>
+			</table>
+
 			<h4>Mounted drives</h4>
 			<table class="table">
 				<tr>
