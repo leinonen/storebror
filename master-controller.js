@@ -38,8 +38,7 @@ exports.clients = function(req, res) {
 exports.stats = function(req, res) {
 	var list = getClients();
 	var result = _.pluck(list, 'diskinfo');
-	var totals = _.pluck('totals');
-	res.json(totals);
+	res.json(result);
 }
 
 exports.logRequest = function(req, res, next) {
