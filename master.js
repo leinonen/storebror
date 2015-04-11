@@ -14,6 +14,7 @@ app.use(express.static(path.join(__dirname, '/gui')));
 app.post('/connect', controller.connect);
 app.post('/clients/:client_id/sysinfo', controller.sysinfo);
 app.get('/clients', controller.clients);
+app.get('/stats', controller.stats);
 
 app.listen(port);
 

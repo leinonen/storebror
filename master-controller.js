@@ -27,14 +27,19 @@ exports.sysinfo = function(req, res) {
 };
 
 
+
+
 exports.clients = function(req, res) {
-	var list = [];
-	Object.keys(clients).forEach(function(client_id) {
-		list.push(clients[client_id]);
-	});
+	var list = getClients();
 	res.json(list);
 };
 
+
+exports.stats = function(req, res) {
+	var list = getClients();
+	var result = _.pluck(list, 'diskinfo');
+	res.json(result);
+}
 
 exports.logRequest = function(req, res, next) {
 	flash();
@@ -46,6 +51,15 @@ exports.logRequest = function(req, res, next) {
 
 
 // Helper functions 
+
+function getClients(){
+	var list = [];
+	Object.keys(clients).forEach(function(client_id) {
+		list.push(clients[client_id]);
+	});
+	return list;
+}
+
 
 function isStatic(url) {
 	return _.contains(url, ['components','.js']);
