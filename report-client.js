@@ -45,7 +45,7 @@ function ReportClient() {
 				lastUpdate : new Date(),
 				sysinfo    : util.sysinfo(),
 				diskinfo   : diskinfo,
-				config:    : config
+				config     : config
 			};
 
 			http.post(url, message)
