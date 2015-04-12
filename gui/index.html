@@ -13,13 +13,11 @@
 <body ng-app="app">
 	<div class="container-fluid" ng-controller="AppController as vm">
 
+		
 		<div class="row">
 			<div class="col-sm-6">
 				<h1>{{vm.title}}</h1>
-				<h2>Connected clients ({{vm.clients.length}})</h2>
-				<p ng-show="vm.clients.length === 0">No connected clients</p>
 			</div>
-
 			<div class="col-sm-6">
 				<div class="pull-right">
 					<h1>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</h1>
@@ -33,10 +31,11 @@
 			<div class="col-sm-2">
 
 				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="client in vm.clients">
+					<li class="list-group-item" ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname">
 						<a ng-click="vm.selectClient($index)">{{client.sysinfo.hostname}}</a>
 					</li>
 				</ul>
+				<p ng-show="vm.clients.length === 0">No connected clients</p>
 
 			</div>
 
@@ -46,16 +45,18 @@
 					<h3>{{vm.client.sysinfo.hostname}}</h3>
 
 					<div class="row">
-						<div class="col-sm-6">
-							<p>CID: {{vm.client.client_id}}</p>
-							<p>Last updated {{vm.client.lastUpdate}}</p>
-							<p>Report interval {{vm.client.config.reportInterval}} ms</p>
+						<div class="col-sm-5">
+							<table class="table">
+								<tr><th>CID</th><td>{{vm.client.client_id}}</td></tr>
+								<tr><th>Last updated</th><td>{{vm.client.lastUpdate}}</td></tr>
+								<tr><th>Report interval</th><td>{{vm.client.config.reportInterval}} ms</td></tr>
+							</table>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-7">
 							<h4>CPU</h4>
 							<table class="table">
 								<tr>
-									<th class="col-sm-2">Number of Cores</th>
+									<th class="col-sm-2">Cores</th>
 									<th class="col-sm-8">Model</th>
 									<th class="col-sm-2">Speed</th>
 								</tr>
