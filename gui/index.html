@@ -14,10 +14,23 @@
 	<div class="container-fluid" ng-controller="AppController as vm">
 
 		<div class="row">
-			<div class="col-sm-2">
+			<div class="col-sm-6">
 				<h1>{{vm.title}}</h1>
 				<h2>Connected clients ({{vm.clients.length}})</h2>
 				<p ng-show="vm.clients.length === 0">No connected clients</p>
+			</div>
+
+			<div class="col-sm-6">
+				<div class="pull-right">
+					<h1>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</h1>
+					<h2>Used: {{vm.total.used.value}}{{vm.total.used.unit}}</h2>
+					<h2>Avail: {{vm.total.avail.value}}{{vm.total.avail.unit}}</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-2">
 
 				<ul class="list-group">
 					<li class="list-group-item" ng-repeat="client in vm.clients">
@@ -28,16 +41,34 @@
 			</div>
 
 			<div class="col-sm-10">
-				
-				<h1>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</h1>
-				<h2>Used: {{vm.total.used.value}}{{vm.total.used.unit}}</h2>
-				<h2>Avail: {{vm.total.avail.value}}{{vm.total.avail.unit}}</h2>
 
 				<div class="client">
 					<h3>{{vm.client.sysinfo.hostname}}</h3>
-					<p>CID: {{vm.client.client_id}}</p>
-					<p>Last updated {{vm.client.lastUpdate}}</p>
-					<p>Report interval {{vm.client.config.reportInterval}} ms</p>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<p>CID: {{vm.client.client_id}}</p>
+							<p>Last updated {{vm.client.lastUpdate}}</p>
+							<p>Report interval {{vm.client.config.reportInterval}} ms</p>
+						</div>
+						<div class="col-sm-6">
+							<h4>CPU</h4>
+							<table class="table">
+								<tr>
+									<th class="col-sm-2">Number of Cores</th>
+									<th class="col-sm-8">Model</th>
+									<th class="col-sm-2">Speed</th>
+								</tr>
+								<tr>
+									<td>{{vm.client.sysinfo.cpus.length}}</td>
+									<td>{{vm.client.sysinfo.cpus[0].model}}</td>
+									<td>{{vm.client.sysinfo.cpus[0].speed}} MHz</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				
+
 					<h4>System information</h4>
 					<table class="table">
 						<tr>
@@ -53,22 +84,8 @@
 							<td>{{vm.client.sysinfo.local}}</td>
 							<td>{{vm.client.sysinfo.platform}}</td>
 							<td>{{vm.client.sysinfo.arch}}</td>
-							<td>{{vm.client.sysinfo.freemem / 1024 / 1024 / 1024}} GB</td>
-							<td>{{vm.client.sysinfo.totalmem / 1024 / 1024 / 1024}} GB</td>
-						</tr>
-					</table>
-
-					<h4>CPU</h4>
-					<table class="table">
-						<tr>
-							<th class="col-sm-2">Number of Cores</th>
-							<th class="col-sm-8">Model</th>
-							<th class="col-sm-2">Speed</th>
-						</tr>
-						<tr>
-							<td>{{vm.client.sysinfo.cpus.length}}</td>
-							<td>{{vm.client.sysinfo.cpus[0].model}}</td>
-							<td>{{vm.client.sysinfo.cpus[0].speed}} MHz</td>
+							<td>{{vm.client.sysinfo.freemem}}</td>
+							<td>{{vm.client.sysinfo.totalmem}}</td>
 						</tr>
 					</table>
 
