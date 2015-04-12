@@ -53,7 +53,7 @@
 							<h4>{{vm.client.sysinfo.hostname}}</h4>
 							<table class="table">
 								<tr><th>CID</th><td>{{vm.client.client_id}}</td></tr>
-								<tr><th>Last updated</th><td>{{vm.client.lastUpdate}}</td></tr>
+								<tr><th>Last updated</th><td>{{vm.client.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td></tr>
 								<tr><th>Report interval</th><td>{{vm.client.config.reportInterval}} ms</td></tr>
 							</table>
 						</div>
@@ -83,8 +83,8 @@
 							<td>{{vm.client.sysinfo.local}}</td>
 							<td>{{vm.client.sysinfo.platform}}</td>
 							<td>{{vm.client.sysinfo.arch}}</td>
-							<td>{{(vm.client.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 0}} GB</td>
-							<td>{{(vm.client.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 0}} GB</td>
+							<td>{{(vm.client.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+							<td>{{(vm.client.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
 						</tr>
 					</table>
 
