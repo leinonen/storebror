@@ -7063,6 +7063,7 @@ a.list-group-item-danger.active:focus {
 
 .disk-summary {
   width: 100%;
+  background: none;
 }
 
 .disk-summary td {

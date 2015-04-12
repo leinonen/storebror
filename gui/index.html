@@ -11,26 +11,26 @@
 	<link rel="stylesheet" href="theme.css">
 </head>
 <body ng-app="app">
-	<div class="container-fluid" ng-controller="AppController as vm">
+	<div class="container" ng-controller="AppController as vm">
 
 		
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-3">
 				<h1>{{vm.title}}</h1>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-9">
 				<table class="disk-summary">
 					<tr>
-					<td>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</td>
-					<td>Used: {{vm.total.used.value}}{{vm.total.used.unit}}</td>
-					<td>Avail: {{vm.total.avail.value}}{{vm.total.avail.unit}}</td>
+					<td><h1>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</h1></td>
+					<td><h1>Used: {{vm.total.used.value}}{{vm.total.used.unit}}</h1></td>
+					<td><h1>Avail: {{vm.total.avail.value}}{{vm.total.avail.unit}}</h1></td>
 				</tr>
 				</table>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-sm-2">
+			<div class="col-sm-3">
 
 				<div class="list-group">
 					<a class="list-group-item" ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname" ng-click="vm.selectClient($index)" ng-class="{active: $index === vm.selectedClientIndex}">{{client.sysinfo.hostname}}</a>
@@ -40,7 +40,7 @@
 
 			</div>
 
-			<div class="col-sm-10">
+			<div class="col-sm-9">
 
 				<div class="client">
 					<div class="row">
