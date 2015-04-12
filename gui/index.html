@@ -13,7 +13,6 @@
 <body ng-app="app">
 	<div class="container" ng-controller="AppController as vm">
 
-		
 		<div class="row">
 			<div class="col-sm-3">
 				<h1>{{vm.title}}</h1>
@@ -33,8 +32,11 @@
 			<div class="col-sm-3">
 
 				<div class="list-group">
-					<a class="list-group-item" ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname" ng-click="vm.selectClient($index)" ng-class="{active: $index === vm.selectedClientIndex}">{{client.sysinfo.hostname}}</a>
-					</a>
+					<a class="list-group-item" 
+					   ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname" 
+					   ng-click="vm.selectClient($index)" 
+					   ng-class="{active: $index === vm.selectedClientIndex}">{{client.sysinfo.hostname}}
+					 </a>
 				</div>
 				<p ng-show="vm.clients.length === 0">No connected clients</p>
 
@@ -42,7 +44,7 @@
 
 			<div class="col-sm-9">
 
-				<div class="client">
+				<div class="client" ng-show="vm.clients.length > 0">
 					<div class="row">
 						<div class="col-sm-6">
 							<h4>{{vm.client.sysinfo.hostname}}</h4>
