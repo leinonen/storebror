@@ -21,7 +21,7 @@ function ReportClient() {
 
 		http.post(util.format('%s/connect', config.masterUrl), payload)
 		.then(function(response) {
-			me.emit('connected', response.client_id);
+			me.emit('connected', response.cid);
 		})
 		.catch(function(err){
 			me.emit('report.error', err);
@@ -29,7 +29,7 @@ function ReportClient() {
 	};
 
 
-	this.report = function(client_id) {
+	this.report = function(cid) {
 
 		var reportSuccess = function(response) {
 			me.emit('report.sent', response);
@@ -40,7 +40,7 @@ function ReportClient() {
 
 		diskinfo.get().then(function(diskinfo) {
 
-			var url = util.format('%s/clients/%s/sysinfo', config.masterUrl, client_id)
+			var url = util.format('%s/clients/%s/sysinfo', config.masterUrl, cid)
 			var message = {
 				lastUpdate : new Date(),
 				sysinfo    : util.sysinfo(),

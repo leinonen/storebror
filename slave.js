@@ -4,10 +4,10 @@ var client = new ReportClient();
 var timer;
 
 
-client.on('connected', function(client_id) {
-	client.report(client_id);
+client.on('connected', function(cid) {
+	client.report(cid);
 	timer = setInterval(function(){
-		client.report(client_id);
+		client.report(cid);
 	}, config.reportInterval);
 });
 

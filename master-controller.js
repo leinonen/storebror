@@ -16,16 +16,16 @@ if (config.gpioEnabled) {
 exports.connect = function(req, res) {
 	var payload = req.body;
 	console.log('client connected: %s', payload.identifier);
-	res.json({ client_id: payload.identifier });
+	res.json({ cid: payload.identifier });
 };
 
 
 exports.sysinfo = function(req, res) {
 	var info = req.body;
-	var client_id = req.params.client_id;
-	info.client_id = client_id;
+	var cid = req.params.cid;
+	info.cid = cid;
 	clients[client_id] = info;
-	console.log('got sysinfo from %s', client_id);
+	console.log('got sysinfo from %s', cid);
 	res.json({status: 'ok'});
 };
 
