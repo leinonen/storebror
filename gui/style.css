@@ -1,0 +1,21 @@
+.client {
+  padding-bottom: 30px;
+}
+
+.disk-summary {
+  width: 100%;
+  background: none;
+}
+
+.disk-summary td {
+  text-align: center;
+}
+
+header {
+	font-family: 'Play';
+  padding-bottom: 30px;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
