@@ -7055,21 +7055,3 @@ a.list-group-item-danger.active:focus {
 .panel-info .panel-heading {
   border-color: #000;
 }
-
-
-.client {
-  padding-bottom: 30px;
-}
-
-.disk-summary {
-  width: 100%;
-  background: none;
-}
-
-.disk-summary td {
-  text-align: center;
-}
-
-header {
-  padding-bottom: 30px;
-}
