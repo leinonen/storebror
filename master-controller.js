@@ -24,7 +24,7 @@ exports.sysinfo = function(req, res) {
 	var info = req.body;
 	var cid = req.params.cid;
 	info.cid = cid;
-	clients[client_id] = info;
+	clients[cid] = info;
 	console.log('got sysinfo from %s', cid);
 	res.json({status: 'ok'});
 };
@@ -63,12 +63,9 @@ exports.logRequest = function(req, res, next) {
 // Helper functions 
 
 function getClients() {
-	
-	var list = Object.keys(clients).map(function(client_id) {
-		return clients[client_id];
+	return Object.keys(clients).map(function(cid) {
+		return clients[cid];
 	});
-	
-	return list;
 }
 
 
