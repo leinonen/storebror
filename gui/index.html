@@ -83,8 +83,8 @@
 							<td>{{vm.client.sysinfo.local}}</td>
 							<td>{{vm.client.sysinfo.platform}}</td>
 							<td>{{vm.client.sysinfo.arch}}</td>
-							<td>{{vm.client.sysinfo.freemem}}</td>
-							<td>{{vm.client.sysinfo.totalmem}}</td>
+							<td>{{(vm.client.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 2}}</td>
+							<td>{{(vm.client.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 2}}</td>
 						</tr>
 					</table>
 
