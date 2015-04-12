@@ -21,9 +21,9 @@
 			<div class="col-sm-9">
 				<table class="disk-summary">
 					<tr>
-					<td><h1>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</h1></td>
-					<td><h1>Used: {{vm.total.used.value}}{{vm.total.used.unit}}</h1></td>
-					<td><h1>Avail: {{vm.total.avail.value}}{{vm.total.avail.unit}}</h1></td>
+					<td><h1>Total: {{vm.total.size.value | number : 2}}{{vm.total.size.unit}}</h1></td>
+					<td><h1>Used: {{vm.total.used.value | number : 2}}{{vm.total.used.unit}}</h1></td>
+					<td><h1>Avail: {{vm.total.avail.value | number : 2}}{{vm.total.avail.unit}}</h1></td>
 				</tr>
 				</table>
 			</div>
