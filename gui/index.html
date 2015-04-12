@@ -32,11 +32,10 @@
 		<div class="row">
 			<div class="col-sm-2">
 
-				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname">
-						<a ng-click="vm.selectClient($index)">{{client.sysinfo.hostname}}</a>
-					</li>
-				</ul>
+				<div class="list-group">
+					<a class="list-group-item" ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname" ng-click="vm.selectClient($index)" ng-class="{active: $index === vm.selectedClientIndex}">{{client.sysinfo.hostname}}</a>
+					</a>
+				</div>
 				<p ng-show="vm.clients.length === 0">No connected clients</p>
 
 			</div>
