@@ -8,12 +8,19 @@ app.controller('AppController', function($http,$interval){
 	vm.title = 'Storebror';
 
 	vm.clients = [];
-
+	vm.client = {};
 	vm.total = {};
+	vm.selectedClientIndex = 0;
+
+	vm.selectClient = function(idx) {
+		vm.selectedClientIndex = id;
+		vm.client = vm.clients[vm.selectedClientIndex];
+	};
 
 	function fetchData() {
-		$http.get('/clients').then(function(response){
+		$http.get('/clients').then(function(response) {
 			vm.clients = response.data;
+			vm.client = vm.clients[vm.selectedClientIndex];
 		});
 
 		$http.get('/stats').then(function(response){
