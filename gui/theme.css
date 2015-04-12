@@ -7060,3 +7060,11 @@ a.list-group-item-danger.active:focus {
 .client {
   padding-bottom: 30px;
 }
+
+.disk-summary {
+  width: 100%;
+}
+
+.disk-summary td {
+  text-align: center;
+}
