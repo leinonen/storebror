@@ -84,7 +84,7 @@ function flashStatus() {
 		leds.status.writeSync(1);
 		setTimeout(function(){
 			leds.status.writeSync(0);
-		}, 250);
+		}, 100);
 	}
 }
 
@@ -93,7 +93,7 @@ function flashError() {
 		leds.error.writeSync(1);
 		setTimeout(function(){
 			leds.error.writeSync(0);
-		}, 500);
+		}, 200);
 	}
 }
 
@@ -102,6 +102,6 @@ function flashTest() {
 		leds.test.writeSync(1);
 		setTimeout(function(){
 			leds.test.writeSync(0);
-		}, 750);
+		}, 300);
 	}
 }
