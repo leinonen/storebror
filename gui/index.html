@@ -13,20 +13,22 @@
 <body ng-app="app">
 	<div class="container" ng-controller="AppController as vm">
 
-		<div class="row">
-			<div class="col-sm-3">
-				<h1>{{vm.title}}</h1>
+		<header>
+			<div class="row">
+				<div class="col-sm-3">
+					<h1>{{vm.title}}</h1>
+				</div>
+				<div class="col-sm-9">
+					<table class="disk-summary">
+						<tr>
+						<td><h1>Total: {{vm.total.size.value | number : 2}}{{vm.total.size.unit}}</h1></td>
+						<td><h1>Used: {{vm.total.used.value | number : 2}}{{vm.total.used.unit}}</h1></td>
+						<td><h1>Avail: {{vm.total.avail.value | number : 2}}{{vm.total.avail.unit}}</h1></td>
+					</tr>
+					</table>
+				</div>
 			</div>
-			<div class="col-sm-9">
-				<table class="disk-summary">
-					<tr>
-					<td><h1>Total: {{vm.total.size.value | number : 2}}{{vm.total.size.unit}}</h1></td>
-					<td><h1>Used: {{vm.total.used.value | number : 2}}{{vm.total.used.unit}}</h1></td>
-					<td><h1>Avail: {{vm.total.avail.value | number : 2}}{{vm.total.avail.unit}}</h1></td>
-				</tr>
-				</table>
-			</div>
-		</div>
+		</header>
 
 		<div class="row">
 			<div class="col-sm-3">

@@ -9,7 +9,11 @@ app.controller('AppController', function($http,$interval){
 
 	vm.clients = [];
 	vm.client = {};
-	vm.total = {};
+	vm.total = { 
+		size:{value:0},
+		used:{value:0},
+		avail:{value:0}
+	};
 	vm.selectedClientIndex = 0;
 
 	vm.selectClient = function(idx) {
