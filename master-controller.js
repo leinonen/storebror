@@ -37,6 +37,10 @@ exports.clients = function(req, res) {
 
 
 exports.stats = function(req, res) {
+	if (clients === {}){
+		return {};
+	}
+	
 	var totals = _.pluck(_.pluck(clients, 'diskinfo'), 'totals')
 		.reduceRight(diskinfo.sum);
 	res.json(totals);
