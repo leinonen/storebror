@@ -13,7 +13,7 @@ app.controller('AppController', function($http,$interval){
 	vm.selectedClientIndex = 0;
 
 	vm.selectClient = function(idx) {
-		vm.selectedClientIndex = id;
+		vm.selectedClientIndex = idx;
 		vm.client = vm.clients[vm.selectedClientIndex];
 	};
 

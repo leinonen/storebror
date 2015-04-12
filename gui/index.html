@@ -11,16 +11,16 @@
 	<link rel="stylesheet" href="theme.css">
 </head>
 <body ng-app="app">
-
 	<div class="container-fluid" ng-controller="AppController as vm">
+
 		<div class="row">
 			<div class="col-sm-2">
 				<h1>{{vm.title}}</h1>
 				<h2>Connected clients ({{vm.clients.length}})</h2>
 				<p ng-show="vm.clients.length === 0">No connected clients</p>
-				<ul>
-					<li ng-repeat="client in vm.clients">
-						<a ng-click="vm.selectClient(client.client_id)">{{client.sysinfo.hostname}}</a>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="client in vm.clients">
+						<a ng-click="vm.selectClient($index)">{{client.sysinfo.hostname}}</a>
 					</li>
 				</ul>
 			</div>
@@ -28,10 +28,22 @@
 				<h1>Total: {{vm.total.size.value}}{{vm.total.size.unit}}</h1>
 				<h2>Used: {{vm.total.used.value}}{{vm.total.used.unit}}</h2>
 				<h2>Avail: {{vm.total.avail.value}}{{vm.total.avail.unit}}</h2>
+			</div>
+		</div>
 
+
+		<div class="row">
+			<div class="col-sm-2">
+				<ul>
+					<li ng-repeat="client in vm.clients">
+						<a ng-click="vm.selectClient($index)">{{client.sysinfo.hostname}}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-10">
 				<div class="client">
-
-					<h3>{{vm.client.sysinfo.hostname}} - {{vm.client.client_id}}</h3>
+					<h3>{{vm.client.sysinfo.hostname}}</h3>
+					<p>CID: {{vm.client.client_id}}</p>
 					<p>Last updated {{vm.client.lastUpdate}}</p>
 					<p>Report interval {{vm.client.config.reportInterval}} ms</p>
 					<h4>System information</h4>
