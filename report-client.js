@@ -4,7 +4,6 @@ var diskinfo = require('./diskinfo-promise');
 var util   = require('./util');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var master_url   = process.argv[2] || 'http://127.0.0.1:8080';
 var config = require('./slave-config.json');
 
 function ReportClient() {
@@ -20,7 +19,7 @@ function ReportClient() {
 			identifier: util.systemIdentifier()
 		};
 
-		http.post(util.format('%s/connect', master_url), payload)
+		http.post(util.format('%s/connect', config.masterUrl), payload)
 		.then(function(response) {
 			me.emit('connected', response.client_id);
 		})
@@ -41,7 +40,7 @@ function ReportClient() {
 
 		diskinfo.get().then(function(diskinfo) {
 
-			var url = util.format('%s/clients/%s/sysinfo', master_url, client_id)
+			var url = util.format('%s/clients/%s/sysinfo', config.masterUrl, client_id)
 			var message = {
 				lastUpdate : new Date(),
 				sysinfo    : util.sysinfo(),
