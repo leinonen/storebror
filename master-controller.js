@@ -33,7 +33,7 @@ exports.report = function(ws, req) {
 		var obj = JSON.parse(msg);
 		//console.log('on message');
 		//console.log(obj);
-		clients[cid.cid] = obj;
+		clients[obj.cid] = obj;
 		console.log('got sysinfo from %s', obj.cid);
 	});
 }

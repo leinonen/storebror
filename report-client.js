@@ -79,7 +79,7 @@ function ReportClient() {
 					}
 					console.log('message sent');
 				});
-			}
+			});
 
 			ws.on('message', function(data, flags){
 				console.log(data);
