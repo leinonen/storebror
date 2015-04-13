@@ -7,45 +7,28 @@ var clients = {};
 var leds = {};
 
 if (config.gpioEnabled) {
-		leds.status = new GPIO(config.leds.status, 'out');
-		leds.error  = new GPIO(config.leds.error, 'out');
-		leds.test   = new GPIO(config.leds.test, 'out');
+	leds.status = new GPIO(config.leds.status, 'out');
+	leds.error  = new GPIO(config.leds.error, 'out');
+	leds.test   = new GPIO(config.leds.test, 'out');
 }
 
 
 exports.connect = function(ws, req) {
-	ws.on('message', function(msg){
-		var obj = JSON.parse(msg);
-		//console.log('on message');
-		//console.log(obj);
-		console.log('client connected: %s', obj.identifier);
+	ws.on('message', function(msg) {
+		var client = JSON.parse(msg);
+		console.log('client connected: %s', client.identifier);
+		flash();
 	});
 }
-/*function(req, res) {
-	var payload = req.body;
-	console.log('client connected: %s', payload.identifier);
-	res.json({ cid: payload.identifier });
-}; */
-
 
 exports.report = function(ws, req) {
 	ws.on('message', function(msg){
-		var obj = JSON.parse(msg);
-		//console.log('on message');
-		//console.log(obj);
-		clients[obj.cid] = obj;
-		console.log('got sysinfo from %s', obj.cid);
+		var report = JSON.parse(msg);
+		clients[report.cid] = report;
+		console.log('got data from %s', report.cid);
+		flash();
 	});
 }
-
-exports.sysinfo = function(req, res) {
-	/*var info = req.body;
-	var cid = req.params.cid;
-	info.cid = cid;
-	clients[cid] = info;
-	console.log('got sysinfo from %s', cid);
-	res.json({status: 'ok'});*/
-};
 
 
 exports.clients = function(req, res) {
@@ -69,8 +52,7 @@ exports.config = function(req, res){
 }
 
 
-exports.logRequest = function(req, res, next) {
-	flash();
+exports.logRequest = function(req, res, next) {	
 	if (!isStatic(req.originalUrl)){
 		console.log('REQ -> %s by %s', req.originalUrl, req.ip);
 	}
