@@ -29,9 +29,9 @@ exports.sysinfo = function(req, res) {
 	res.json({status: 'ok'});*/
 };
 
-exports.wsSysinfo = function(message){
-	clients[cid] = info;
-	console.log('got sysinfo from %s', cid);
+exports.wsSysinfo = function(message) {
+	clients[message.cid] = info;
+	console.log('got sysinfo from %s', message.cid);
 }
 
 
