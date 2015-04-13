@@ -30,7 +30,12 @@ function ReportClient() {
 					console.log(err);
 				}
 				console.log('payload sent');
+				me.emit('connected', response.cid);
 			});
+		});
+
+		me.ws.on('message', function(data, flags){
+			console.log(data);
 		});
 /*
 		http.post(util.format('%s/connect', config.masterUrl), payload)

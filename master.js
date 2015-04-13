@@ -19,7 +19,10 @@ app.get('/stats', controller.stats);
 app.get('/config', controller.config);
 
 app.ws('/', function(ws, req) {
-	ws.on('message', controller.wsSysinfo);
+	ws.on('message', function(msg){
+		console.log('on message');
+		console.log(msg);
+	});
 });
 
 app.listen(port);
