@@ -30,7 +30,8 @@ exports.sysinfo = function(req, res) {
 };
 
 exports.wsSysinfo = function(message) {
-	clients[message.cid] = info;
+	console.log(message);
+	clients[message.cid] = message;
 	console.log('got sysinfo from %s', message.cid);
 }
 
