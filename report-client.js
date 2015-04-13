@@ -29,6 +29,7 @@ function ReportClient() {
 				if (err){
 					console.log(err);
 				}
+				console.log('payload sent');
 			});
 		});
 /*
@@ -70,6 +71,7 @@ function ReportClient() {
 				if (err){
 					console.log(err);
 				}
+				console.log('message sent');
 			});
 
 		}).fail(reportError);
