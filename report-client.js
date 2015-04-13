@@ -30,7 +30,7 @@ function ReportClient() {
 					console.log(err);
 				}
 				console.log('payload sent');
-				me.emit('connected', response.cid);
+				me.emit('connected', 'test...');
 			});
 		});
 
