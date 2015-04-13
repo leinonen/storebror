@@ -18,14 +18,14 @@ function ReportClient() {
 	this.connect = function() {
 		me.ws = new WebSocket(config.masterWsUrl);
 
-		var payload = { 
+		var message = { 
 			ip: util.getLocalIP(),	
 			identifier: util.systemIdentifier()
 		};
-
+		var payload = JSON.stringify(message);
 		me.ws.on('open', function() {
-			console.log('connect - sending payload');
-			me.ws.send('payload as a string', function(err){
+
+			me.ws.send(payload, function(err){
 				if (err){
 					console.log(err);
 				}
@@ -71,8 +71,8 @@ function ReportClient() {
 			/*http.post(url, message)
 			.then(reportSuccess)
 			.catch(reportError); */
-			console.log('sending message');
-			me.ws.send('heja sverige!', function(err){
+			var payload = JSON.stringify(message);
+			me.ws.send(payload, function(err){
 				if (err){
 					console.log(err);
 				}

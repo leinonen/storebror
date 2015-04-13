@@ -20,8 +20,9 @@ app.get('/config', controller.config);
 
 app.ws('/', function(ws, req) {
 	ws.on('message', function(msg){
+		var obj = JSON.parse(msg);
 		console.log('on message');
-		console.log(msg);
+		console.log(obj);
 	});
 });
 
