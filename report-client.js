@@ -25,7 +25,7 @@ function ReportClient() {
 
 		me.ws.on('open', function() {
 			console.log('connect - sending payload');
-			me.ws.send(payload, function(err){
+			me.ws.send('payload as a string', function(err){
 				if (err){
 					console.log(err);
 				}
@@ -72,7 +72,7 @@ function ReportClient() {
 			.then(reportSuccess)
 			.catch(reportError); */
 			console.log('sending message');
-			me.ws.send(message, function(err){
+			me.ws.send('heja sverige!', function(err){
 				if (err){
 					console.log(err);
 				}
