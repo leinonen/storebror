@@ -13,12 +13,30 @@ if (config.gpioEnabled) {
 }
 
 
-exports.connect = function(req, res) {
+exports.connect = function(ws, req) {
+	ws.on('message', function(msg){
+		var obj = JSON.parse(msg);
+		//console.log('on message');
+		//console.log(obj);
+		console.log('client connected: %s', obj.identifier);
+	});
+}
+/*function(req, res) {
 	var payload = req.body;
 	console.log('client connected: %s', payload.identifier);
 	res.json({ cid: payload.identifier });
-};
+}; */
 
+
+exports.report = function(ws, req) {
+	ws.on('message', function(msg){
+		var obj = JSON.parse(msg);
+		//console.log('on message');
+		//console.log(obj);
+		clients[cid.cid] = obj;
+		console.log('got sysinfo from %s', obj.cid);
+	});
+}
 
 exports.sysinfo = function(req, res) {
 	/*var info = req.body;
@@ -28,13 +46,6 @@ exports.sysinfo = function(req, res) {
 	console.log('got sysinfo from %s', cid);
 	res.json({status: 'ok'});*/
 };
-
-exports.wsSysinfo = function(message) {
-	console.log('got message');
-	console.log(message);
-	//clients[message.cid] = message;
-	//console.log('got sysinfo from %s', message.cid);
-}
 
 
 exports.clients = function(req, res) {

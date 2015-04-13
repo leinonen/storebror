@@ -12,19 +12,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/gui')));
 
-app.post('/connect', controller.connect);
-app.post('/clients/:cid/sysinfo', controller.sysinfo);
+// api for the user interface??
+//app.post('/connect', controller.connect);
+//app.post('/clients/:cid/sysinfo', controller.sysinfo);
 app.get('/clients', controller.clients);
 app.get('/stats', controller.stats);
 app.get('/config', controller.config);
 
-app.ws('/', function(ws, req) {
-	ws.on('message', function(msg){
-		var obj = JSON.parse(msg);
-		console.log('on message');
-		console.log(obj);
-	});
-});
+// websocket routes
+app.ws('/connect', controller.connect);
+app.ws('/report', controller.report);
+
 
 app.listen(port);
 

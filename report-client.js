@@ -12,20 +12,17 @@ function ReportClient() {
 	var me = this;
 	events.EventEmitter.call(this);
 
-	me.ws;
-
-
 	this.connect = function() {
-		me.ws = new WebSocket(config.masterWsUrl);
+		var ws = new WebSocket(config.masterWsUrl + '/connect');
 
 		var message = { 
 			ip: util.getLocalIP(),	
 			identifier: util.systemIdentifier()
 		};
 		var payload = JSON.stringify(message);
-		me.ws.on('open', function() {
+		ws.on('open', function() {
 
-			me.ws.send(payload, function(err){
+			ws.send(payload, function(err){
 				if (err){
 					console.log(err);
 				}
@@ -34,7 +31,7 @@ function ReportClient() {
 			});
 		});
 
-		me.ws.on('message', function(data, flags){
+		ws.on('message', function(data, flags){
 			console.log(data);
 		});
 /*
@@ -68,15 +65,21 @@ function ReportClient() {
 				config     : config
 			};
 
+			var ws = new WebSocket(config.masterWsUrl + '/report');
+
 			/*http.post(url, message)
 			.then(reportSuccess)
 			.catch(reportError); */
 			var payload = JSON.stringify(message);
-			me.ws.send(payload, function(err){
+			ws.send(payload, function(err){
 				if (err){
 					console.log(err);
 				}
 				console.log('message sent');
+			});
+
+			ws.on('message', function(data, flags){
+				console.log(data);
 			});
 
 		}).fail(reportError);
