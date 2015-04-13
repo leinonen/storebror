@@ -23,8 +23,13 @@ function ReportClient() {
 			identifier: util.systemIdentifier()
 		};
 
-		me.ws.on('open', function open() {
-			me.ws.send(payload);
+		me.ws.on('open', function() {
+			console.log('connect - sending payload');
+			me.ws.send(payload, function(err){
+				if (err){
+					console.log(err);
+				}
+			});
 		});
 /*
 		http.post(util.format('%s/connect', config.masterUrl), payload)
@@ -60,8 +65,12 @@ function ReportClient() {
 			/*http.post(url, message)
 			.then(reportSuccess)
 			.catch(reportError); */
-
-			me.ws.send(message);
+			console.log('sending message');
+			me.ws.send(message, function(err){
+				if (err){
+					console.log(err);
+				}
+			});
 
 		}).fail(reportError);
 		
