@@ -21,13 +21,18 @@ exports.connect = function(req, res) {
 
 
 exports.sysinfo = function(req, res) {
-	var info = req.body;
+	/*var info = req.body;
 	var cid = req.params.cid;
 	info.cid = cid;
 	clients[cid] = info;
 	console.log('got sysinfo from %s', cid);
-	res.json({status: 'ok'});
+	res.json({status: 'ok'});*/
 };
+
+exports.wsSysinfo = function(message){
+	clients[cid] = info;
+	console.log('got sysinfo from %s', cid);
+}
 
 
 exports.clients = function(req, res) {

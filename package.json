@@ -12,8 +12,10 @@
     "body-parser": "^1.12.2",
     "child-process-promise": "^1.0.2",
     "express": "^4.12.3",
+    "express-ws": "^0.2.6",
     "lodash": "^3.6.0",
     "onoff": "^1.0.2",
-    "request-promise-json": "^1.0.4"
+    "request-promise-json": "^1.0.4",
+    "ws": "^0.7.1"
   }
 }
