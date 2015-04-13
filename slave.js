@@ -14,3 +14,5 @@ client.on('report.error', function(err) {
 var timer = setInterval(function(){
 	client.report();
 }, config.reportInterval);
+
+client.report();
