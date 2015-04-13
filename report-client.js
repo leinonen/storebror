@@ -71,12 +71,15 @@ function ReportClient() {
 			.then(reportSuccess)
 			.catch(reportError); */
 			var payload = JSON.stringify(message);
-			ws.send(payload, function(err){
-				if (err){
-					console.log(err);
-				}
-				console.log('message sent');
-			});
+			ws.on('open', function() {
+				ws.send(payload, function(err){
+					if (err) {
+						console.log('report error');
+						console.log(err);
+					}
+					console.log('message sent');
+				});
+			}
 
 			ws.on('message', function(data, flags){
 				console.log(data);
