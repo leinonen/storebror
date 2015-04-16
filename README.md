@@ -32,3 +32,26 @@ Run npm install, and bower install if installing on master.
 
 # Copyright
 No, free to use by everybody! Have fun! :D
+
+----
+TODO
+
+--- exclude filesystems in config
+
+run hostname or hostname -A depending on platform
+
+releasen. kärnan linux (skippa allt efter dash)
+
+visa TB i totals
+
+spara i databas. mongoose
+
+cpu utilization
+free memory linux
+system load
+uptime
+load, två decimaler
+
+lista services, typ tomcat etc..
+
+service --status-all
