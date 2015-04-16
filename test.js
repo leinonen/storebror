@@ -70,6 +70,8 @@ exec('initctl list').then(function(response) {
 		};
 	}).filter(function (service) {
 		return service.running === true;
+	}).sort(function(a,b){
+		return a.name > b.name;
 	}).forEach(function (service) {
 		console.log('service: ' + service.name);
 	});
