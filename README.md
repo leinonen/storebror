@@ -55,3 +55,7 @@ load, två decimaler
 lista services, typ tomcat etc..
 
 service --status-all
+
+
+hddtemp
+

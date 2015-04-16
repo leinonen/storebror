@@ -3,33 +3,81 @@
 var util = require('./util');
 var diskinfo = require('./diskinfo-promise');
 var _ = require('lodash');
-var exec   = require('child-process-promise').exec;
+var exec = require('child-process-promise').exec;
+
 
 /*
-diskinfo.get().then(function(drives) {
+var items = [
+	'[ - ]  procps',
+	'[ + ]  resolvconf',
+	'[ + ]  rpcbind',
+	'[ - ]  rsync',
+	'[ + ]  rsyslog',
+	'[ + ]  samba',
+	'[ - ]  samba-ad-dc',
+	'[ + ]  smbd',
+	'[ - ]  ssh',
+	'[ - ]  sudo',
+	'[ - ]  tomcat7',
+	'[ + ]  transmission-daemon'
+];
 
-	console.log(drives);
 
-}).fail(function(err){
-	console.error(err);
+var res = items.map(function (row) {
+	var arr = row.trim().replace(/\s+/g, ' ').split(' ');
+	return {
+		running: arr[1] === '+',
+		name: arr[3]
+	};
+}).filter(function (service) {
+	return service.running === false;
+}).forEach(function (service) {
+	console.log('service: ' + service.name);
 });
 
 */
 
-exec('service --status-all').then(function(response) {
-	console.log(response);
-	var output = response.stdout;
-	console.log(output);
+/*
+var items = [
+	'plymouth-ready stop/waiting',
+	'plymouth-splash stop/waiting',
+	'plymouth-upstart-bridge stop/waiting',
+	'portmap-wait stop/waiting',
+	'udevmonitor stop/waiting',
+	'mountall-bootclean.sh start/running',
+	'network-interface-security (network-interface/p132p1) start/running',
+	'network-interface-security (network-interface/lo) start/running',
+	'network-interface-security (networking) start/running',
+	'networking start/running',
+	'plexmediaserver start/running, process 911',
+	'tty6 start/running, process 1062',
+	'dmesg stop/waiting',
+	'procps stop/waiting',
+	'idmapd start/running, process 3652',
+	'console-font stop/waiting',
+	'network-interface-container stop/waiting',
+	'ureadahead stop/waiting'
+];
+*/
+
+exec('initctl list').then(function(response) {
+	var items = response.stdout.split('\n');
+	var res = items.map(function (row) {
+		var arr = row.trim().split(',')[0].split(' ');
+		return {
+			name: arr[0],
+			running: arr[1] === 'start/running'
+		};
+	}).filter(function (service) {
+		return service.running === true;
+	}).forEach(function (service) {
+		console.log('service: ' + service.name);
+	});
+
 }).fail(function(err){
 	console.log(err);
 });
 
 
 
-//var sum = diskinfo.driveSummary(drives);
-//console.log(sum);
-/*
-var totals = _.pluck(_.pluck(clients, 'diskinfo'), 'totals')
-		.reduceRight(diskinfo.sum);
 
-console.log(totals); */
