@@ -37,7 +37,7 @@ var res = items.map(function (row) {
 
 */
 
-/*
+
 var items = [
 	'plymouth-ready stop/waiting',
 	'plymouth-splash stop/waiting',
@@ -58,27 +58,44 @@ var items = [
 	'network-interface-container stop/waiting',
 	'ureadahead stop/waiting'
 ];
-*/
 
-exec('initctl list').then(function(response) {
-	var items = response.stdout.split('\n');
-	var res = items.map(function (row) {
-		var arr = row.trim().split(',')[0].split(' ');
-		return {
-			name: arr[0],
-			running: arr[1] === 'start/running'
-		};
-	}).filter(function (service) {
-		return service.running === true;
-	}).sort(function(a,b){
-		return a.name > b.name;
-	}).forEach(function (service) {
+
+//exec('initctl list').then(function(response) {
+//	var items = response.stdout.split('\n');
+
+function extractInfo(row) {
+	var arr = row.trim().split(',')[0].split(' ');
+	return {
+		name: arr[0],
+		running: arr[1] === 'start/running'
+	};
+}
+
+function isRunning(service) {
+	return service.running === true;
+}
+
+function byName(a,b){
+	if (a.name > b.name) {
+		return 1;
+	}
+	if (a.name < b.name) {
+		return -1;
+	}
+	return 0;
+}
+
+var res = items
+	.map(extractInfo)
+	.filter(isRunning)
+	.sort(byName)
+	.forEach(function (service) {
 		console.log('service: ' + service.name);
 	});
 
-}).fail(function(err){
-	console.log(err);
-});
+//}).fail(function(err){
+//	console.log(err);
+//});
 
 
 
