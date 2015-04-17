@@ -14,13 +14,13 @@ if (config.gpioEnabled) {
 }
 
 /*
-exports.connect = function (ws, req) {
-	ws.on('message', function (msg) {
-		var client = JSON.parse(msg);
-		console.log('client connected: %s', client.identifier);
-		flash();
-	});
-};*/
+ exports.connect = function (ws, req) {
+ ws.on('message', function (msg) {
+ var client = JSON.parse(msg);
+ console.log('client connected: %s', client.identifier);
+ flash();
+ });
+ };*/
 
 exports.report = function (ws, req) {
 	ws.on('message', function (msg) {
@@ -28,19 +28,22 @@ exports.report = function (ws, req) {
 
 		console.log('got data from %s', report.cid);
 
-		Client.findOne({cid: report.cid}).exec(function(err, client){
-			if (err){
-				// save new client
-				console.log('client not found in database: create!');
-				var newClient = new Client({cid: report.cid, data:report});
-				newClient.save();
-				console.log('saved to database');
-			} else {
-				client.data = report;
-				client.save();
-				console.log('already in database, updating data');
-			}
-		});
+		Client
+			.findOne({cid: report.cid})
+			.exec(function (err, client) {
+				if (err) {
+					// save new client
+					console.log('client not found in database: create!');
+					var newClient = new Client({cid: report.cid, data: report});
+					newClient.save();
+					console.log('saved to database %s', newClient._id);
+				} else {
+					console.log('already in database, updating data: %s', client._id);
+					console.log(client);
+					//client.test = report;
+					//client.save();
+				}
+			});
 
 		//clients[report.cid] = report;
 
@@ -50,11 +53,11 @@ exports.report = function (ws, req) {
 
 
 exports.clients = function (req, res) {
-	Client.find().exec(function(err, list){
+	Client.find().exec(function (err, list) {
 		res.json(list);
 	});
 	/*var list = getClients();
-	res.json(list); */
+	 res.json(list); */
 };
 
 

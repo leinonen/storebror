@@ -8,6 +8,7 @@ var config     = require('./config/master-config');
 var mongoose   = require('mongoose');
 
 mongoose.connect(config.mongo.url, config.mongo.opts);
+console.log('connecting to %s', config.mongo.url);
 
 app.use(controller.logRequest);
 app.use(bodyParser.json());
@@ -21,7 +22,6 @@ app.get('/config', controller.config);
 
 // websocket routes
 app.ws('/report', controller.report);
-
 
 app.listen(config.port);
 
