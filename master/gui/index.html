@@ -133,12 +133,12 @@
 
                 <h4>Running Services</h4>
                 <p ng-show="vm.client.data.services.length === 0">Can only get services on linux machines.</p>
-                <table class="table" ng-show="vm.client.data.services.length > 0">
+                <table class="table service-table" ng-show="vm.client.data.services.length > 0">
                     <tr>
                         <th class="col-sm-2">Service</th>
                         <th class="col-sm-4">Running</th>
                     </tr>
-                    <tr ng-repeat="service in vm.client.services">
+                    <tr ng-repeat="service in vm.client.data.services" ng-class="{running: server.running}">
                         <td>{{service.name}}</td>
                         <td>{{service.running}}</td>
                     </tr>
