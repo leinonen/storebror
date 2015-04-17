@@ -7,7 +7,7 @@ var expressWs  = require('express-ws')(app);
 var config     = require('./config/master-config');
 var mongoose   = require('mongoose');
 
-mongoose.connect(db, config.mongo.opts);
+mongoose.connect(config.mongo.url, config.mongo.opts);
 
 app.use(controller.logRequest);
 app.use(bodyParser.json());
