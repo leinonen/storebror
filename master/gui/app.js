@@ -1,8 +1,15 @@
 var app = angular.module('app', []);
 
-app.filter('secondsToDateTime', [function() {
-	return function(seconds) {
-		return new Date(1970, 0, 1).setSeconds(seconds);
+app.filter('secondsToDays', [function () {
+	return function (seconds) {
+
+		var numdays = Math.floor(seconds / 86400);
+		var numhours = Math.floor((seconds % 86400) / 3600);
+		var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
+		var numseconds = ((seconds % 86400) % 3600) % 60;
+
+		return numdays + ":" + numhours + ":" + numminutes + ":" + numseconds;
+
 	};
 }])
 
