@@ -1,5 +1,11 @@
 var app = angular.module('app', []);
 
+app.filter('secondsToDateTime', [function() {
+	return function(seconds) {
+		return new Date(1970, 0, 1).setSeconds(seconds);
+	};
+}])
+
 app.controller('AppController', function ($http, $interval) {
 
 	var vm = this;
