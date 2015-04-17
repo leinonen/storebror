@@ -13,20 +13,14 @@ if (config.gpioEnabled) {
 	leds.test = new GPIO(config.leds.test, 'out');
 }
 
-/*
- exports.connect = function (ws, req) {
- ws.on('message', function (msg) {
- var client = JSON.parse(msg);
- console.log('client connected: %s', client.identifier);
- flash();
- });
- };*/
-
+/**
+ * Process incomming reports from client.
+ * @param ws
+ * @param req
+ */
 exports.report = function (ws, req) {
 	ws.on('message', function (msg) {
 		var report = JSON.parse(msg);
-
-		console.log('got data from %s', report.cid);
 
 		Client
 			.findOne({cid: report.cid})
@@ -36,22 +30,17 @@ exports.report = function (ws, req) {
 					console.error(err);
 				} else {
 
-					if (client !== null){
-						console.log('already in database, updating data');
-						console.log(client);
+					if (client !== null) {
+						console.log('updating %s', report.cid);
 						client.data = report;
-						//client.save();
+						client.save();
 					} else {
-						console.log('client not found in database: create!');
 						var newClient = new Client({cid: report.cid, data: report});
 						newClient.save();
-						console.log('saved to database %s', newClient._id);
+						console.log('saving new client: %s', newClient._id);
 					}
-
 				}
 			});
-
-		//clients[report.cid] = report;
 
 		flash();
 	});
@@ -64,18 +53,24 @@ exports.clients = function (req, res) {
 		.exec(function (err, list) {
 			res.json(list);
 		});
-	/*var list = getClients();
-	 res.json(list); */
 };
 
 
 exports.stats = function (req, res) {
-	//var totals = _.pluck(_.pluck(clients, 'diskinfo'), 'totals');
-	//if (totals.length > 0) {
-	//	res.json(totals.reduceRight(diskinfo.sum));
-	//} else {
-	res.json([]);
-	//}
+
+	Client
+		.find()
+		.exec(function (err, clients) {
+			var data = clients.map(function (c) {
+				return c.data;
+			});
+			var totals = _.pluck(_.pluck(data, 'diskinfo'), 'totals');
+			if (totals.length > 0) {
+				res.json(totals.reduceRight(diskinfo.sum));
+			} else {
+				res.json([]);
+			}
+		});
 };
 
 
