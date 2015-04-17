@@ -48,6 +48,8 @@ spara i databas. mongoose
 
 cpu utilization
 free memory linux
+    free -m   .. parsa buffers/cache  för free
+
 system load
 uptime
 load, två decimaler
@@ -59,3 +61,4 @@ service --status-all
 
 hddtemp
 
+vilka kommandon som är tillgängliga i respektive plattform

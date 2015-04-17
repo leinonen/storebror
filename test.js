@@ -1,10 +1,15 @@
 'use strict';
 
-var util = require('./util');
-var diskinfo = require('./diskinfo-promise');
-var _ = require('lodash');
-var exec = require('child-process-promise').exec;
+//var diskinfo = require('./utils/diskinfo-promise');
+//var _ = require('lodash');
+//var exec = require('child-process-promise').exec;
+var sysinfo = require('./utils/sysinfo-promise');
 
+sysinfo.getServices().then(function(services){
+	services.forEach(console.log);
+}).fail(function(err){
+	console.log(err);
+});
 
 /*
 var items = [
@@ -37,7 +42,7 @@ var res = items.map(function (row) {
 
 */
 
-
+/*
 var items = [
 	'plymouth-ready stop/waiting',
 	'plymouth-splash stop/waiting',
@@ -98,5 +103,5 @@ var res = items
 //});
 
 
-
+*/
 
