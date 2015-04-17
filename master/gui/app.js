@@ -6,12 +6,12 @@ app.filter('secondsToDays', [function () {
 		var numdays = Math.floor(seconds / 86400);
 		var numhours = Math.floor((seconds % 86400) / 3600);
 		var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
-		var numseconds = ((seconds % 86400) % 3600) % 60;
+	//	var numseconds = ((seconds % 86400) % 3600) % 60;
 
-		return numdays + ":" + numhours + ":" + numminutes + ":" + numseconds;
+		return numdays + " days, " + numhours + " hours, " + numminutes + ' minutes'; // + ":" + numseconds;
 
 	};
-}])
+}]);
 
 app.controller('AppController', function ($http, $interval) {
 
