@@ -36,9 +36,9 @@
 
             <div class="list-group">
                 <a class="list-group-item"
-                   ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname"
+                   ng-repeat="client in vm.clients | orderBy: client.data.sysinfo.hostname"
                    ng-click="vm.selectClient($index)"
-                   ng-class="{active: $index === vm.selectedClientIndex}">{{client.sysinfo.hostname}}
+                   ng-class="{active: $index === vm.selectedClientIndex}">{{client.data.sysinfo.hostname}}
                 </a>
             </div>
             <p ng-show="vm.clients.length === 0">No connected clients</p>
@@ -50,19 +50,19 @@
             <div class="client" ng-show="vm.clients.length > 0">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h4>{{vm.client.sysinfo.hostname}}</h4>
+                        <h4>{{vm.client.data.sysinfo.hostname}}</h4>
                         <table class="table">
                             <tr>
                                 <th>CID</th>
-                                <td>{{vm.client.client_id}}</td>
+                                <td>{{vm.client.data.cid}}</td>
                             </tr>
                             <tr>
                                 <th>Last updated</th>
-                                <td>{{vm.client.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td>{{vm.client.data.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                             </tr>
                             <tr>
                                 <th>Report interval</th>
-                                <td>{{vm.client.config.reportInterval}} ms</td>
+                                <td>{{vm.client.data.config.reportInterval}} ms</td>
                             </tr>
                         </table>
                     </div>
@@ -71,15 +71,15 @@
                         <table class="table">
                             <tr>
                                 <th>Cores</th>
-                                <td>{{vm.client.sysinfo.cpus.length}}</td>
+                                <td>{{vm.client.data.sysinfo.cpus.length}}</td>
                             </tr>
                             <tr>
                                 <th>Model</th>
-                                <td>{{vm.client.sysinfo.cpus[0].model}}</td>
+                                <td>{{vm.client.data.sysinfo.cpus[0].model}}</td>
                             </tr>
                             <tr>
                                 <th>Speed</th>
-                                <td>{{vm.client.sysinfo.cpus[0].speed}} MHz</td>
+                                <td>{{vm.client.data.sysinfo.cpus[0].speed}} MHz</td>
                             </tr>
                         </table>
                     </div>
@@ -97,12 +97,12 @@
                         <th class="col-sm-2">Total Memory</th>
                     </tr>
                     <tr>
-                        <td>{{vm.client.sysinfo.hostname}}</td>
-                        <td>{{vm.client.sysinfo.local}}</td>
-                        <td>{{vm.client.sysinfo.platform}}</td>
-                        <td>{{vm.client.sysinfo.arch}}</td>
-                        <td>{{(vm.client.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
-                        <td>{{(vm.client.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+                        <td>{{vm.client.data.sysinfo.hostname}}</td>
+                        <td>{{vm.client.data.sysinfo.local}}</td>
+                        <td>{{vm.client.data.sysinfo.platform}}</td>
+                        <td>{{vm.client.data.sysinfo.arch}}</td>
+                        <td>{{(vm.client.data.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+                        <td>{{(vm.client.data.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
                     </tr>
                 </table>
 
@@ -115,7 +115,7 @@
                         <th class="col-sm-2">Used</th>
                         <th class="col-sm-2">Avail</th>
                     </tr>
-                    <tr ng-repeat="disk in vm.client.diskinfo.drives">
+                    <tr ng-repeat="disk in vm.client.data.diskinfo.drives">
                         <td>{{disk.filesystem}}</td>
                         <td>{{disk.mounted}}</td>
                         <td>{{disk.size}}</td>
@@ -125,15 +125,15 @@
                     <tr>
                         <th>Totals</th>
                         <th>-</th>
-                        <th>{{vm.client.diskinfo.totals.size.value}}{{vm.client.diskinfo.totals.size.unit}}</th>
-                        <th>{{vm.client.diskinfo.totals.used.value}}{{vm.client.diskinfo.totals.used.unit}}</th>
-                        <th>{{vm.client.diskinfo.totals.avail.value}}{{vm.client.diskinfo.totals.avail.unit}}</th>
+                        <th>{{vm.client.data.diskinfo.totals.size.value}}{{vm.client.data.diskinfo.totals.size.unit}}</th>
+                        <th>{{vm.client.data.diskinfo.totals.used.value}}{{vm.client.data.diskinfo.totals.used.unit}}</th>
+                        <th>{{vm.client.data.diskinfo.totals.avail.value}}{{vm.client.data.diskinfo.totals.avail.unit}}</th>
                     </tr>
                 </table>
 
                 <h4>Running Services</h4>
-                <p ng-show="vm.client.services.length === 0">Can only get services on linux machines.</p>
-                <table class="table" ng-show="vm.client.services.length > 0">
+                <p ng-show="vm.client.data.services.length === 0">Can only get services on linux machines.</p>
+                <table class="table" ng-show="vm.client.data.services.length > 0">
                     <tr>
                         <th class="col-sm-2">Service</th>
                         <th class="col-sm-4">Running</th>
