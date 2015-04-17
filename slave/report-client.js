@@ -1,5 +1,5 @@
 var http = require('request-promise-json');
-var diskinfo = require('../utils/diskinfo-promise');
+var diskinfo = require('../utils/disk-info-promise');
 var util = require('../utils/sysutils');
 var WebSocket = require('ws');
 var events = require('events');
@@ -15,6 +15,7 @@ function ReportClient() {
 		var reportSuccess = function (response) {
 			me.emit('report.sent', response);
 		};
+
 		var reportError = function (err) {
 			me.emit('report.error', err);
 		};
