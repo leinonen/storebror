@@ -38,7 +38,7 @@ exports.report = function (ws, req) {
 					newClient.save();
 					console.log('saved to database %s', newClient._id);
 				} else {
-					console.log('already in database, updating data: %s', client._id);
+					console.log('already in database, updating data');
 					console.log(client);
 					//client.test = report;
 					//client.save();
