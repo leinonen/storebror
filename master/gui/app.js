@@ -9,6 +9,9 @@ app.controller('AppController', function($http,$interval){
 
 	vm.clients = [];
 	vm.client = {};
+
+	vm.services = {};
+
 	vm.total = { 
 		size:{value:0},
 		used:{value:0},
@@ -19,6 +22,14 @@ app.controller('AppController', function($http,$interval){
 	vm.selectClient = function(idx) {
 		vm.selectedClientIndex = idx;
 		vm.client = vm.clients[vm.selectedClientIndex];
+		vm.services = {
+			active: vm.client.data.services.filter(function(service){
+				return service.running === true;
+			}),
+			inactive: vm.client.data.services.filter(function(service){
+				return service.running === false;
+			})
+		}
 	};
 
 	function fetchData() {
