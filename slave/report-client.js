@@ -4,6 +4,7 @@ var util = require('../utils/sysutils');
 var WebSocket = require('ws');
 var events = require('events');
 var config = require('./config/slave-config');
+var sys = require('../utils/sysinfo-promise');
 
 function ReportClient() {
 
@@ -20,16 +21,7 @@ function ReportClient() {
 			me.emit('report.error', err);
 		};
 
-		diskinfo.get().then(function (diskinfo) {
-
-			var payload = JSON.stringify({
-				cid: util.systemIdentifier(),
-				lastUpdate: new Date(),
-				sysinfo: util.sysinfo(),
-				diskinfo: diskinfo,
-				config: config
-			});
-
+		function send(payload) {
 			var masterUrl = util.format('ws://%s:%s/report', config.masterHost, config.masterPort);
 			var ws = new WebSocket(masterUrl);
 
@@ -46,6 +38,31 @@ function ReportClient() {
 			ws.on('message', function (data, flags) {
 				console.log(data);
 			});
+		}
+
+		diskinfo.get().then(function (diskinfo) {
+
+			return sys.getServices().then(function (services) {
+				return {
+					diskinfo: diskinfo,
+					services: services
+				}
+
+			});
+
+
+		}).then(function (data) {
+
+			var payload = JSON.stringify({
+				cid: util.systemIdentifier(),
+				lastUpdate: new Date(),
+				sysinfo: util.sysinfo(),
+				diskinfo: diskinfo,
+				services: services,
+				config: config
+			});
+
+			send(payload);
 
 
 		}).fail(reportError);
