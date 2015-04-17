@@ -61,6 +61,15 @@
                                 <td>{{vm.client.data.sysinfo.uptime | secondsToDays}}</td>
                             </tr>
                             <tr>
+                                <th>Load Avg</th>
+                                <td>
+                                    {{vm.client.data.sysinfo.loadavg[0] | number:2}},
+                                    {{vm.client.data.sysinfo.loadavg[1] | number:2}},
+                                    {{vm.client.data.sysinfo.loadavg[2] | number:2}}
+                                <td>
+                            </td>
+                            </tr>
+                            <tr>
                                 <th>Last updated</th>
                                 <td>{{vm.client.data.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                             </tr>
@@ -73,13 +82,6 @@
                     <div class="col-sm-6">
                         <h4>CPU</h4>
                         <table class="table">
-                            <tr>
-                                <th>Load Avg</th>
-                                <td>{{vm.client.data.sysinfo.loadavg[0] | number:2}}<td>
-                                <td>{{vm.client.data.sysinfo.loadavg[1] | number:2}}<td>
-                                <td>{{vm.client.data.sysinfo.loadavg[2] | number:2}}<td>
-                                </td>
-                            </tr>
                             <tr>
                                 <th>Cores</th>
                                 <td>{{vm.client.data.sysinfo.cpus.length}}</td>
