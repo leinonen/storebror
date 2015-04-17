@@ -5,6 +5,9 @@ var controller = require('./master-controller');
 var app        = express();
 var expressWs  = require('express-ws')(app);
 var config     = require('./config/master-config');
+var mongoose   = require('mongoose');
+
+mongoose.connect(db, config.mongo.opts);
 
 app.use(controller.logRequest);
 app.use(bodyParser.json());
