@@ -24,17 +24,15 @@ function ReportClient() {
 		function send(payload) {
 			var masterUrl = util.format('ws://%s:%s/report', config.masterHost, config.masterPort);
 			var ws = new WebSocket(masterUrl);
-
 			ws.on('open', function () {
 				ws.send(payload, function (err) {
 					if (err) {
-						console.log(err);
+						reportError(err);
 					} else {
-						console.log('message sent');
+						reportSuccess({status: 'ok'});
 					}
 				});
 			});
-
 			ws.on('message', function (data, flags) {
 				console.log(data);
 			});
@@ -48,6 +46,12 @@ function ReportClient() {
 					services: services
 				}
 
+			}).fail(function(err){
+				// services only works on linux
+				return {
+					diskinfo: diskinfo,
+					services: []
+				}
 			});
 
 		}).then(function (data) {

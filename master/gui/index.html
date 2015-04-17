@@ -132,7 +132,8 @@
                 </table>
 
                 <h4>Running Services</h4>
-                <table class="table">
+                <p ng-show="vm.client.services.length === 0">Can only get services on linux machines.</p>
+                <table class="table" ng-show="vm.client.services.length > 0">
                     <tr>
                         <th class="col-sm-2">Service</th>
                         <th class="col-sm-4">Running</th>
