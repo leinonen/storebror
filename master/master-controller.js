@@ -33,15 +33,21 @@ exports.report = function (ws, req) {
 			.exec(function (err, client) {
 				if (err) {
 					// save new client
-					console.log('client not found in database: create!');
-					var newClient = new Client({cid: report.cid, data: report});
-					newClient.save();
-					console.log('saved to database %s', newClient._id);
+					console.error(err);
 				} else {
-					console.log('already in database, updating data');
-					console.log(client);
-					//client.test = report;
-					//client.save();
+
+					if (client !== null){
+						console.log('already in database, updating data');
+						console.log(client);
+						client.data = report;
+						//client.save();
+					} else {
+						console.log('client not found in database: create!');
+						var newClient = new Client({cid: report.cid, data: report});
+						newClient.save();
+						console.log('saved to database %s', newClient._id);
+					}
+
 				}
 			});
 
