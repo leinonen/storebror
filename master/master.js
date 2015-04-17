@@ -13,7 +13,7 @@ console.log('connecting to %s', config.mongo.url);
 app.use(controller.logRequest);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '/master/gui')));
+app.use(express.static(path.join(__dirname, '/gui')));
 
 // api for the user interface??
 app.get('/clients', controller.clients);
