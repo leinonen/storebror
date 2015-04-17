@@ -1,124 +1,154 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Storebror</title>
-	<link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css'>
-	<!-- <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css"> -->
-	<link rel="stylesheet" href="theme.css">
-	<link rel="stylesheet" href="style.css">
+    <title>Storebror</title>
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body ng-app="app">
-	<div class="container" ng-controller="AppController as vm">
+<div class="container" ng-controller="AppController as vm">
 
-		<header>
-			<div class="row">
-				<div class="col-sm-3">
-					<h1>{{vm.title}}</h1>
-				</div>
-				<div class="col-sm-9">
-					<table class="disk-summary">
-						<tr>
-						<td><h1>Total: {{vm.total.size.value | number : 2}}{{vm.total.size.unit}}</h1></td>
-						<td><h1>Used: {{vm.total.used.value | number : 2}}{{vm.total.used.unit}}</h1></td>
-						<td><h1>Avail: {{vm.total.avail.value | number : 2}}{{vm.total.avail.unit}}</h1></td>
-					</tr>
-					</table>
-				</div>
-			</div>
-		</header>
+    <header>
+        <div class="row">
+            <div class="col-sm-3">
+                <h1>{{vm.title}}</h1>
+            </div>
+            <div class="col-sm-9">
+                <table class="disk-summary">
+                    <tr>
+                        <td><h1>Total: {{vm.total.size.value | number : 2}}{{vm.total.size.unit}}</h1></td>
+                        <td><h1>Used: {{vm.total.used.value | number : 2}}{{vm.total.used.unit}}</h1></td>
+                        <td><h1>Avail: {{vm.total.avail.value | number : 2}}{{vm.total.avail.unit}}</h1></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </header>
 
-		<div class="row">
-			<div class="col-sm-3">
+    <div class="row">
+        <div class="col-sm-3">
 
-				<div class="list-group">
-					<a class="list-group-item" 
-					   ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname" 
-					   ng-click="vm.selectClient($index)" 
-					   ng-class="{active: $index === vm.selectedClientIndex}">{{client.sysinfo.hostname}}
-					 </a>
-				</div>
-				<p ng-show="vm.clients.length === 0">No connected clients</p>
+            <div class="list-group">
+                <a class="list-group-item"
+                   ng-repeat="client in vm.clients | orderBy: client.sysinfo.hostname"
+                   ng-click="vm.selectClient($index)"
+                   ng-class="{active: $index === vm.selectedClientIndex}">{{client.sysinfo.hostname}}
+                </a>
+            </div>
+            <p ng-show="vm.clients.length === 0">No connected clients</p>
 
-			</div>
+        </div>
 
-			<div class="col-sm-9">
+        <div class="col-sm-9">
 
-				<div class="client" ng-show="vm.clients.length > 0">
-					<div class="row">
-						<div class="col-sm-6">
-							<h4>{{vm.client.sysinfo.hostname}}</h4>
-							<table class="table">
-								<tr><th>CID</th><td>{{vm.client.client_id}}</td></tr>
-								<tr><th>Last updated</th><td>{{vm.client.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td></tr>
-								<tr><th>Report interval</th><td>{{vm.client.config.reportInterval}} ms</td></tr>
-							</table>
-						</div>
-						<div class="col-sm-6">
-							<h4>CPU</h4>
-							<table class="table">
-								<tr><th>Cores</th><td>{{vm.client.sysinfo.cpus.length}}</td></tr>
-								<tr><th>Model</th><td>{{vm.client.sysinfo.cpus[0].model}}</td></tr>
-								<tr><th>Speed</th><td>{{vm.client.sysinfo.cpus[0].speed}} MHz</td></tr>
-							</table>
-						</div>
-					</div>
-				
+            <div class="client" ng-show="vm.clients.length > 0">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>{{vm.client.sysinfo.hostname}}</h4>
+                        <table class="table">
+                            <tr>
+                                <th>CID</th>
+                                <td>{{vm.client.client_id}}</td>
+                            </tr>
+                            <tr>
+                                <th>Last updated</th>
+                                <td>{{vm.client.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            </tr>
+                            <tr>
+                                <th>Report interval</th>
+                                <td>{{vm.client.config.reportInterval}} ms</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>CPU</h4>
+                        <table class="table">
+                            <tr>
+                                <th>Cores</th>
+                                <td>{{vm.client.sysinfo.cpus.length}}</td>
+                            </tr>
+                            <tr>
+                                <th>Model</th>
+                                <td>{{vm.client.sysinfo.cpus[0].model}}</td>
+                            </tr>
+                            <tr>
+                                <th>Speed</th>
+                                <td>{{vm.client.sysinfo.cpus[0].speed}} MHz</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
-					<h4>System information</h4>
-					<table class="table">
-						<tr>
-							<th class="col-sm-2">Hostname</th>
-							<th class="col-sm-2">IP</th>
-							<th class="col-sm-2">Platform</th>
-							<th class="col-sm-2">Architecture</th>
-							<th class="col-sm-2">Free Memory</th>
-							<th class="col-sm-2">Total Memory</th>
-						</tr>
-						<tr>
-							<td>{{vm.client.sysinfo.hostname}}</td>
-							<td>{{vm.client.sysinfo.local}}</td>
-							<td>{{vm.client.sysinfo.platform}}</td>
-							<td>{{vm.client.sysinfo.arch}}</td>
-							<td>{{(vm.client.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
-							<td>{{(vm.client.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
-						</tr>
-					</table>
 
-					<h4>Mounted filesystems</h4>
-					<table class="table">
-						<tr>
-								<th class="col-sm-2">Filesystem</th>
-								<th class="col-sm-4">Mounted on</th>
-								<th class="col-sm-2">Size</th>
-								<th class="col-sm-2">Used</th>
-								<th class="col-sm-2">Avail</th>
-						</tr>
-						<tr ng-repeat="disk in vm.client.diskinfo.drives">
-								<td>{{disk.filesystem}}</td>
-								<td>{{disk.mounted}}</td>
-								<td>{{disk.size}}</td>
-								<td>{{disk.used}}</td>
-								<td>{{disk.avail}}</td>
-						</tr>
-						<tr>
-								<th>Totals</th>
-								<th>-</th>
-								<th>{{vm.client.diskinfo.totals.size.value}}{{vm.client.diskinfo.totals.size.unit}}</th>
-								<th>{{vm.client.diskinfo.totals.used.value}}{{vm.client.diskinfo.totals.used.unit}}</th>
-								<th>{{vm.client.diskinfo.totals.avail.value}}{{vm.client.diskinfo.totals.avail.unit}}</th>
-						</tr>
-					</table>
+                <h4>System information</h4>
+                <table class="table">
+                    <tr>
+                        <th class="col-sm-2">Hostname</th>
+                        <th class="col-sm-2">IP</th>
+                        <th class="col-sm-2">Platform</th>
+                        <th class="col-sm-2">Architecture</th>
+                        <th class="col-sm-2">Free Memory</th>
+                        <th class="col-sm-2">Total Memory</th>
+                    </tr>
+                    <tr>
+                        <td>{{vm.client.sysinfo.hostname}}</td>
+                        <td>{{vm.client.sysinfo.local}}</td>
+                        <td>{{vm.client.sysinfo.platform}}</td>
+                        <td>{{vm.client.sysinfo.arch}}</td>
+                        <td>{{(vm.client.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+                        <td>{{(vm.client.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+                    </tr>
+                </table>
 
-				</div>				
-			</div>
-		</div>
-	</div>
+                <h4>Mounted filesystems</h4>
+                <table class="table">
+                    <tr>
+                        <th class="col-sm-2">Filesystem</th>
+                        <th class="col-sm-4">Mounted on</th>
+                        <th class="col-sm-2">Size</th>
+                        <th class="col-sm-2">Used</th>
+                        <th class="col-sm-2">Avail</th>
+                    </tr>
+                    <tr ng-repeat="disk in vm.client.diskinfo.drives">
+                        <td>{{disk.filesystem}}</td>
+                        <td>{{disk.mounted}}</td>
+                        <td>{{disk.size}}</td>
+                        <td>{{disk.used}}</td>
+                        <td>{{disk.avail}}</td>
+                    </tr>
+                    <tr>
+                        <th>Totals</th>
+                        <th>-</th>
+                        <th>{{vm.client.diskinfo.totals.size.value}}{{vm.client.diskinfo.totals.size.unit}}</th>
+                        <th>{{vm.client.diskinfo.totals.used.value}}{{vm.client.diskinfo.totals.used.unit}}</th>
+                        <th>{{vm.client.diskinfo.totals.avail.value}}{{vm.client.diskinfo.totals.avail.unit}}</th>
+                    </tr>
+                </table>
 
-	<script src="components/angular/angular.js"></script>
-	<script src="app.js"></script>
+                <h4>Running Services</h4>
+                <table class="table">
+                    <tr>
+                        <th class="col-sm-2">Service</th>
+                        <th class="col-sm-4">Running</th>
+                    </tr>
+                    <tr ng-repeat="service in vm.client.services">
+                        <td>{{service.name}}</td>
+                        <td>{{service.running}}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="components/angular/angular.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

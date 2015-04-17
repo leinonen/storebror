@@ -50,22 +50,18 @@ function ReportClient() {
 
 			});
 
-
 		}).then(function (data) {
 
-			/*var payload = JSON.stringify({
+			var payload = JSON.stringify({
 				cid: util.systemIdentifier(),
 				lastUpdate: new Date(),
 				sysinfo: util.sysinfo(),
-				diskinfo: diskinfo,
-				services: services,
+				diskinfo: data.diskinfo,
+				services: data.services,
 				config: config
 			});
 
-			send(payload); */
-
-			console.log(data);
-
+			send(payload);
 
 		}).fail(reportError);
 

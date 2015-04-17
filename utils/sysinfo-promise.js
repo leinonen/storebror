@@ -53,7 +53,7 @@ function getServicesLinux(){
 		var items = response.stdout.split('\n');
 		return items
 			.map(extractInfo)
-			.filter(isRunning)
+		//	.filter(isRunning)
 			.sort(byName);
 
 	});
