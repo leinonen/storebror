@@ -53,21 +53,23 @@ exports.report = function (ws, req) {
 
 
 exports.clients = function (req, res) {
-	Client.find().exec(function (err, list) {
-		res.json(list);
-	});
+	Client
+		.find()
+		.exec(function (err, list) {
+			res.json(list);
+		});
 	/*var list = getClients();
 	 res.json(list); */
 };
 
 
 exports.stats = function (req, res) {
-	var totals = _.pluck(_.pluck(clients, 'diskinfo'), 'totals');
-	if (totals.length > 0) {
-		res.json(totals.reduceRight(diskinfo.sum));
-	} else {
-		res.json([]);
-	}
+	//var totals = _.pluck(_.pluck(clients, 'diskinfo'), 'totals');
+	//if (totals.length > 0) {
+	//	res.json(totals.reduceRight(diskinfo.sum));
+	//} else {
+	res.json([]);
+	//}
 };
 
 
@@ -85,12 +87,12 @@ exports.logRequest = function (req, res, next) {
 
 
 // Helper functions 
-
-function getClients() {
-	return Object.keys(clients).map(function (cid) {
-		return clients[cid];
-	});
-}
+/*
+ function getClients() {
+ return Object.keys(clients).map(function (cid) {
+ return clients[cid];
+ });
+ }*/
 
 
 function isStatic(url) {
