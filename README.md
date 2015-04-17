@@ -44,21 +44,20 @@ releasen. kärnan linux (skippa allt efter dash)
 
 visa TB i totals
 
-spara i databas. mongoose
-
 cpu utilization
 free memory linux
     free -m   .. parsa buffers/cache  för free
-
-system load
-uptime
-load, två decimaler
-
-lista services, typ tomcat etc..
-
-service --status-all
 
 
 hddtemp
 
 vilka kommandon som är tillgängliga i respektive plattform
+
+
+DONE
+---------
+spara i databas. mongoose
+system load, två decimaler  done!!
+uptime done!!!
+
+lista services, typ tomcat etc..

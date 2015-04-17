@@ -58,18 +58,19 @@ app.controller('AppController', function ($http, $interval) {
 		});
 
 		$http.get('/stats').then(function (response) {
+			var factor = 1024.0;
 			vm.total = response.data;
-			if (vm.total.size.unit === 'G' && vm.total.size.value > 1000.0) {
+			if (vm.total.size.unit === 'G' && vm.total.size.value > factor) {
 				vm.total.size.unit = 'T';
-				vm.total.size.value /= 1000.0;
+				vm.total.size.value /= factor;
 			}
-			if (vm.total.used.unit === 'G' && vm.total.used.value > 1000.0) {
+			if (vm.total.used.unit === 'G' && vm.total.used.value > factor) {
 				vm.total.used.unit = 'T';
-				vm.total.used.value /= 1000.0;
+				vm.total.used.value /= factor;
 			}
-			if (vm.total.avail.unit === 'G' && vm.total.avail.value > 1000.0) {
+			if (vm.total.avail.unit === 'G' && vm.total.avail.value > factor) {
 				vm.total.avail.unit = 'T';
-				vm.total.avail.value /= 1000.0;
+				vm.total.avail.value /= factor;
 			}
 		});
 
