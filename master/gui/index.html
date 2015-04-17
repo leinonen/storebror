@@ -106,7 +106,7 @@
                     </tr>
                 </table>
 
-                <h4>Mounted filesystems</h4>
+                <h4 ng-click="vm.toggleFilesystems()">Mounted filesystems</h4>
                 <table class="table">
                     <tr>
                         <th class="col-sm-2">Filesystem</th>
@@ -131,14 +131,14 @@
                     </tr>
                 </table>
 
-                <h4>Services</h4>
+                <h4 ng-click="vm.toggleServices()">Services</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         <table class="table">
                             <tr>
-                                <th class="col-sm-2">Active</th>
+                                <th class="col-sm-2">Running services</th>
                             </tr>
-                            <tr ng-repeat="service in vm.services.inactive">
+                            <tr ng-repeat="service in vm.services.active">
                                 <td>{{service.name}}</td>
                             </tr>
                         </table>
@@ -146,7 +146,7 @@
                     <div class="col-sm-6">
                         <table class="table">
                             <tr>
-                                <th class="col-sm-2">Inactive</th>
+                                <th class="col-sm-2">Inactive services</th>
                             </tr>
                             <tr ng-repeat="service in vm.services.inactive">
                                 <td>{{service.name}}</td>
