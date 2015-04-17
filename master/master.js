@@ -9,7 +9,7 @@ var config     = require('./config/master-config');
 app.use(controller.logRequest);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '/gui')));
+app.use(express.static(path.join(__dirname, '/master/gui')));
 
 // api for the user interface??
 app.get('/clients', controller.clients);
