@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var GPIO = require('onoff').Gpio;
-var config = require('./master-config.json');
-var diskinfo = require('./diskinfo-promise');
+var config = require('./config/master-config');
+var diskinfo = require('../utils/disk-info-promise');
 
 var clients = {};
 var leds = {};
