@@ -63,15 +63,12 @@ exports.stats = function (req, res) {
 		.exec(function (err, clients) {
 
 			var totals = _.pluck(_.pluck(_.pluck(clients, 'data'), 'drives'), 'totals');
-			console.log(totals);
 
-			var resultat = {
+			res.json({
 				size: calculator.sum(_.pluck(totals, 'size')),
 				used: calculator.sum(_.pluck(totals, 'used')),
 				avail: calculator.sum(_.pluck(totals, 'avail'))
-			};
-
-			res.json(resultat);
+			});
 		});
 };
 

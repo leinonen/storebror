@@ -142,9 +142,9 @@
                     <tr>
                         <th>Totals</th>
                         <th>-</th>
-                        <th>{{vm.client.data.drives.totals.size.value}}{{vm.client.data.drives.totals.size.unit}}</th>
-                        <th>{{vm.client.data.drives.totals.used.value}}{{vm.client.data.drives.totals.used.unit}}</th>
-                        <th>{{vm.client.data.drives.totals.avail.value}}{{vm.client.data.drives.totals.avail.unit}}</th>
+                        <th>{{vm.client.data.drives.totals.size.value | number:2}}{{vm.client.data.drives.totals.size.unit}}</th>
+                        <th>{{vm.client.data.drives.totals.used.value | number:2}}{{vm.client.data.drives.totals.used.unit}}</th>
+                        <th>{{vm.client.data.drives.totals.avail.value | number:2}}{{vm.client.data.drives.totals.avail.unit}}</th>
                     </tr>
                 </table>
 
