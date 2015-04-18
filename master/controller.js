@@ -49,7 +49,7 @@ exports.report = function (ws, req) {
 
 function isLessThanTwoHoursOld(client) {
 	var now = new Date();
-	var reportDate = new Date(vm.clients[index].data.lastUpdate);
+	var reportDate = new Date(client.data.lastUpdate);
 	var hours = Math.abs(now - reportDate) / (60*60*1000);
 	return hours < 2.0;
 }
