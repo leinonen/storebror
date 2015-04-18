@@ -37,7 +37,7 @@ exports.report = function (ws, req) {
 					} else {
 						var newClient = new Client({cid: report.cid, data: report});
 						newClient.save();
-						console.log('saving new client: %s', newClient._id);
+						console.log('saving new client: %s', report.cid);
 					}
 				}
 			});
