@@ -57,19 +57,11 @@ exports.clients = function (req, res) {
 
 
 exports.stats = function (req, res) {
-
 	Client
 		.find()
 		.exec(function (err, clients) {
-			var data = clients.map(function (c) {
-				return c.data;
-			});
-			var totals = _.pluck(_.pluck(data, 'diskinfo'), 'totals');
-			if (totals.length > 0) {
-				res.json(totals.reduceRight(diskinfo.sum));
-			} else {
-				res.json([]);
-			}
+			var totals = _.pluck(_.pluck(_.pluck(clients, 'data'), 'diskinfo'), 'totals');
+			res.json(totals);
 		});
 };
 
