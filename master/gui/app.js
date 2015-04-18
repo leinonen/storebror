@@ -42,7 +42,7 @@ app.controller('AppController', function ($http, $interval) {
 		var now = new Date();
 		var reportDate = new Date(vm.clients[index].data.lastUpdate);
 		var hours = Math.abs(now - reportDate) / (60*60*1000);
-		return hours < 1.0;
+		return hours > 1.0;
 	};
 
 	vm.selectClient = function (idx) {
