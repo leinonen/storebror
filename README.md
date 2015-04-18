@@ -14,44 +14,21 @@ client that sends system information to the master.
 Takes the master ip as an argument, defaults to http://127.0.0.1:8080
 
 
-## API for master
-
-POST /connect
-connect to master. must provide a unique identifier for the client.
-
-GET  /clients
-get all the connected clients. used by the GUI.
-
-POST /clients/:client_id/sysinfo
-send system info for a client system to the master.
-
-This is a work in progress..
-
 # Installation
 Run npm install, and bower install if installing on master.
 
 # Copyright
 No, free to use by everybody! Have fun! :D
 
-----
+--------
+
 TODO
-
---- exclude filesystems in config
-
+----------
 run hostname or hostname -A depending on platform
-
 releasen. kärnan linux (skippa allt efter dash)
-
-
-
 cpu utilization
-free memory linux
-    free -m   .. parsa buffers/cache  för free
-
-
+free memory linux   free -m   .. parsa buffers/cache  för free
 hddtemp
-
-vilka kommandon som är tillgängliga i respektive plattform
 
 
 DONE
