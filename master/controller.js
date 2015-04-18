@@ -62,7 +62,7 @@ exports.stats = function (req, res) {
 		.find()
 		.exec(function (err, clients) {
 
-			var totals = _.pluck(_.pluck(_.pluck(clients, 'data'), 'diskinfo'), 'totals');
+			var totals = _.pluck(_.pluck(_.pluck(clients, 'data'), 'drives'), 'totals');
 			console.log(totals);
 
 			var resultat = {
