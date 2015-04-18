@@ -87,9 +87,9 @@ exports.config = function (req, res) {
 
 
 exports.logRequest = function (req, res, next) {
-	if (!isStatic(req.originalUrl)) {
+	/*if (!isStatic(req.originalUrl)) {
 		console.log('REQ -> %s by %s', req.originalUrl, req.ip);
-	}
+	}*/
 	next();
 };
 
