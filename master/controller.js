@@ -4,7 +4,6 @@ var config = require('./config/master-config');
 var Client = require('./models/client');
 var calculator = require('../utils/unitcalculator');
 
-//var clients = {};
 var leds = {};
 
 if (config.gpioEnabled) {
@@ -27,19 +26,9 @@ exports.report = function (ws, req) {
 			.findOne({cid: report.cid})
 			.exec(function (err, client) {
 				if (err) {
-					// save new client
 					console.error(err);
 				} else {
-
-					if (client !== null) {
-						console.log('updating %s', report.cid);
-						client.data = report;
-						client.save();
-					} else {
-						var newClient = new Client({cid: report.cid, data: report});
-						newClient.save();
-						console.log('saving new client: %s', report.cid);
-					}
+					handleReport(client, report);
 				}
 			});
 
@@ -47,10 +36,23 @@ exports.report = function (ws, req) {
 	});
 };
 
+
+function handleReport(client, report) {
+	if (client !== null) {
+		console.log('updating %s', report.cid);
+		client.data = report;
+		client.save();
+	} else {
+		var newClient = new Client({cid: report.cid, data: report});
+		newClient.save();
+		console.log('saving new client: %s', report.cid);
+	}
+}
+
 function isLessThanTwoHoursOld(client) {
 	var now = new Date();
 	var reportDate = new Date(client.data.lastUpdate);
-	var hours = Math.abs(now - reportDate) / (60*60*1000);
+	var hours = Math.abs(now - reportDate) / (60 * 60 * 1000);
 	return hours < 2.0;
 }
 
