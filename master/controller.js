@@ -1,13 +1,14 @@
 var _ = require('lodash');
-var GPIO = require('onoff').Gpio;
+
 var config = require('./config/master-config');
-var diskinfo = require('../utils/disk-info-promise');
 var Client = require('./models/client');
+var calculator = require('../utils/unitcalculator');
 
 //var clients = {};
 var leds = {};
 
 if (config.gpioEnabled) {
+	var GPIO = require('onoff').Gpio;
 	leds.status = new GPIO(config.leds.status, 'out');
 	leds.error = new GPIO(config.leds.error, 'out');
 	leds.test = new GPIO(config.leds.test, 'out');
@@ -60,9 +61,17 @@ exports.stats = function (req, res) {
 	Client
 		.find()
 		.exec(function (err, clients) {
+
 			var totals = _.pluck(_.pluck(_.pluck(clients, 'data'), 'diskinfo'), 'totals');
-			diskinfo.fixTotals(totals.reduce(diskinfo.sum, diskinfo.zeroTotals));
-			res.json(totals);
+			console.log(totals);
+
+			var resultat = {
+				size: calculator.sum(_.pluck(totals, 'size')),
+				used: calculator.sum(_.pluck(totals, 'used')),
+				avail: calculator.sum(_.pluck(totals, 'avail'))
+			};
+
+			res.json(resultat);
 		});
 };
 
@@ -81,12 +90,6 @@ exports.logRequest = function (req, res, next) {
 
 
 // Helper functions 
-/*
- function getClients() {
- return Object.keys(clients).map(function (cid) {
- return clients[cid];
- });
- }*/
 
 
 function isStatic(url) {

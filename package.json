@@ -4,7 +4,8 @@
   "description": "Server monitoring software",
   "main": "index.js",
   "scripts": {
-    "start": "node slave/slave.js"
+    "start": "node slave/slave.js",
+    "test": "jasmine-node ./**/*.spec.js --verbose"
   },
   "author": "Peter Leinonen",
   "license": "ISC",

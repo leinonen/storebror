@@ -1,5 +1,5 @@
 var app = angular.module('app', []);
-
+/*
 app.filter('secondsToDays', [function () {
 	return function (seconds) {
 		var numdays = Math.floor(seconds / 86400);
@@ -7,7 +7,7 @@ app.filter('secondsToDays', [function () {
 		var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
 		return numdays + " days, " + numhours + " hours, " + numminutes + ' minutes';
 	};
-}]);
+}]); */
 
 app.controller('AppController', function ($http, $interval) {
 

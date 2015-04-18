@@ -1,10 +1,11 @@
 var http = require('request-promise-json');
-var diskinfo = require('../utils/disk-info-promise');
-var util = require('../utils/sysutils');
-var WebSocket = require('ws');
+var util = require('util');
 var events = require('events');
+var WebSocket = require('ws');
+var drives = require('../utils/drives');
+var system = require('../utils/system');
+var services = require('../utils/services');
 var config = require('./config/slave-config');
-var sys = require('../utils/sysinfo-promise');
 
 function ReportClient() {
 
@@ -38,18 +39,18 @@ function ReportClient() {
 			});
 		}
 
-		diskinfo.get().then(function (diskinfo) {
+		drives.get().then(function (drives) {
 
-			return sys.getServices().then(function (services) {
+			return services.getServices().then(function (services) {
 				return {
-					diskinfo: diskinfo,
+					drives: drives,
 					services: services
 				}
 
 			}).fail(function(err){
 				// services only works on linux
 				return {
-					diskinfo: diskinfo,
+					drives: drives,
 					services: []
 				}
 			});
@@ -57,11 +58,11 @@ function ReportClient() {
 		}).then(function (data) {
 
 			var payload = JSON.stringify({
-				cid: util.systemIdentifier(),
-				lastUpdate: new Date(),
-				sysinfo: util.sysinfo(),
-				diskinfo: data.diskinfo,
+				cid: system.getSystemIdentifier(),
+				sysinfo: system.getSystemInformation(),
+				drives: data.drives,
 				services: data.services,
+				lastUpdate: new Date(),
 				config: config
 			});
 

@@ -1,24 +1,30 @@
-'use strict';
-
 var exec = require('child-process-promise').exec;
 var _ = require('lodash');
 var os = require('os');
 var Q = require('q');
 
 
-// Public methods
-
 exports.getServices = function () {
 	if (os.platform() === 'linux') {
 		return getServicesLinux();
 	} else {
-		return makeErrorPromise('getServices: only implemented for linux');
+		return makePromise([]);
 	}
 };
 
 
-// Helpers
+function getServicesLinux() {
+	return exec('initctl list').then(parseOutput);
+}
 
+
+function parseOutput(response) {
+	var rows = response.stdout.split('\n');
+	return rows
+		.map(extractInfo)
+		//	.filter(isRunning)
+		.sort(byName);
+}
 
 function extractInfo(row) {
 	var arr = row.trim().split(',')[0].split(' ');
@@ -42,25 +48,8 @@ function byName(a, b) {
 	return 0;
 }
 
-function makeErrorPromise(err){
+function makePromise(data) {
 	var deferred = Q.defer();
-	deferred.reject('getServices: Only works on linux');
+	deferred.resolve(data);
 	return deferred.promise;
 }
-
-function getServicesLinux(){
-	return exec('initctl list').then(function (response) {
-		var items = response.stdout.split('\n');
-		return items
-			.map(extractInfo)
-		//	.filter(isRunning)
-			.sort(byName);
-
-	});
-//.fail(function (err) {
-//		console.log(err);
-//	});
-}
-
-
-
