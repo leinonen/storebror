@@ -132,7 +132,7 @@
                         <th class="col-sm-2">Used</th>
                         <th class="col-sm-2">Avail</th>
                     </tr>
-                    <tr ng-repeat="disk in vm.client.data.diskinfo.drives">
+                    <tr ng-repeat="disk in vm.client.data.drives.drives">
                         <td>{{disk.filesystem}}</td>
                         <td>{{disk.mounted}}</td>
                         <td>{{disk.size}}</td>

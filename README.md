@@ -42,7 +42,7 @@ run hostname or hostname -A depending on platform
 
 releasen. kärnan linux (skippa allt efter dash)
 
-visa TB i totals
+
 
 cpu utilization
 free memory linux
@@ -59,5 +59,5 @@ DONE
 spara i databas. mongoose
 system load, två decimaler  done!!
 uptime done!!!
-
 lista services, typ tomcat etc..
+visa TB i totals
