@@ -51,7 +51,7 @@ var zeroTotals = {
 	used: {value: 0, unit: 'G'},
 	avail: {value: 0, unit: 'G'}
 };
-
+exports.zeroTotals = zeroTotals;
 
 function sum(a, b) {
 	return {
