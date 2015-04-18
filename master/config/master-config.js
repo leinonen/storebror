@@ -16,7 +16,7 @@ module.exports = {
 		}
 	},
 
-	gpioEnabled: false,
+	gpioEnabled: true,
 
 	leds: {
 		status: 17,
