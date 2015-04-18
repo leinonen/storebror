@@ -1,0 +1,16 @@
+TODO
+----
+run hostname or hostname -A depending on platform
+releasen. kärnan linux (skippa allt efter dash)
+cpu utilization
+free memory linux   free -m   .. parsa buffers/cache  för free
+hddtemp
+
+
+DONE
+----
+spara i databas. mongoose
+system load, två decimaler  done!!
+uptime done!!!
+lista services, typ tomcat etc..
+visa TB i totals
