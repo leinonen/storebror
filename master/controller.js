@@ -47,12 +47,18 @@ exports.report = function (ws, req) {
 	});
 };
 
+function isLessThanTwoHoursOld(client) {
+	var now = new Date();
+	var reportDate = new Date(vm.clients[index].data.lastUpdate);
+	var hours = Math.abs(now - reportDate) / (60*60*1000);
+	return hours < 2.0;
+}
 
 exports.clients = function (req, res) {
 	Client
 		.find()
 		.exec(function (err, list) {
-			res.json(list);
+			res.json(list.filter(isLessThanTwoHoursOld));
 		});
 };
 
@@ -62,7 +68,7 @@ exports.stats = function (req, res) {
 		.find()
 		.exec(function (err, clients) {
 
-			var totals = _.pluck(_.pluck(_.pluck(clients, 'data'), 'drives'), 'totals');
+			var totals = _.pluck(_.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'data'), 'drives'), 'totals');
 
 			res.json({
 				size: calculator.sum(_.pluck(totals, 'size')),

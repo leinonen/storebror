@@ -22,3 +22,7 @@ header h1 {
 .list-group-item {
   cursor: pointer;
 }
+
+.storebror-header-click {
+    cursor: pointer;
+}
