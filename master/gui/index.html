@@ -20,50 +20,28 @@
                 <h1>{{vm.title}}</h1>
             </div>
             <div class="col-sm-9">
-                <table class="disk-summary">
-                    <tr>
-                        <td><h1>Total: {{vm.total.size.value | number : 2}}{{vm.total.size.unit}}</h1></td>
-                        <td><h1>Used: {{vm.total.used.value | number : 2}}{{vm.total.used.unit}}</h1></td>
-                        <td><h1>Avail: {{vm.total.avail.value | number : 2}}{{vm.total.avail.unit}}</h1></td>
-                    </tr>
-                </table>
+                <div ng-include="'views/totals.html'"></div>
             </div>
         </div>
     </header>
 
     <div class="row">
         <div class="col-sm-3">
-            <h4>Connected systems</h4>
-            <div class="list-group">
-                <a class="list-group-item"
-                   ng-repeat="client in vm.clients | orderBy: client.data.sysinfo.hostname"
-                   ng-click="vm.selectClient($index)"
-                   ng-class="{active: $index === vm.selectedClientIndex}">{{client.data.sysinfo.hostname}}
-                    <span class="badge" ng-show="vm.isOld($index)">!</span>
-                </a>
-            </div>
-            <p ng-show="vm.clients.length === 0">No connected clients</p>
-
+            <div ng-include="'views/client-list.html'"></div>
         </div>
-
         <div class="col-sm-9">
-
             <div class="client" ng-show="vm.clients.length > 0">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-md-6">
                         <div ng-include="'views/client.html'"></div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-md-6">
                         <div ng-include="'views/cpu.html'"></div>
                     </div>
                 </div>
-
                 <div ng-include="'views/sysinfo.html'"></div>
-
                 <div ng-include="'views/drives.html'"></div>
-
                 <div ng-include="'views/services.html'"></div>
-
             </div>
         </div>
     </div>

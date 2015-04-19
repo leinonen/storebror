@@ -1,0 +1,10 @@
+<h4>Connected systems</h4>
+<div class="list-group">
+    <a class="list-group-item"
+       ng-repeat="client in vm.clients | orderBy: client.data.sysinfo.hostname"
+       ng-click="vm.selectClient($index)"
+       ng-class="{active: $index === vm.selectedClientIndex}">{{client.data.sysinfo.hostname}}
+        <span class="badge" ng-show="vm.isOld($index)">!</span>
+    </a>
+</div>
+<p ng-show="vm.clients.length === 0">No connected clients</p>
