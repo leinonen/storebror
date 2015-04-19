@@ -5,6 +5,10 @@
         <td>{{vm.client.data.cid}}</td>
     </tr>
     <tr>
+        <th>Version</th>
+        <td>{{vm.client.data.config.version}}</td>
+    </tr>
+    <tr>
         <th>Uptime</th>
         <td>{{vm.client.data.sysinfo.uptime}}</td>
     </tr>
@@ -22,6 +26,6 @@
     </tr>
     <tr>
         <th>Report interval</th>
-        <td>{{vm.client.data.config.reportInterval}} ms</td>
+        <td>{{vm.client.data.config.reportInterval / 1000}} s</td>
     </tr>
 </table>
