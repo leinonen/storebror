@@ -67,6 +67,15 @@ function ReportClient() {
 						hostname: hostname
 					}
 				});
+			}).fail(function(err){
+				// probably initctl not working on this system
+				return system.getHostname().then(function (hostname) {
+					return {
+						drives: drives,
+						services: [],
+						hostname: hostname
+					}
+				});
 			});
 		});
 	}
