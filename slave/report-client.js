@@ -40,21 +40,15 @@ function ReportClient() {
 		}
 
 		drives.get().then(function (drives) {
-
 			return services.getServices().then(function (services) {
-				return {
-					drives: drives,
-					services: services
-				}
-
-			}).fail(function(err){
-				// services only works on linux
-				return {
-					drives: drives,
-					services: []
-				}
+				return system.getHostname().then(function(hostname){
+					return {
+						drives: drives,
+						services: services,
+						hostname: hostname
+					}
+				});
 			});
-
 		}).then(function (data) {
 
 			var payload = JSON.stringify({
@@ -65,6 +59,9 @@ function ReportClient() {
 				lastUpdate: new Date(),
 				config: config
 			});
+
+			// Use proper hostname instead
+			payload.sysinfo.hostname = data.hostname;
 
 			send(payload);
 

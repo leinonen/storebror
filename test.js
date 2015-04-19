@@ -21,5 +21,5 @@ console.log(hours);
 var system = require('./utils/system');
 
 system.getHostname().then(function(hostname){
-	console.log('-%s-', hostname);
+	console.log(hostname);
 });

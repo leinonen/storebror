@@ -36,16 +36,16 @@ exports.getSystemInformation = function () {
 };
 
 
+function parseHostname(ret){
+	return ret.stdout.split('\n')[0].trim();
+}
+
 function getHostname() {
 	if (os.platform() === 'linux') {
-		return exec('hostname -A').then(function(ret){
-			return ret.stdout.split('\n')[0];
-		});
+		return exec('hostname -A').then(parseHostname);
 	}
 	if (os.platform() === 'darwin') {
-		return exec('hostname').then(function(ret){
-			return ret.stdout.split('\n')[0];
-		});
+		return exec('hostname').then(parseHostname);
 	}
 }
 exports.getHostname = getHostname;
