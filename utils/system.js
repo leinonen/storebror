@@ -1,7 +1,7 @@
 var os = require('os');
 var util = require('util');
 var crypto = require('crypto');
-
+var exec = require('child-process-promise').exec;
 
 /**
  * Get a unique identifier for this system.
@@ -35,6 +35,20 @@ exports.getSystemInformation = function () {
 	};
 };
 
+
+function getHostname() {
+	if (os.platform() === 'linux') {
+		return exec('hostname -A').then(function(ret){
+			return ret.stdout.split('\n')[0];
+		});
+	}
+	if (os.platform() === 'darwin') {
+		return exec('hostname').then(function(ret){
+			return ret.stdout.split('\n')[0];
+		});
+	}
+}
+exports.getHostname = getHostname;
 
 /**
  * Format the uptime from seconds to days hours and minutes.

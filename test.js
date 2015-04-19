@@ -9,9 +9,17 @@ drives
 		console.log(err);
 	});*/
 
+/*
 var now = new Date('2015-04-19T21:42:50.006Z');
 var reportDate = new Date('2015-04-18T20:42:50.006Z');
 
 var hours = Math.abs(now - reportDate) / (60*60*1000);
 
 console.log(hours);
+	*/
+
+var system = require('./utils/system');
+
+system.getHostname().then(function(hostname){
+	console.log('-%s-', hostname);
+});
