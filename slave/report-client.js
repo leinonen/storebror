@@ -13,35 +13,53 @@ function ReportClient() {
 	events.EventEmitter.call(this);
 
 	this.report = function () {
+		collectSystemInformation().then(deliverMessage).fail(reportError);
+	};
 
-		var reportSuccess = function (response) {
-			me.emit('report.sent', response);
-		};
 
-		var reportError = function (err) {
-			me.emit('report.error', err);
-		};
+	function reportSuccess(response) {
+		me.emit('report.sent', response);
+	}
 
-		function send(payload) {
-			var masterUrl = util.format('ws://%s:%s/report', config.masterHost, config.masterPort);
-			var ws = new WebSocket(masterUrl);
-			ws.on('open', function () {
-				ws.send(payload, function (err) {
-					if (err) {
-						reportError(err);
-					} else {
-						reportSuccess({status: 'ok'});
-					}
-				});
+	function reportError(err) {
+		me.emit('report.error', err);
+	}
+
+	function send(payload) {
+		var masterUrl = util.format('ws://%s:%s/report', config.masterHost, config.masterPort);
+		var ws = new WebSocket(masterUrl);
+		ws.on('open', function () {
+			ws.send(JSON.stringify(payload), function (err) {
+				if (err) {
+					reportError(err);
+				} else {
+					reportSuccess({status: 'ok'});
+				}
 			});
-			ws.on('message', function (data, flags) {
-				console.log(data);
-			});
-		}
+		});
+		ws.on('message', function (data, flags) {
+			console.log(data);
+		});
+	}
 
-		drives.get().then(function (drives) {
+	function deliverMessage(data) {
+		var payload = {
+			cid: system.getSystemIdentifier(),
+			sysinfo: system.getSystemInformation(),
+			drives: data.drives,
+			services: data.services,
+			lastUpdate: new Date(),
+			config: config
+		};
+		// Use proper hostname instead
+		payload.sysinfo.hostname = data.hostname;
+		send(payload);
+	}
+
+	function collectSystemInformation(){
+		return drives.get().then(function (drives) {
 			return services.getServices().then(function (services) {
-				return system.getHostname().then(function(hostname){
+				return system.getHostname().then(function (hostname) {
 					return {
 						drives: drives,
 						services: services,
@@ -49,25 +67,8 @@ function ReportClient() {
 					}
 				});
 			});
-		}).then(function (data) {
-
-			var payload = JSON.stringify({
-				cid: system.getSystemIdentifier(),
-				sysinfo: system.getSystemInformation(),
-				drives: data.drives,
-				services: data.services,
-				lastUpdate: new Date(),
-				config: config
-			});
-
-			// Use proper hostname instead
-			payload.sysinfo.hostname = data.hostname;
-
-			send(payload);
-
-		}).fail(reportError);
-
-	};
+		});
+	}
 
 }
 
