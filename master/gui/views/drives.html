@@ -1,0 +1,27 @@
+<h4 ng-click="vm.toggleFilesystems()">Mounted filesystems
+    <span class="glyphicon glyphicon-chevron-down" ng-show="!vm.showFilesystems"></span>
+    <span class="glyphicon glyphicon-chevron-up" ng-show="vm.showFilesystems"></span>
+</h4>
+<table class="table" ng-show="vm.showFilesystems">
+    <tr>
+        <th class="col-sm-2">Filesystem</th>
+        <th class="col-sm-4">Mounted on</th>
+        <th class="col-sm-2">Size</th>
+        <th class="col-sm-2">Used</th>
+        <th class="col-sm-2">Avail</th>
+    </tr>
+    <tr ng-repeat="disk in vm.client.data.drives.drives">
+        <td>{{disk.filesystem}}</td>
+        <td>{{disk.mounted}}</td>
+        <td>{{disk.size.value}}{{disk.size.unit}}</td>
+        <td>{{disk.used.value}}{{disk.used.unit}}</td>
+        <td>{{disk.avail.value}}{{disk.avail.unit}}</td>
+    </tr>
+    <tr>
+        <th>Totals</th>
+        <th>-</th>
+        <th>{{vm.client.data.drives.totals.size.value | number:2}}{{vm.client.data.drives.totals.size.unit}}</th>
+        <th>{{vm.client.data.drives.totals.used.value | number:2}}{{vm.client.data.drives.totals.used.unit}}</th>
+        <th>{{vm.client.data.drives.totals.avail.value | number:2}}{{vm.client.data.drives.totals.avail.unit}}</th>
+    </tr>
+</table>

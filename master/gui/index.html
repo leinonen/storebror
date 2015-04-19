@@ -51,131 +51,18 @@
             <div class="client" ng-show="vm.clients.length > 0">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h4>{{vm.client.data.sysinfo.hostname}}</h4>
-                        <table class="table">
-                            <tr>
-                                <th>CID</th>
-                                <td>{{vm.client.data.cid}}</td>
-                            </tr>
-                            <tr>
-                                <th>Uptime</th>
-                                <td>{{vm.client.data.sysinfo.uptime}}</td>
-                            </tr>
-                            <tr>
-                                <th>Load Avg</th>
-                                <td>
-                                    {{vm.client.data.sysinfo.loadavg[0] | number:2}},
-                                    {{vm.client.data.sysinfo.loadavg[1] | number:2}},
-                                    {{vm.client.data.sysinfo.loadavg[2] | number:2}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Last updated</th>
-                                <td>{{vm.client.data.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                            </tr>
-                            <tr>
-                                <th>Report interval</th>
-                                <td>{{vm.client.data.config.reportInterval}} ms</td>
-                            </tr>
-                        </table>
+                        <div ng-include="'views/client.html'"></div>
                     </div>
                     <div class="col-sm-6">
-                        <h4>CPU</h4>
-                        <table class="table">
-                            <tr>
-                                <th>Cores</th>
-                                <td>{{vm.client.data.sysinfo.cpus.length}}</td>
-                            </tr>
-                            <tr>
-                                <th>Model</th>
-                                <td>{{vm.client.data.sysinfo.cpus[0].model}}</td>
-                            </tr>
-                            <tr>
-                                <th>Speed</th>
-                                <td>{{vm.client.data.sysinfo.cpus[0].speed}} MHz</td>
-                            </tr>
-                        </table>
-
+                        <div ng-include="'views/cpu.html'"></div>
                     </div>
                 </div>
 
+                <div ng-include="'views/sysinfo.html'"></div>
 
-                <h4>System information</h4>
-                <table class="table">
-                    <tr>
-                        <th class="col-sm-2">Hostname</th>
-                        <th class="col-sm-2">IP</th>
-                        <th class="col-sm-2">Platform</th>
-                        <th class="col-sm-2">Architecture</th>
-                        <th class="col-sm-2">Free Memory</th>
-                        <th class="col-sm-2">Total Memory</th>
-                    </tr>
-                    <tr>
-                        <td>{{vm.client.data.sysinfo.hostname}}</td>
-                        <td>{{vm.client.data.sysinfo.local}}</td>
-                        <td>{{vm.client.data.sysinfo.platform}}</td>
-                        <td>{{vm.client.data.sysinfo.arch}}</td>
-                        <td>{{(vm.client.data.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
-                        <td>{{(vm.client.data.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
-                    </tr>
-                </table>
+                <div ng-include="'views/drives.html'"></div>
 
-                <h4 ng-click="vm.toggleFilesystems()">Mounted filesystems
-                <span class="glyphicon glyphicon-chevron-down" ng-show="!vm.showFilesystems"></span>
-                <span class="glyphicon glyphicon-chevron-up" ng-show="vm.showFilesystems"></span>
-                </h4>
-                <table class="table" ng-show="vm.showFilesystems">
-                    <tr>
-                        <th class="col-sm-2">Filesystem</th>
-                        <th class="col-sm-4">Mounted on</th>
-                        <th class="col-sm-2">Size</th>
-                        <th class="col-sm-2">Used</th>
-                        <th class="col-sm-2">Avail</th>
-                    </tr>
-                    <tr ng-repeat="disk in vm.client.data.drives.drives">
-                        <td>{{disk.filesystem}}</td>
-                        <td>{{disk.mounted}}</td>
-                        <td>{{disk.size.value}}{{disk.size.unit}}</td>
-                        <td>{{disk.used.value}}{{disk.used.unit}}</td>
-                        <td>{{disk.avail.value}}{{disk.avail.unit}}</td>
-                    </tr>
-                    <tr>
-                        <th>Totals</th>
-                        <th>-</th>
-                        <th>{{vm.client.data.drives.totals.size.value | number:2}}{{vm.client.data.drives.totals.size.unit}}</th>
-                        <th>{{vm.client.data.drives.totals.used.value | number:2}}{{vm.client.data.drives.totals.used.unit}}</th>
-                        <th>{{vm.client.data.drives.totals.avail.value | number:2}}{{vm.client.data.drives.totals.avail.unit}}</th>
-                    </tr>
-                </table>
-
-                <h4 ng-click="vm.toggleServices()" class="storebror-header-click">Services
-                    <span class="glyphicon glyphicon-chevron-down" ng-show="!vm.showServices"></span>
-                    <span class="glyphicon glyphicon-chevron-up" ng-show="vm.showServices"></span></h4>
-
-                <p ng-show="vm.client.data.services.length === 0">Not available</p>
-                <div class="row" ng-show="vm.showServices">
-                    <div class="col-sm-6" ng-show="vm.client.data.services.length > 0">
-                        <table class="table">
-                            <tr>
-                                <th class="col-sm-2">Running services</th>
-                            </tr>
-                            <tr ng-repeat="service in vm.services.active">
-                                <td>{{service.name}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-sm-6" ng-show="vm.client.data.services.length > 0">
-                        <table class="table">
-                            <tr>
-                                <th class="col-sm-2">Inactive services</th>
-                            </tr>
-                            <tr ng-repeat="service in vm.services.inactive">
-                                <td>{{service.name}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
+                <div ng-include="'views/services.html'"></div>
 
             </div>
         </div>

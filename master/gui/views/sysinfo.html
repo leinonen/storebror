@@ -1,0 +1,19 @@
+<h4>System information</h4>
+<table class="table">
+    <tr>
+        <th class="col-sm-2">Hostname</th>
+        <th class="col-sm-2">IP</th>
+        <th class="col-sm-2">Platform</th>
+        <th class="col-sm-2">Architecture</th>
+        <th class="col-sm-2">Free Memory</th>
+        <th class="col-sm-2">Total Memory</th>
+    </tr>
+    <tr>
+        <td>{{vm.client.data.sysinfo.hostname}}</td>
+        <td>{{vm.client.data.sysinfo.local}}</td>
+        <td>{{vm.client.data.sysinfo.platform}}</td>
+        <td>{{vm.client.data.sysinfo.arch}}</td>
+        <td>{{(vm.client.data.sysinfo.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+        <td>{{(vm.client.data.sysinfo.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+    </tr>
+</table>
