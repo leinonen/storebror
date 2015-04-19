@@ -37,6 +37,7 @@ function ReportClient() {
 				}
 			});
 		});
+		ws.on('error', reportError);
 		ws.on('message', function (data, flags) {
 			console.log(data);
 		});
