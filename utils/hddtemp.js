@@ -9,9 +9,13 @@ exports.getHddTemp = function () {
 
 
 function execHddTemp() {
-	return exec('hddtemp ' + config.hddTemp.drives.join(' ')).then(function(output){
+	var cmd = 'hddtemp ' + config.hddTemp.drives.join(' ');
+	console.log('runnig ' + cmd);
+	return exec(cmd).then(function (output) {
 		return parse(output.stdout);
-	}).fail(function(err){
+	}).fail(function (err) {
+		console.error('error running hddtemp');
+		console.error(err);
 		return makePromise([]);
 	});
 }

@@ -64,16 +64,29 @@ function ReportClient() {
 				return system.getHostname().then(function (hostname) {
 					if (config.hddTemp.enabled) {
 						return hddtemp.getHddTemp().then(function (temps) {
+							console.log('hddtemp is enabled and works flawlessly!');
+							console.log(temps);
 							return {
 								drives: drives,
 								hddtemp: temps,
 								services: services,
 								hostname: hostname
 							}
+						}).fail(function (err) {
+							console.error('hddtemp failed');
+							console.error(err);
+							return {
+								drives: drives,
+								hddtemp: [],
+								services: services,
+								hostname: hostname
+							}
 						});
 					} else {
+						console.log('hddtemp is not enabled, so using empty result');
 						return {
 							drives: drives,
+							hddtemp: [],
 							services: services,
 							hostname: hostname
 						}
@@ -81,6 +94,7 @@ function ReportClient() {
 				});
 			}).fail(function (err) {
 				// probably initctl not working on this system
+				console.error('error running initctl');
 				return system.getHostname().then(function (hostname) {
 					if (config.hddTemp.enabled) {
 						return hddtemp.getHddTemp().then(function (temps) {
