@@ -5,6 +5,7 @@ var WebSocket = require('ws');
 var drives = require('../utils/drives');
 var system = require('../utils/system');
 var services = require('../utils/services');
+var hddtemp = require('../utils/hddtemp');
 var config = require('./config/slave-config');
 
 function ReportClient() {
@@ -57,23 +58,45 @@ function ReportClient() {
 		send(payload);
 	}
 
-	function collectSystemInformation(){
+	function collectSystemInformation() {
 		return drives.get().then(function (drives) {
 			return services.getServices().then(function (services) {
 				return system.getHostname().then(function (hostname) {
-					return {
-						drives: drives,
-						services: services,
-						hostname: hostname
+					if (config.hddTemp.enabled) {
+						return hddtemp.getHddTemp().then(function (temps) {
+							return {
+								drives: drives,
+								hddtemp: temps,
+								services: services,
+								hostname: hostname
+							}
+						});
+					} else {
+						return {
+							drives: drives,
+							services: services,
+							hostname: hostname
+						}
 					}
 				});
-			}).fail(function(err){
+			}).fail(function (err) {
 				// probably initctl not working on this system
 				return system.getHostname().then(function (hostname) {
-					return {
-						drives: drives,
-						services: [],
-						hostname: hostname
+					if (config.hddTemp.enabled) {
+						return hddtemp.getHddTemp().then(function (temps) {
+							return {
+								drives: drives,
+								hddtemp: temps,
+								services: [],
+								hostname: hostname
+							}
+						});
+					} else {
+						return {
+							drives: drives,
+							services: [],
+							hostname: hostname
+						}
 					}
 				});
 			});

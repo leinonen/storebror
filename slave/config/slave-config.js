@@ -11,5 +11,25 @@ module.exports = {
 
 	excludedFilesystems: [
 		'/dev/sda1'
-	]
+	],
+
+	// if you have hddtemp installed, you can enable it here
+	// and specify the drives to read temperature from
+	hddTemp: {
+		enabled: false,
+		drives: [
+			'/dev/sda',
+			'/dev/sdb',
+			'/dev/sdc',
+			'/dev/sdd',
+			'/dev/sde',
+			'/dev/sdf',
+			'/dev/sdg',
+			'/dev/sdh',
+			'/dev/sdi',
+			'/dev/sdj',
+			'/dev/sdk',
+			'/dev/sdl'
+		]
+	}
 };
