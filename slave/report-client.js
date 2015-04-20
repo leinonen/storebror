@@ -65,21 +65,21 @@ function ReportClient() {
 
 	function collectSystemInformation() {
 
-		drives.get().then(function (result) {
-			deliverMessage('drives', result);
+		drives.get().then(function (drives) {
+			deliverMessage('drives', drives);
 		}).fail(console.error);
 
-		services.getServices().then(function (result) {
-			deliverMessage('services', result);
+		services.getServices().then(function (services) {
+			deliverMessage('services', services);
 		}).fail(console.error);
 
-		system.getHostname().then(function (result) {
-			deliverMessage('hostname', result);
+		system.getHostname().then(function (hostname) {
+			deliverMessage('hostname', hostname);
 		}).fail(console.error);
 
 		if (config.hddTemp.enabled) {
-			hddtemp.getHddTemp().then(function (result) {
-				deliverMessage('hddtemp', result);
+			hddtemp.getHddTemp().then(function (temp) {
+				deliverMessage('hddtemp', temp);
 			}).fail(console.error);
 		}
 

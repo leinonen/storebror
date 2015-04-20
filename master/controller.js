@@ -54,6 +54,7 @@ function handleReport(client, report) {
 			client.sysinfo = report.data;
 		} else {
 			console.log('wrong type! %s', report.type);
+			return;
 		}
 
 		client.save();
