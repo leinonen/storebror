@@ -14,7 +14,7 @@ function ReportClient() {
 	events.EventEmitter.call(this);
 
 	this.report = function () {
-		collectSystemInformation().then(deliverMessage).fail(reportError);
+		collectSystemInformation(); //.then(deliverMessage).fail(reportError);
 	};
 
 
@@ -34,7 +34,7 @@ function ReportClient() {
 				if (err) {
 					reportError(err);
 				} else {
-					reportSuccess({status: 'ok'});
+					reportSuccess({status: payload.type + ' sent successfully.'});
 				}
 			});
 		});
@@ -44,77 +44,107 @@ function ReportClient() {
 		});
 	}
 
-	function deliverMessage(data) {
-		var payload = {
-			cid: system.getSystemIdentifier(),
-			sysinfo: system.getSystemInformation(),
-			drives: data.drives,
-			services: data.services,
-			lastUpdate: new Date(),
-			config: config
-		};
+	function deliverMessage(type, data) {
+		/*var payload = {
+		 cid: system.getSystemIdentifier(),
+		 sysinfo: system.getSystemInformation(),
+		 drives: data.drives,
+		 services: data.services,
+		 lastUpdate: new Date(),
+		 config: config
+		 }; */
 		// Use proper hostname instead
-		payload.sysinfo.hostname = data.hostname;
-		send(payload);
+		//payload.sysinfo.hostname = data.hostname;
+
+		send({
+			cid: system.getSystemIdentifier(),
+			data: data,
+			type: type
+		});
 	}
 
 	function collectSystemInformation() {
-		return drives.get().then(function (drives) {
-			return services.getServices().then(function (services) {
-				return system.getHostname().then(function (hostname) {
-					if (config.hddTemp.enabled) {
-						return hddtemp.getHddTemp().then(function (temps) {
-							console.log('hddtemp is enabled and works flawlessly!');
-							console.log(temps);
-							return {
-								drives: drives,
-								hddtemp: temps,
-								services: services,
-								hostname: hostname
-							}
-						}).fail(function (err) {
-							console.error('hddtemp failed');
-							console.error(err);
-							return {
-								drives: drives,
-								hddtemp: [],
-								services: services,
-								hostname: hostname
-							}
-						});
-					} else {
-						console.log('hddtemp is not enabled, so using empty result');
-						return {
-							drives: drives,
-							hddtemp: [],
-							services: services,
-							hostname: hostname
-						}
-					}
-				});
-			}).fail(function (err) {
-				// probably initctl not working on this system
-				console.error('error running initctl');
-				return system.getHostname().then(function (hostname) {
-					if (config.hddTemp.enabled) {
-						return hddtemp.getHddTemp().then(function (temps) {
-							return {
-								drives: drives,
-								hddtemp: temps,
-								services: [],
-								hostname: hostname
-							}
-						});
-					} else {
-						return {
-							drives: drives,
-							services: [],
-							hostname: hostname
-						}
-					}
-				});
-			});
-		});
+
+		drives.get().then(function (result) {
+			deliverMessage('drives', result);
+		}).fail(console.error);
+
+		services.getServices().then(function (result) {
+			deliverMessage('services', result);
+		}).fail(console.error);
+
+		system.getHostname().then(function (result) {
+			deliverMessage('hostname', result);
+		}).fail(console.error);
+
+		if (config.hddTemp.enabled) {
+			hddtemp.getHddTemp().then(function (result) {
+				deliverMessage('hddtemp', result);
+			}).fail(console.error);
+		}
+
+		deliverMessage('sysinfo', system.getSystemInformation());
+
+		/*
+
+		 return drives.get().then(function (drives) {
+		 return services.getServices().then(function (services) {
+		 return system.getHostname().then(function (hostname) {
+		 if (config.hddTemp.enabled) {
+		 return hddtemp.getHddTemp().then(function (temps) {
+		 console.log('hddtemp is enabled and works flawlessly!');
+		 console.log(temps);
+		 return {
+		 drives: drives,
+		 hddtemp: temps,
+		 services: services,
+		 hostname: hostname
+		 }
+		 }).fail(function (err) {
+		 console.error('hddtemp failed');
+		 console.error(err);
+		 return {
+		 drives: drives,
+		 hddtemp: [],
+		 services: services,
+		 hostname: hostname
+		 }
+		 });
+		 } else {
+		 console.log('hddtemp is not enabled, so using empty result');
+		 return {
+		 drives: drives,
+		 hddtemp: [],
+		 services: services,
+		 hostname: hostname
+		 }
+		 }
+		 });
+		 }).fail(function (err) {
+		 // probably initctl not working on this system
+		 console.error('error running initctl');
+		 return system.getHostname().then(function (hostname) {
+		 if (config.hddTemp.enabled) {
+		 return hddtemp.getHddTemp().then(function (temps) {
+		 return {
+		 drives: drives,
+		 hddtemp: temps,
+		 services: [],
+		 hostname: hostname
+		 }
+		 });
+		 } else {
+		 return {
+		 drives: drives,
+		 hddtemp: [],
+		 services: [],
+		 hostname: hostname
+		 }
+		 }
+		 });
+		 });
+		 });
+		 */
 	}
 
 }

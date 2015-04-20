@@ -5,7 +5,7 @@ var client = new ReportClient();
 console.log('storebror client started. will send reports every %d s.', config.reportInterval / 1000);
 
 client.on('report.sent', function (response) {
-	console.log('report sent successfully.');
+	console.log(response.status);
 });
 
 client.on('report.error', function (err) {

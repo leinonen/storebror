@@ -9,7 +9,7 @@ exports.getHddTemp = function () {
 
 
 function execHddTemp() {
-	var cmd = 'hddtemp ' + config.hddTemp.drives.join(' ');
+	var cmd = 'sudo hddtemp ' + config.hddTemp.drives.join(' ');
 	console.log('runnig ' + cmd);
 	return exec(cmd).then(function (output) {
 		return parse(output.stdout);

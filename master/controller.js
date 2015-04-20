@@ -39,13 +39,29 @@ exports.report = function (ws, req) {
 
 function handleReport(client, report) {
 	if (client !== null) {
-		console.log('updating %s', report.cid);
-		client.data = report;
+
+		console.log('updating %s with %s', report.cid, report.type);
+
+		if (report.type === 'drives') {
+			client.drives = report.data;
+		} else if (report.type === 'services') {
+			client.services = report.data;
+		} else if (report.type === 'hostname') {
+			client.hostname = report.data;
+		} else if (report.type === 'hddtemp') {
+			client.hddtemp = report.data;
+		} else if (report.type === 'sysinfo') {
+			client.sysinfo = report.data;
+		} else {
+			console.log('wrong type! %s', report.type);
+		}
+
 		client.save();
+
 	} else {
-		var newClient = new Client({cid: report.cid, data: report});
+		var newClient = new Client({cid: report.cid});
 		newClient.save();
-		console.log('saving new client: %s', report.cid);
+		console.log('new client joined the party: %s', report.cid);
 	}
 }
 
@@ -88,8 +104,8 @@ exports.config = function (req, res) {
 
 exports.logRequest = function (req, res, next) {
 	/*if (!isStatic(req.originalUrl)) {
-		console.log('REQ -> %s by %s', req.originalUrl, req.ip);
-	}*/
+	 console.log('REQ -> %s by %s', req.originalUrl, req.ip);
+	 }*/
 	next();
 };
 
