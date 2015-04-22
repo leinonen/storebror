@@ -78,9 +78,7 @@ function handleReport(client, report) {
 		client.save();
 
 	} else {
-		var newClient = new Client({
-			cid: report.cid,
-			lastUpdate: new Date()
+		var newClient = new Client({cid: report.cid,lastUpdate: new Date()
 		});
 		newClient.save();
 		console.log('new client joined the party: %s', report.cid);
@@ -107,24 +105,19 @@ exports.clients = function (req, res) {
 
 
 exports.stats = function (req, res) {
-	/*	Client
+/*	Client
 		.find()
 		.exec(function (err, clients) {
 
-			var totals = _.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'drives'), 'totals');
+			var totals = _.pluck(_.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'data'), 'drives'), 'totals');
 
 			res.json({
 				size: calculator.sum(_.pluck(totals, 'size')),
 				used: calculator.sum(_.pluck(totals, 'used')),
 				avail: calculator.sum(_.pluck(totals, 'avail'))
 			});
-		}); */
-
-	res.json({
-		size: {value: 0, unit: 'G'},
-		used: {value: 0, unit: 'G'},
-		avail: {value: 0, unit: 'G'}
-	});
+		});*/
+	res.json([]):
 };
 
 
