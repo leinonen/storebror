@@ -24,6 +24,13 @@ exports.report = function (ws, req) {
 	ws.on('message', function (msg) {
 		var report = JSON.parse(msg);
 
+		if (report.cid === undefined ||
+			report.type === undefined ||
+			report.data === undefined){
+			console.log('Invalid message recieved!');
+			return;
+		}
+
 		Client
 			.findOne({cid: report.cid})
 			.exec(function (err, client) {
@@ -48,17 +55,8 @@ function parseVersion(input){
 function handleReport(client, report) {
 	if (client !== null) {
 
-		if (report.cid === undefined ||
-			  report.type === undefined ||
-			  report.data === undefined){
-			console.log('Invalid message recieved!');
-			return;
-		}
-
 		console.log('updating %s with %s', report.cid, report.type);
-
-		console.log(report.data);
-
+		//console.log(report.data);
 
 		if (report.type === 'drives') {
 			client.drives = report.data;
@@ -75,7 +73,7 @@ function handleReport(client, report) {
 			return;
 		}
 
-		//client.save();
+		client.save();
 
 	} else {
 		var newClient = new Client({cid: report.cid});
