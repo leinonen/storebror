@@ -117,7 +117,7 @@ exports.stats = function (req, res) {
 				avail: calculator.sum(_.pluck(totals, 'avail'))
 			});
 		});*/
-	res.json([]):
+	res.json([]);
 };
 
 
