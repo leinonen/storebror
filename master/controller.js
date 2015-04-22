@@ -6,6 +6,8 @@ var calculator = require('../utils/unitcalculator');
 
 var leds = {};
 
+var messageQueue = [];
+
 if (config.gpioEnabled) {
 	var GPIO = require('onoff').Gpio;
 	leds.status = new GPIO(config.leds.status, 'out');
@@ -39,6 +41,11 @@ exports.report = function (ws, req) {
 
 function handleReport(client, report) {
 	if (client !== null) {
+
+		if (report.cid === undefined || report.type === undefined){
+			console.log('Invalid message recieved!');
+			return;
+		}
 
 		console.log('updating %s with %s', report.cid, report.type);
 

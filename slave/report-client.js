@@ -68,7 +68,7 @@ function ReportClient() {
 		drives.get().then(function (drives) {
 			deliverMessage('drives', drives);
 		}).fail(console.error);
-
+/*
 		services.getServices().then(function (services) {
 			deliverMessage('services', services);
 		}).fail(console.error);
@@ -76,7 +76,7 @@ function ReportClient() {
 		system.getHostname().then(function (hostname) {
 			deliverMessage('hostname', hostname);
 		}).fail(console.error);
-
+*/
 		if (config.hddTemp.enabled) {
 			hddtemp.getHddTemp().then(function (temp) {
 				deliverMessage('hddtemp', temp);
