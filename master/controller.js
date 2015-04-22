@@ -111,7 +111,7 @@ exports.stats = function (req, res) {
 		.find()
 		.exec(function (err, clients) {
 
-			var totals = _.pluck(_.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'data'), 'drives'), 'totals');
+			var totals = _.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'drives'), 'totals');
 
 			res.json({
 				size: calculator.sum(_.pluck(totals, 'size')),
