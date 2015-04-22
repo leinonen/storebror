@@ -73,18 +73,26 @@ function handleReport(client, report) {
 			return;
 		}
 
+		client.lastUpdate = new Date();
+
 		client.save();
 
 	} else {
-		var newClient = new Client({cid: report.cid});
+		var newClient = new Client({
+			cid: report.cid,
+			lastUpdate: new Date()
+		});
 		newClient.save();
 		console.log('new client joined the party: %s', report.cid);
 	}
 }
 
 function isLessThanTwoHoursOld(client) {
+	if (client.lastUpdate === undefined){
+		return true;
+	}
 	var now = new Date();
-	var reportDate = new Date(client.data.lastUpdate);
+	var reportDate = new Date(client.lastUpdate);
 	var hours = Math.abs(now - reportDate) / (60 * 60 * 1000);
 	return hours < 2.0;
 }

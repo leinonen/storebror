@@ -20,7 +20,7 @@ client.on('report.error', function (err) {
 client.on('report.ws.error', function (err) {
 	console.error('error connecting to master. retrying in %d s', config.reportInterval / 1000);
 	retries++;
-	if (tries > 20) {
+	if (retries > 20) {
 		console.log('this is boring, going to sleep instead');
 		clearInterval(timer);
 	}
