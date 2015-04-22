@@ -39,15 +39,26 @@ exports.report = function (ws, req) {
 };
 
 
+function parseVersion(input){
+	var v = input.split('.');
+	return {major: v[0], minor:v[1], patch:v[1]}
+}
+
+
 function handleReport(client, report) {
 	if (client !== null) {
 
-		if (report.cid === undefined || report.type === undefined){
+		if (report.cid === undefined ||
+			  report.type === undefined ||
+			  report.data === undefined){
 			console.log('Invalid message recieved!');
 			return;
 		}
 
 		console.log('updating %s with %s', report.cid, report.type);
+
+		console.log(report.data);
+
 
 		if (report.type === 'drives') {
 			client.drives = report.data;
@@ -64,7 +75,7 @@ function handleReport(client, report) {
 			return;
 		}
 
-		client.save();
+		//client.save();
 
 	} else {
 		var newClient = new Client({cid: report.cid});

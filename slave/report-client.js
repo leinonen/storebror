@@ -58,6 +58,7 @@ function ReportClient() {
 
 		send({
 			cid: system.getSystemIdentifier(),
+			version: config.version,
 			data: data,
 			type: type
 		});
