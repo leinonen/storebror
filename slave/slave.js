@@ -11,8 +11,13 @@ client.on('report.sent', function (response) {
 	console.log(response.status);
 });
 
+// general error
 client.on('report.error', function (err) {
-	//console.error(err);
+	console.log(err);
+});
+
+// websocket error
+client.on('report.ws.error', function (err) {
 	console.error('error connecting to master. retrying in %d s', config.reportInterval / 1000);
 	retries++;
 	if (tries > 20) {
@@ -22,3 +27,4 @@ client.on('report.error', function (err) {
 });
 
 client.report();
+
