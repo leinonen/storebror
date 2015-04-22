@@ -107,7 +107,7 @@ exports.clients = function (req, res) {
 
 
 exports.stats = function (req, res) {
-	Client
+	/*	Client
 		.find()
 		.exec(function (err, clients) {
 
@@ -118,7 +118,13 @@ exports.stats = function (req, res) {
 				used: calculator.sum(_.pluck(totals, 'used')),
 				avail: calculator.sum(_.pluck(totals, 'avail'))
 			});
-		});
+		}); */
+
+	res.json({
+		size: {value: 0, unit: 'G'},
+		used: {value: 0, unit: 'G'},
+		avail: {value: 0, unit: 'G'}
+	});
 };
 
 
