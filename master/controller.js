@@ -27,7 +27,7 @@ exports.report = function (ws, req) {
 		if (report.cid === undefined ||
 			report.type === undefined ||
 			report.data === undefined){
-			console.log('Invalid message recieved!');
+			console.log('Invalid message recieved from ' + req.ip);
 			return;
 		}
 
