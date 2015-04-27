@@ -40,7 +40,7 @@ app.controller('AppController', function ($http, $interval) {
 
 	vm.isOld = function(index){
 		var now = new Date();
-		var reportDate = new Date(vm.clients[index].data.lastUpdate);
+		var reportDate = new Date(vm.clients[index].lastUpdate);
 		var hours = Math.abs(now - reportDate) / (60*60*1000);
 		return hours > 1.0;
 	};
@@ -49,10 +49,10 @@ app.controller('AppController', function ($http, $interval) {
 		vm.selectedClientIndex = idx;
 		vm.client = vm.clients[vm.selectedClientIndex];
 		vm.services = {
-			active: vm.client.data.services.filter(function (service) {
+			active: vm.client.services.filter(function (service) {
 				return service.running === true;
 			}),
-			inactive: vm.client.data.services.filter(function (service) {
+			inactive: vm.client.services.filter(function (service) {
 				return service.running === false;
 			})
 		}
