@@ -1,9 +1,9 @@
 <h4>Connected systems</h4>
 <div class="list-group">
     <a class="list-group-item"
-       ng-repeat="client in vm.clients | orderBy: client.system.hostname"
+       ng-repeat="client in vm.clients | orderBy: client.hostname"
        ng-click="vm.selectClient($index)"
-       ng-class="{active: $index === vm.selectedClientIndex}">{{client.system.hostname}}
+       ng-class="{active: $index === vm.selectedClientIndex}">{{client.hostname}}
         <span title="No data for last hour.."
               class="glyphicon glyphicon-alert pull-right"
               ng-show="vm.isOld($index)"></span>
