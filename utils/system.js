@@ -10,8 +10,7 @@ var exec = require('child-process-promise').exec;
 exports.getSystemIdentifier = function () {
 	var identifier = util.format('%s-%s-%s',
 		os.hostname(), os.platform(), os.release());
-	return crypto.createHash('md5').update('hurricane-Linux-3.13.0-33-generic').digest('hex');
-	//return identifier;
+	return crypto.createHash('md5').update(identifier).digest('hex');
 };
 
 
