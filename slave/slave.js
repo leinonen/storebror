@@ -24,7 +24,7 @@ client.on('connect.success', function(msg){
 });
 
 client.on('report.sent', function (response) {
-	console.log('sent %s report to master', response.status);
+	console.log('sent %s report to master', response.type);
 });
 
 client.on('connect.error', handleError);
