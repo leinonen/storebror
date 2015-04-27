@@ -2,6 +2,7 @@
     <span class="glyphicon glyphicon-chevron-down" ng-show="!vm.showFilesystems"></span>
     <span class="glyphicon glyphicon-chevron-up" ng-show="vm.showFilesystems"></span>
 </h4>
+<div class="table-responsive">
 <table class="table" ng-show="vm.showFilesystems">
     <tr>
         <th class="col-sm-2">Filesystem</th>
@@ -10,7 +11,7 @@
         <th class="col-sm-2">Used</th>
         <th class="col-sm-2">Avail</th>
     </tr>
-    <tr ng-repeat="disk in vm.client.data.drives.drives">
+    <tr ng-repeat="disk in vm.client.drives.drives">
         <td>{{disk.filesystem}}</td>
         <td>{{disk.mounted}}</td>
         <td>{{disk.size.value}}{{disk.size.unit}}</td>
@@ -20,8 +21,9 @@
     <tr>
         <th>Totals</th>
         <th>-</th>
-        <th>{{vm.client.data.drives.totals.size.value | number:2}}{{vm.client.data.drives.totals.size.unit}}</th>
-        <th>{{vm.client.data.drives.totals.used.value | number:2}}{{vm.client.data.drives.totals.used.unit}}</th>
-        <th>{{vm.client.data.drives.totals.avail.value | number:2}}{{vm.client.data.drives.totals.avail.unit}}</th>
+        <th>{{vm.client.drives.totals.size.value | number:2}}{{vm.client.drives.totals.size.unit}}</th>
+        <th>{{vm.client.drives.totals.used.value | number:2}}{{vm.client.drives.totals.used.unit}}</th>
+        <th>{{vm.client.drives.totals.avail.value | number:2}}{{vm.client.drives.totals.avail.unit}}</th>
     </tr>
 </table>
+</div>

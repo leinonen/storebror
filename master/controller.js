@@ -15,85 +15,114 @@ if (config.gpioEnabled) {
 	leds.test = new GPIO(config.leds.test, 'out');
 }
 
+
+exports.checkMessage = function (req, res, next) {
+	var report = req.body;
+	if (report.cid === undefined ||
+		report.type === undefined ||
+		report.data === undefined) {
+		console.log('Invalid message recieved from ' + req.ip);
+		res.sendStatus(400);
+	} else {
+		next();
+	}
+};
+
+exports.connect = function (req, res) {
+	var cid = req.body.cid;
+
+	Client
+		.findOne({cid: cid})
+		.exec(function (err, client) {
+			if (err) {
+				console.error(err.message);
+				res.sendStatus(400);
+			} else {
+				if (client === null) {
+					console.log('client not found - create it');
+					var newClient = new Client({cid: cid});
+					newClient.save();
+					res.json({id: newClient._id});
+				} else {
+					res.json({id: client._id});
+				}
+			}
+		});
+
+};
+
 /**
  * Process incomming reports from client.
  * @param ws
  * @param req
  */
-exports.report = function (ws, req) {
-	ws.on('message', function (msg) {
-		var report = JSON.parse(msg);
+exports.report = function (req, res) {
 
-		if (report.cid === undefined ||
-			report.type === undefined ||
-			report.data === undefined){
-			console.log('Invalid message recieved from ' + req.ip);
-			return;
-		}
+	var report = req.body;
 
-		Client
-			.findOne({cid: report.cid})
-			.exec(function (err, client) {
-				if (err) {
-					console.error(err);
+	console.log('incomming %s message', report.type);
+
+	Client
+		.findOne({_id: report.clientID})
+		.exec(function (err, client) {
+			if (err) {
+				console.error(err.message);
+				res.sendStatus(400);
+			} else {
+
+				if (client === null) {
+					console.log('client not found - must connect first!');
+					res.sendStatus(400);
 				} else {
+					console.log('client exists - update it');
 					handleReport(client, report);
+					res.sendStatus(200);
 				}
-			});
+			}
+		});
 
-		flash();
-	});
+	flash();
 };
 
 
-function parseVersion(input){
+function parseVersion(input) {
 	var v = input.split('.');
-	return {major: v[0], minor:v[1], patch:v[1]}
+	return {major: v[0], minor: v[1], patch: v[1]}
 }
 
-
+/**
+ * Handle the report for a client.
+ * Assume client is not null.
+ * @param client
+ * @param report
+ */
 function handleReport(client, report) {
-	if (client !== null) {
 
-		console.log('updating %s with %s', report.cid, report.type);
-		//console.log(report.data);
+	console.log('updating %s with %s', report.cid, report.type);
 
-		if (report.type === 'drives') {
-			client.drives = report.data;
-		} else if (report.type === 'services') {
-			client.services = report.data;
-		} else if (report.type === 'hostname') {
-			client.hostname = report.data;
-		} else if (report.type === 'hddtemp') {
-			client.hddtemp = report.data;
-		} else if (report.type === 'sysinfo') {
-			client.sysinfo = report.data;
-		} else {
-			console.log('wrong type! %s', report.type);
-			return;
-		}
-
-		client.lastUpdate = new Date();
-
-		client.save();
-
+	if (report.type === 'drives') {
+		client.drives = report.data;
+	} else if (report.type === 'services') {
+		client.services = report.data;
+	} else if (report.type === 'hostname') {
+		client.hostname = report.data;
+	} else if (report.type === 'hddtemp') {
+		client.hddtemp = report.data;
+	} else if (report.type === 'system') {
+		client.system = report.data;
+	} else if (report.type === 'config') {
+		client.config = report.data;
 	} else {
-		var newClient = new Client({cid: report.cid,lastUpdate: new Date()
-		});
-		newClient.save();
-		console.log('new client joined the party: %s', report.cid);
+		console.log('wrong type! %s', report.type);
+		return;
 	}
+
+	client.lastUpdate = new Date();
+
+	client.save();
 }
 
-function isLessThanTwoHoursOld(client) {
-	if (client.lastUpdate === undefined){
-		return true;
-	}
-	var now = new Date();
-	var reportDate = new Date(client.lastUpdate);
-	var hours = Math.abs(now - reportDate) / (60 * 60 * 1000);
-	return hours < 2.0;
-}
+
 
 exports.clients = function (req, res) {
 	Client
@@ -105,19 +134,11 @@ exports.clients = function (req, res) {
 
 
 exports.stats = function (req, res) {
-/*	Client
+	Client
 		.find()
 		.exec(function (err, clients) {
-
-			var totals = _.pluck(_.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'data'), 'drives'), 'totals');
-
-			res.json({
-				size: calculator.sum(_.pluck(totals, 'size')),
-				used: calculator.sum(_.pluck(totals, 'used')),
-				avail: calculator.sum(_.pluck(totals, 'avail'))
-			});
-		});*/
-	res.json([]);
+			res.json(calculateTotals(clients));
+		});
 };
 
 
@@ -135,6 +156,27 @@ exports.logRequest = function (req, res, next) {
 
 
 // Helper functions 
+
+
+function isLessThanTwoHoursOld(client) {
+	if (client.lastUpdate === undefined) {
+		return true;
+	}
+	var now = new Date();
+	var reportDate = new Date(client.lastUpdate);
+	var hours = Math.abs(now - reportDate) / (60 * 60 * 1000);
+	return hours < 2.0;
+}
+
+function calculateTotals(clients){
+	var totals = _.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'drives'), 'totals');
+	return {
+		size: calculator.sum(_.pluck(totals, 'size')),
+		used: calculator.sum(_.pluck(totals, 'used')),
+		avail: calculator.sum(_.pluck(totals, 'avail'))
+	}
+}
+
 
 
 function isStatic(url) {

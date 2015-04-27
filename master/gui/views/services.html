@@ -2,9 +2,9 @@
     <span class="glyphicon glyphicon-chevron-down" ng-show="!vm.showServices"></span>
     <span class="glyphicon glyphicon-chevron-up" ng-show="vm.showServices"></span></h4>
 
-<p ng-show="vm.client.data.services.length === 0">Not available</p>
+<p ng-show="vm.client.services.length === 0">Unable to retrieve services on this machine</p>
 <div class="row" ng-show="vm.showServices">
-    <div class="col-sm-6" ng-show="vm.client.data.services.length > 0">
+    <div class="col-sm-6" ng-show="vm.client.services.length > 0">
         <table class="table">
             <tr>
                 <th class="col-sm-2">Running services</th>
@@ -14,7 +14,7 @@
             </tr>
         </table>
     </div>
-    <div class="col-sm-6" ng-show="vm.client.data.services.length > 0">
+    <div class="col-sm-6" ng-show="vm.client.services.length > 0">
         <table class="table">
             <tr>
                 <th class="col-sm-2">Inactive services</th>

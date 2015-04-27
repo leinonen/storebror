@@ -1,7 +1,7 @@
 var http = require('request-promise-json');
 var util = require('util');
 var events = require('events');
-var WebSocket = require('ws');
+//var WebSocket = require('ws');
 var drives = require('../utils/drives');
 var system = require('../utils/system');
 var services = require('../utils/services');
@@ -12,6 +12,13 @@ function ReportClient() {
 
 	var me = this;
 	events.EventEmitter.call(this);
+
+	me.clientID = null;
+
+	this.connect = function(){
+		sendConnect({cid: system.getSystemIdentifier()});
+	};
+
 
 	this.report = function () {
 		drives.get().then(function (drives) {
@@ -32,43 +39,41 @@ function ReportClient() {
 			}).fail(reportError);
 		}
 
-		deliverMessage('sysinfo', system.getSystemInformation());
+		deliverMessage('system', system.getSystemInformation());
+
+		deliverMessage('config', config);
 	};
 
 
-	function reportSuccess(response) {
-		me.emit('report.sent', response);
-	}
-
-	function reportError(err) {
+	function reportError(err){
 		me.emit('report.error', err);
 	}
 
-	function socketError(err) {
-		me.emit('report.ws.error', err);
+	function sendConnect(payload){
+		http
+			.post(util.format('http://%s:%s/connect', config.masterHost, config.masterPort), payload)
+			.then(function(response){
+				me.emit('connect.success', {id: response.id});
+			})
+			.catch(function(err){
+				me.emit('connect.error', err);
+			});
 	}
 
 	function send(payload) {
-		var ws = new WebSocket(util.format('ws://%s:%s/report', config.masterHost, config.masterPort));
-		ws.on('open', function () {
-			ws.send(JSON.stringify(payload), function (err) {
-				if (err) {
-					socketError(err);
-				} else {
-					reportSuccess({status: payload.type + ' sent successfully.'});
-				}
+		http
+			.post(util.format('http://%s:%s/report', config.masterHost, config.masterPort), payload)
+			.then(function(response){
+				me.emit('report.sent', {type: payload.type});
+			})
+			.catch(function(err){
+				me.emit('report.error', err);
 			});
-		});
-		ws.on('error', socketError);
-		ws.on('message', function (data, flags) {
-			// Handle messages from the server
-			console.log('GOT MESSAGE FROM SERVER');
-			console.log(data);
-		});
 	}
 
 	function deliverMessage(type, data) {
 		send({
+			clientID: me.clientID,
 			cid: system.getSystemIdentifier(),
 			version: config.version,
 			type: type,

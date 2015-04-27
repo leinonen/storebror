@@ -7,6 +7,18 @@
   background: none;
 }
 
+.disk-summary .total {
+    color: #ffffff;
+}
+
+.disk-summary .used {
+    color: #d16853;
+}
+
+.disk-summary .avail {
+    color: #7cc35e;
+}
+
 .disk-summary td {
   text-align: center;
 }
@@ -25,4 +37,22 @@ header h1 {
 
 .storebror-header-click {
     cursor: pointer;
+}
+
+.hostname {
+    color: #fc0;
+    margin-top: 0;
+}
+
+.cid {
+    color: #999;
+}
+
+.footer {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.footer img {
+    display: inline;
 }

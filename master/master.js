@@ -20,8 +20,11 @@ app.get('/clients', controller.clients);
 app.get('/stats', controller.stats);
 app.get('/config', controller.config);
 
+app.post('/connect', controller.connect);
+app.post('/report', controller.checkMessage, controller.report);
+
 // websocket routes
-app.ws('/report', controller.report);
+//app.ws('/report', controller.report);
 
 app.listen(config.port);
 

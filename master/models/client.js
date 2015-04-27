@@ -6,10 +6,11 @@ var clientSchema = mongoose.Schema({
 	cid: String,
 	lastUpdate: Date,
 	hostname: String,
-	drives: [{}],
+	config: {},
+	system: {},
+	drives: {},
 	hddtemp: [{}],
-	services: [{}],
-	system: [{}]
+	services: [{}]
 });
 
 var Client = mongoose.model('Client', clientSchema);

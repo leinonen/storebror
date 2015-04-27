@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body ng-app="app">
-<div class="container" ng-controller="AppController as vm">
+<div class="container-fluid" ng-controller="AppController as vm">
 
     <header>
         <div class="row">
@@ -26,10 +26,15 @@
     </header>
 
     <div class="row">
-        <div class="col-sm-3">
-            <div ng-include="'views/client-list.html'"></div>
+        <div class="col-sm-4">
+            <div ng-include="'views/client-list.html'" class="hidden-xs"></div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-8">
+            <div ng-include="'views/client-list.html'" class="visible-xs"></div>
+
+            <h2 class="hostname">{{vm.client.system.hostname}}</h2>
+            <h4 class="cid">{{vm.client.cid}}</h4>
+
             <div class="client" ng-show="vm.clients.length > 0">
                 <div class="row">
                     <div class="col-md-6">
@@ -42,9 +47,17 @@
                 <div ng-include="'views/sysinfo.html'"></div>
                 <div ng-include="'views/drives.html'"></div>
                 <div ng-include="'views/hddtemp.html'"></div>
-                <div ng-include="'views/services.html'"></div>
+                <div class="hidden-xs" ng-include="'views/services.html'"></div>
             </div>
         </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 footer">
+        Storebror
+        <a href="http://pharatropic.se"><img src="images/ptc-logo.png" title="Pharatropic 2015"/></a>
+        By Pharatropic
+      </div>
     </div>
 </div>
 
