@@ -1,3 +1,6 @@
+body {
+    background: url('images/stressed_linen.png');
+}
 .client {
   padding-bottom: 30px;
 }

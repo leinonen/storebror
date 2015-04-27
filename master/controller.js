@@ -6,8 +6,6 @@ var calculator = require('../utils/unitcalculator');
 
 var leds = {};
 
-var messageQueue = [];
-
 if (config.gpioEnabled) {
 	var GPIO = require('onoff').Gpio;
 	leds.status = new GPIO(config.leds.status, 'out');
@@ -48,7 +46,6 @@ exports.connect = function (req, res) {
 				}
 			}
 		});
-
 };
 
 /**
@@ -60,8 +57,6 @@ exports.report = function (req, res) {
 
 	var report = req.body;
 
-	console.log('incomming %s message', report.type);
-
 	Client
 		.findOne({_id: report.clientID})
 		.exec(function (err, client) {
@@ -69,12 +64,10 @@ exports.report = function (req, res) {
 				console.error(err.message);
 				res.sendStatus(400);
 			} else {
-
 				if (client === null) {
 					console.log('client not found - must connect first!');
 					res.sendStatus(400);
 				} else {
-					console.log('client exists - update it');
 					handleReport(client, report);
 					res.sendStatus(200);
 				}
