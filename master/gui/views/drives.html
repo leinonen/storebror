@@ -3,7 +3,7 @@
     <span class="glyphicon glyphicon-chevron-up" ng-show="vm.showFilesystems"></span>
 </h4>
 <div class="table-responsive">
-<table class="table" ng-show="vm.showFilesystems">
+<table class="table">
     <tr>
         <th class="col-sm-2">Filesystem</th>
         <th class="col-sm-4">Mounted on</th>
@@ -11,7 +11,7 @@
         <th class="col-sm-2">Used</th>
         <th class="col-sm-2">Avail</th>
     </tr>
-    <tr ng-repeat="disk in vm.client.drives.drives">
+    <tr ng-repeat="disk in vm.client.drives.drives" ng-show="vm.showFilesystems">
         <td>{{disk.filesystem}}</td>
         <td>{{disk.mounted}}</td>
         <td>{{disk.size.value}}{{disk.size.unit}}</td>
