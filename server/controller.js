@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-var config = require('./config/master-config');
+var config = require('./config');
 var Client = require('./models/client');
 var calculator = require('../utils/unitcalculator');
 

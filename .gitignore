@@ -1,4 +1,4 @@
 .idea
 node_modules
-master/gui/components
+server/gui/components
 *.log

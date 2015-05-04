@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var controller = require('./controller');
 var app        = express();
 var expressWs  = require('express-ws')(app);
-var config     = require('./config/master-config');
+var config     = require('./config');
 var mongoose   = require('mongoose');
 
 mongoose.connect(config.mongo.url, config.mongo.opts);

@@ -1,7 +1,7 @@
 var exec = require('child-process-promise').exec;
 var _ = require('lodash');
 var Q = require('q');
-var config = require('../slave/config/slave-config');
+var config = require('../client/config');
 
 var output = '/dev/sda: WDC WD3200JB-00KFA0: 38°C\n' +
 	'/dev/sdb: WDC WD5000AAKS-00TMA0: 39°C\n' +

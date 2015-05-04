@@ -6,7 +6,7 @@ var drives = require('../utils/drives');
 var system = require('../utils/system');
 var services = require('../utils/services');
 var hddtemp = require('../utils/hddtemp');
-var config = require('./config/slave-config');
+var config = require('./config');
 
 function ReportClient() {
 

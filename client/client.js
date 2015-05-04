@@ -1,5 +1,5 @@
 var ReportClient = require('./report-client');
-var config = require('./config/slave-config');
+var config = require('./config');
 var client = new ReportClient();
 var retries = 0;
 var timer = null;
