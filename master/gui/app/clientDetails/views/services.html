@@ -1,0 +1,27 @@
+<h4 ng-click="ctrl.toggleServices()" class="storebror-header-click">Services
+    <span class="glyphicon glyphicon-chevron-down" ng-show="!ctrl.showServices"></span>
+    <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showServices"></span></h4>
+
+<p ng-show="ctrl.client.services.length === 0">Unable to retrieve services on this machine</p>
+<div class="row" ng-show="ctrl.showServices">
+    <div class="col-sm-6">
+        <table class="table">
+            <tr>
+                <th class="col-sm-2">Running services</th>
+            </tr>
+            <tr ng-repeat="service in ctrl.services.active">
+                <td>{{service.name}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-6">
+        <table class="table">
+            <tr>
+                <th class="col-sm-2">Inactive services</th>
+            </tr>
+            <tr ng-repeat="service in ctrl.services.inactive">
+                <td>{{service.name}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

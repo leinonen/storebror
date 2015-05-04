@@ -1,0 +1,19 @@
+<div class="client-details-container">
+  <h2 class="hostname">{{ctrl.client.hostname}}</h2>
+  <h4 class="cid">{{ctrl.client.cid}}</h4>
+
+  <div class="client">
+    <div class="row">
+      <div class="col-md-6">
+        <div ng-include="'app/clientDetails/views/client.html'"></div>
+      </div>
+      <div class="col-md-6">
+        <div ng-include="'app/clientDetails/views/cpu.html'"></div>
+      </div>
+    </div>
+    <div ng-include="'app/clientDetails/views/sysinfo.html'"></div>
+    <div ng-include="'app/clientDetails/views/drives.html'"></div>
+    <div ng-include="'app/clientDetails/views/hddtemp.html'"></div>
+    <div class="hidden-xs" ng-include="'app/clientDetails/views/services.html'"></div>
+  </div>
+</div>

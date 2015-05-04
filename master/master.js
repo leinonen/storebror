@@ -17,6 +17,8 @@ app.use(express.static(path.join(__dirname, '/gui')));
 
 // api for the user interface??
 app.get('/clients', controller.clients);
+app.get('/clients/:id', controller.client);
+
 app.get('/stats', controller.stats);
 app.get('/config', controller.config);
 

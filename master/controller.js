@@ -116,12 +116,37 @@ function handleReport(client, report) {
 }
 
 
+function isOld(lastUpdate){
+	var now = new Date();
+	var reportDate = new Date(lastUpdate);
+	var hours = Math.abs(now - reportDate) / (60*60*1000);
+	return hours > 1.0;
+}
 
 exports.clients = function (req, res) {
 	Client
 		.find()
+		.select('_id')
+		.select('cid')
+		.select('hostname')
+		.select('lastUpdate')
 		.exec(function (err, list) {
-			res.json(list.filter(isLessThanTwoHoursOld));
+			res.json(list.map(function(item){
+				return {
+					_id: item._id,
+					cid: item.cid,
+					hostname: item.hostname,
+					stale: isOld(item.lastUpdate)
+				};
+			}));
+		});
+};
+
+exports.client = function (req, res) {
+	Client
+		.findOne({_id: req.params.id})
+		.exec(function (err, c) {
+			res.json(c);
 		});
 };
 
@@ -161,7 +186,7 @@ function isLessThanTwoHoursOld(client) {
 	return hours < 2.0;
 }
 
-function calculateTotals(clients){
+function calculateTotals(clients) {
 	var totals = _.pluck(_.pluck(clients.filter(isLessThanTwoHoursOld), 'drives'), 'totals');
 	return {
 		size: calculator.sum(_.pluck(totals, 'size')),
@@ -169,7 +194,6 @@ function calculateTotals(clients){
 		avail: calculator.sum(_.pluck(totals, 'avail'))
 	}
 }
-
 
 
 function isStatic(url) {

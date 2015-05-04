@@ -2,7 +2,7 @@ module.exports = {
 
 	name: 'Pharatropic',
 
-	port: 80,
+	port: 8080,
 
 	mongo: {
 		url: '192.168.83.155:27017/storebror_dev',

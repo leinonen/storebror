@@ -10,12 +10,12 @@
         <th class="col-sm-2">Total Memory</th>
     </tr>
     <tr>
-        <td>{{vm.client.system.hostname}}</td>
-        <td>{{vm.client.system.local}}</td>
-        <td>{{vm.client.system.platform}}</td>
-        <td>{{vm.client.system.arch}}</td>
-        <td>{{(vm.client.system.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
-        <td>{{(vm.client.system.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+        <td>{{ctrl.client.system.hostname}}</td>
+        <td>{{ctrl.client.system.local}}</td>
+        <td>{{ctrl.client.system.platform}}</td>
+        <td>{{ctrl.client.system.arch}}</td>
+        <td>{{(ctrl.client.system.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
+        <td>{{(ctrl.client.system.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
     </tr>
 </table>
 </div>

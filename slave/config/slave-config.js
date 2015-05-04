@@ -3,8 +3,9 @@ module.exports = {
 
 	version: packageJson.version,
 
-	masterHost: '192.168.1.107',
-	masterPort: 80,
+	//masterHost: '192.168.1.107',
+	masterHost: '127.0.0.1',
+	masterPort: 8080,
 
 	// How often to send reports (ms)
 	reportInterval: 1000 * 30,

@@ -1,67 +1,61 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Storebror</title>
-    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css'>
-    <!-- <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css"> -->
-    <link rel="stylesheet" href="theme.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Storebror</title>
+  <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body ng-app="app">
-<div class="container-fluid" ng-controller="AppController as vm">
+<div class="container-fluid">
 
-    <header>
-        <div class="row">
-            <div class="col-sm-3">
-                <h1>{{vm.title}}</h1>
-            </div>
-            <div class="col-sm-9">
-                <div ng-include="'views/totals.html'"></div>
-            </div>
-        </div>
-    </header>
-
+  <header>
     <div class="row">
-        <div class="col-sm-4">
-            <div ng-include="'views/client-list.html'" class="hidden-xs"></div>
-        </div>
-        <div class="col-sm-8">
-            <div ng-include="'views/client-list.html'" class="visible-xs"></div>
-
-            <h2 class="hostname">{{vm.client.hostname}}</h2>
-            <h4 class="cid">{{vm.client.cid}}</h4>
-
-            <div class="client" ng-show="vm.clients.length > 0">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div ng-include="'views/client.html'"></div>
-                    </div>
-                    <div class="col-md-6">
-                        <div ng-include="'views/cpu.html'"></div>
-                    </div>
-                </div>
-                <div ng-include="'views/sysinfo.html'"></div>
-                <div ng-include="'views/drives.html'"></div>
-                <div ng-include="'views/hddtemp.html'"></div>
-                <div class="hidden-xs" ng-include="'views/services.html'"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12 footer">
-        Storebror
-        <a href="http://pharatropic.se"><img src="images/ptc-logo.png" title="Pharatropic 2015"/></a>
-        By Pharatropic
+      <div class="col-sm-3">
+        <h1>Pharatropic</h1>
+      </div>
+      <div class="col-sm-9">
+        <system-totals></system-totals>
       </div>
     </div>
+  </header>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <client-list class="hidden-xs"></client-list>
+    </div>
+    <div class="col-sm-8">
+      <client-list class="visible-xs"></client-list>
+      <client-details></client-details>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 footer">
+      Storebror
+      <a href="http://pharatropic.se"><img src="images/ptc-logo.png" title="Pharatropic 2015"/></a>
+      By Pharatropic
+    </div>
+  </div>
 </div>
 
 <script src="components/angular/angular.js"></script>
-<script src="app.js"></script>
+<script src="app/app.js"></script>
+<script src="app/services/client.service.js"></script>
+<script src="app/services/stats.service.js"></script>
+
+<script src="app/clientList/client_list.controller.js"></script>
+<script src="app/clientList/client_list.directive.js"></script>
+
+<script src="app/clientDetails/client_details.controller.js"></script>
+<script src="app/clientDetails/client_details.directive.js"></script>
+
+<script src="app/systemTotals/system_totals.controller.js"></script>
+<script src="app/systemTotals/system_totals.directive.js"></script>
+
 </body>
 </html>

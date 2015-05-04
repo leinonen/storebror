@@ -1,0 +1,13 @@
+<div>
+  <h4>Connected systems</h4>
+
+  <div class="list-group">
+    <a class="list-group-item"
+       ng-repeat="client in ctrl.clients | orderBy: client.hostname"
+       ng-click="ctrl.selectClient(client._id)"
+       ng-class="{active: client._id === ctrl.selectedClient}">{{client.hostname}}
+      <span ng-show="client.stale" title="No data for last hour.." class="glyphicon glyphicon-alert pull-right"></span>
+    </a>
+  </div>
+  <p ng-show="ctrl.clients.length === 0">No connected clients</p>
+</div>
