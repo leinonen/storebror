@@ -11,6 +11,7 @@ The GPIO pins are used to flash LEDs to display status when data is recieved by 
 * Show system information
 * Show mounted filesystems
 * Show services (works on linux distros using initctl)
+* Flash LEDS usin GPIO pins (if running master on a Raspberry Pi)
 
 ## Master (server/server.js)
 Runs on Raspberry Pi (for GPIO).
