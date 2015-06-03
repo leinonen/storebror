@@ -130,12 +130,13 @@ exports.clients = function (req, res) {
 		.select('cid')
 		.select('hostname')
 		.select('lastUpdate')
+		.select('system')
 		.exec(function (err, list) {
 			res.json(list.map(function(item){
 				return {
 					_id: item._id,
 					cid: item.cid,
-					hostname: item.hostname,
+					hostname: item.hostname || item.system.hostname || item.system.local,
 					stale: isOld(item.lastUpdate)
 				};
 			}));
@@ -148,6 +149,17 @@ exports.client = function (req, res) {
 		.exec(function (err, c) {
 			res.json(c);
 		});
+};
+
+exports.updateClient = function (req, res) {
+  Client
+    .findOne({_id: req.params.id})
+    .exec(function (err, c) {
+      c.metadata = req.body.metadata;
+      c.save();
+      console.log('updated metadata');
+      res.json(c);
+    });
 };
 
 

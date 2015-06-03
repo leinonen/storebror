@@ -1,27 +1,32 @@
-<h4 ng-click="ctrl.toggleServices()" class="storebror-header-click">Services
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <span ng-click="ctrl.toggleServices()" class="storebror-header-click">Services
     <span class="glyphicon glyphicon-chevron-down" ng-show="!ctrl.showServices"></span>
-    <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showServices"></span></h4>
+    <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showServices"></span></span>
+  </div>
 
-<p ng-show="ctrl.client.services.length === 0">Unable to retrieve services on this machine</p>
-<div class="row" ng-show="ctrl.showServices">
+  <p ng-show="ctrl.client.services.length === 0">Unable to retrieve services on this machine</p>
+
+  <div class="row" ng-show="ctrl.showServices">
     <div class="col-sm-6">
-        <table class="table">
-            <tr>
-                <th class="col-sm-2">Running services</th>
-            </tr>
-            <tr ng-repeat="service in ctrl.services.active">
-                <td>{{service.name}}</td>
-            </tr>
-        </table>
+      <table class="table">
+        <tr>
+          <th class="col-sm-2">Running services</th>
+        </tr>
+        <tr ng-repeat="service in ctrl.services.active">
+          <td>{{service.name}} <span class="glyphicon glyphicon-ok pull-right text-success"></span></td>
+        </tr>
+      </table>
     </div>
     <div class="col-sm-6">
-        <table class="table">
-            <tr>
-                <th class="col-sm-2">Inactive services</th>
-            </tr>
-            <tr ng-repeat="service in ctrl.services.inactive">
-                <td>{{service.name}}</td>
-            </tr>
-        </table>
+      <table class="table">
+        <tr>
+          <th class="col-sm-2">Inactive services</th>
+        </tr>
+        <tr ng-repeat="service in ctrl.services.inactive">
+          <td>{{service.name}} <span class="glyphicon glyphicon-remove pull-right text-danger"></span></td>
+        </tr>
+      </table>
     </div>
+  </div>
 </div>

@@ -1,21 +1,24 @@
-<h4>System information</h4>
-<div class="table-responsive">
-<table class="table">
-    <tr>
+<div class="panel panel-success">
+  <!-- Default panel contents -->
+  <div class="panel-heading">System Information</div>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
         <th class="col-sm-2">Hostname</th>
         <th class="col-sm-2">IP</th>
         <th class="col-sm-2">Platform</th>
         <th class="col-sm-2">Architecture</th>
         <th class="col-sm-2">Free Memory</th>
         <th class="col-sm-2">Total Memory</th>
-    </tr>
-    <tr>
+      </tr>
+      <tr>
         <td>{{ctrl.client.system.hostname}}</td>
         <td>{{ctrl.client.system.local}}</td>
         <td>{{ctrl.client.system.platform}}</td>
         <td>{{ctrl.client.system.arch}}</td>
         <td>{{(ctrl.client.system.freemem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
         <td>{{(ctrl.client.system.totalmem / 1024.0 / 1024.0 / 1024.0) | number : 1}} GB</td>
-    </tr>
-</table>
+      </tr>
+    </table>
+  </div>
 </div>

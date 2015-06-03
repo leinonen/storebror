@@ -10,7 +10,10 @@ var clientSchema = mongoose.Schema({
 	system: {},
 	drives: {},
 	hddtemp: [{}],
-	services: [{}]
+	services: [{}],
+  metadata: {
+    description: String
+  }
 });
 
 var Client = mongoose.model('Client', clientSchema);

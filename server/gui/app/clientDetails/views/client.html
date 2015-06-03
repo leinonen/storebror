@@ -1,27 +1,39 @@
-<h4>System</h4>
-<table class="table">
+<div class="panel panel-success">
+  <div class="panel-heading">{{ctrl.client.hostname || ctrl.client.system.hostname}}
+    <span class="glyphicon glyphicon-pencil pull-right" ng-click="ctrl.toggleEdit()"></span>
+  </div>
+  <div class="panel-body" ng-show="ctrl.client.metadata.description && ctrl.editMode === false">
+    {{ctrl.client.metadata.description}}
+  </div>
+
+  <div class="panel-body" ng-show="ctrl.editMode === true">
+    <input type="text" class="form-control" ng-model="ctrl.client.metadata.description"/>
+  </div>
+
+  <table class="table">
     <tr>
-        <th>Version</th>
-        <td>{{ctrl.client.config.version}}</td>
+      <th>Version</th>
+      <td>{{ctrl.client.config.version}}</td>
     </tr>
     <tr>
-        <th>Uptime</th>
-        <td>{{ctrl.client.system.uptime}}</td>
+      <th>Uptime</th>
+      <td>{{ctrl.client.system.uptime}}</td>
     </tr>
     <tr>
-        <th>Load Avg</th>
-        <td>
-            {{ctrl.client.system.loadavg[0] | number:2}},
-            {{ctrl.client.system.loadavg[1] | number:2}},
-            {{ctrl.client.system.loadavg[2] | number:2}}
-        </td>
+      <th>Load Avg</th>
+      <td>
+        {{ctrl.client.system.loadavg[0] | number:2}},
+        {{ctrl.client.system.loadavg[1] | number:2}},
+        {{ctrl.client.system.loadavg[2] | number:2}}
+      </td>
     </tr>
     <tr>
-        <th>Last updated</th>
-        <td>{{ctrl.client.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <th>Last updated</th>
+      <td>{{ctrl.client.lastUpdate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
     </tr>
     <tr>
-        <th>Report interval</th>
-        <td>{{ctrl.client.config.reportInterval / 1000}} s</td>
+      <th>Report interval</th>
+      <td>{{ctrl.client.config.reportInterval / 1000}} s</td>
     </tr>
-</table>
+  </table>
+</div>

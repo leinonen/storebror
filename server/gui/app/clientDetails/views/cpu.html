@@ -1,15 +1,18 @@
-<h4>CPU</h4>
-<table class="table">
+<div class="panel panel-success">
+  <!-- Default panel contents -->
+  <div class="panel-heading">CPU</div>
+  <table class="table">
     <tr>
-        <th>Cores</th>
-        <td>{{ctrl.client.system.cpus.length}}</td>
+      <th>Cores</th>
+      <td>{{ctrl.client.system.cpus.length}}</td>
     </tr>
     <tr>
-        <th>Model</th>
-        <td>{{ctrl.client.system.cpus[0].model}}</td>
+      <th>Model</th>
+      <td>{{ctrl.client.system.cpus[0].model}}</td>
     </tr>
     <tr>
-        <th>Speed</th>
-        <td>{{ctrl.client.system.cpus[0].speed}} MHz</td>
+      <th>Speed</th>
+      <td>{{ctrl.client.system.cpus[0].speed}} MHz</td>
     </tr>
-</table>
+  </table>
+</div>

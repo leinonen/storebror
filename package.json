@@ -1,6 +1,6 @@
 {
   "name": "storebror",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Server monitoring software",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,9 @@
     "child-process-promise": "^1.0.2",
     "express": "^4.12.3",
     "express-ws": "^0.2.6",
+    "grunt": "^0.4.5",
+    "grunt-nodemon": "^0.4.0",
+    "load-grunt-tasks": "^3.2.0",
     "lodash": "^3.6.0",
     "mongoose": "^4.0.1",
     "onoff": "^1.0.2",

@@ -19,6 +19,12 @@
 				});
 			};
 
+      clientService.updateClient = function (id, client) {
+        return $http.post('/clients/' + id, client).then(function (response) {
+          return response.data;
+        });
+      };
+
 		});
 
 })();

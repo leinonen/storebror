@@ -1,29 +1,31 @@
-<h4 ng-click="ctrl.toggleFilesystems()" class="storebror-header-click">Mounted filesystems
+<div class="panel panel-success">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><span ng-click="ctrl.toggleFilesystems()" class="storebror-header-click">Mounted filesystems
     <span class="glyphicon glyphicon-chevron-down" ng-show="!ctrl.showFilesystems"></span>
-    <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showFilesystems"></span>
-</h4>
-<div class="table-responsive">
-<table class="table">
-    <tr>
+    <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showFilesystems"></span></span></div>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
         <th class="col-sm-2">Filesystem</th>
         <th class="col-sm-4">Mounted on</th>
         <th class="col-sm-2">Size</th>
         <th class="col-sm-2">Used</th>
         <th class="col-sm-2">Avail</th>
-    </tr>
-    <tr ng-repeat="disk in ctrl.client.drives.drives" ng-show="ctrl.showFilesystems">
+      </tr>
+      <tr ng-repeat="disk in ctrl.client.drives.drives" ng-show="ctrl.showFilesystems">
         <td>{{disk.filesystem}}</td>
         <td>{{disk.mounted}}</td>
         <td>{{disk.size.value}}{{disk.size.unit}}</td>
         <td>{{disk.used.value}}{{disk.used.unit}}</td>
         <td>{{disk.avail.value}}{{disk.avail.unit}}</td>
-    </tr>
-    <tr>
+      </tr>
+      <tr>
         <th>Totals</th>
         <th>-</th>
         <th>{{ctrl.client.drives.totals.size.value | number:2}}{{ctrl.client.drives.totals.size.unit}}</th>
         <th>{{ctrl.client.drives.totals.used.value | number:2}}{{ctrl.client.drives.totals.used.unit}}</th>
         <th>{{ctrl.client.drives.totals.avail.value | number:2}}{{ctrl.client.drives.totals.avail.unit}}</th>
-    </tr>
-</table>
+      </tr>
+    </table>
+  </div>
 </div>

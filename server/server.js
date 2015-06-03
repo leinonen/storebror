@@ -6,6 +6,7 @@ var app        = express();
 var expressWs  = require('express-ws')(app);
 var config     = require('./config');
 var mongoose   = require('mongoose');
+var port = process.env.PORT || config.port;
 
 mongoose.connect(config.mongo.url, config.mongo.opts);
 console.log('connecting to %s', config.mongo.url);
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, '/gui')));
 // api for the user interface??
 app.get('/clients', controller.clients);
 app.get('/clients/:id', controller.client);
+app.post('/clients/:id', controller.updateClient);
 
 app.get('/stats', controller.stats);
 app.get('/config', controller.config);
@@ -28,6 +30,6 @@ app.post('/report', controller.checkMessage, controller.report);
 // websocket routes
 //app.ws('/report', controller.report);
 
-app.listen(config.port);
+app.listen(port);
 
-console.log('master started at port %d', config.port);
+console.log('master started at port %d', port);
