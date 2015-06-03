@@ -5,9 +5,11 @@
     <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showServices"></span></span>
   </div>
 
-  <p ng-show="ctrl.client.services.length === 0">Unable to retrieve services on this machine</p>
+  <div class="panel-body" ng-show="ctrl.client.services.length === 0">
+    Unable to retrieve services on this machine. System must have initctl installed.
+  </div>
 
-  <div class="row" ng-show="ctrl.showServices">
+  <div class="row" ng-show="ctrl.showServices && ctrl.client.services.length > 0">
     <div class="col-sm-6">
       <table class="table">
         <tr>
