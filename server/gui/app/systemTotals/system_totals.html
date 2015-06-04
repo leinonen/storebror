@@ -5,5 +5,10 @@
       <td><h1 class="used hidden-xs">Used: {{ctrl.total.used.value | number : 1}}{{ctrl.total.used.unit}}</h1></td>
       <td><h1 class="avail">Avail: {{ctrl.total.avail.value | number : 1}}{{ctrl.total.avail.unit}}</h1></td>
     </tr>
+    <tr>
+      <td>Computers: {{ctrl.cpustats.computers}}</td>
+      <td>Cores: {{ctrl.cpustats.totalCores}}</td>
+      <td>Total {{ctrl.cpustats.totalGHz | number: 1}} Ghz</td>
+    </tr>
   </table>
 </div>

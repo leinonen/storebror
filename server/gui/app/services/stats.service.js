@@ -13,6 +13,12 @@
 				});
 			};
 
+      statsService.getCpuInfo = function () {
+        return $http.get('/cpuinfo').then(function (response) {
+          return response.data;
+        });
+      };
+
 		});
 
 })();

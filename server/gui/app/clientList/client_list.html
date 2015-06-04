@@ -1,6 +1,5 @@
-<div class="panel panel-success">
-  <!-- Default panel contents -->
-  <div class="panel-heading">{{ctrl.clients.length}} Connected Systems</div>
+<div class="panel panel-info">
+  <div class="panel-heading">Connected Systems</div>
   <div class="list-group">
     <a class="list-group-item"
        ng-repeat="client in ctrl.clients | orderBy: client.hostname"

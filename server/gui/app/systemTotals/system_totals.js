@@ -12,10 +12,19 @@
 			avail: {value: 0}
 		};
 
+    controller.cpustats = {
+      computers: 0,
+      totalCores: 0,
+      totalGHz: 0
+    };
+
 		function getStats() {
 			StatsService.getStats().then(function (totals) {
 				controller.total = totals;
 			});
+      StatsService.getCpuInfo().then(function (cpuinfo) {
+        controller.cpustats = cpuinfo;
+      });
 		}
 
 		getStats();

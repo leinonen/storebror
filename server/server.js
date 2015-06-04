@@ -22,6 +22,7 @@ app.get('/clients/:id', controller.client);
 app.post('/clients/:id', controller.updateClient);
 
 app.get('/stats', controller.stats);
+app.get('/cpuinfo', controller.cpuinfo);
 app.get('/config', controller.config);
 
 app.post('/connect', controller.connect);
