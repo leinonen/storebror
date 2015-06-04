@@ -10,9 +10,9 @@
       <th>Model</th>
       <td>{{ctrl.client.system.cpus[0].model}}</td>
     </tr>
-    <tr>
-      <th>Speed</th>
-      <td>{{ctrl.client.system.cpus[0].speed}} MHz</td>
+    <tr ng-repeat="cpu in ctrl.client.system.cpus">
+      <th>Core #{{$index + 1}}</th>
+      <td>{{cpu.speed}} MHz</td>
     </tr>
   </table>
 </div>
