@@ -1,8 +1,9 @@
 <div class="panel panel-success">
   <div class="panel-heading">
-    <span ng-click="ctrl.toggleServices()" class="storebror-header-click">Services
-    <span class="glyphicon glyphicon-chevron-down" ng-show="!ctrl.showServices"></span>
-    <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showServices"></span></span>
+    <span ng-click="ctrl.toggleServices()" class="storebror-header-click"><span class="glyphicon glyphicon-chevron-down" ng-show="!ctrl.showServices"></span>
+    <span class="glyphicon glyphicon-chevron-up" ng-show="ctrl.showServices"></span> Services
+
+    </span>
   </div>
 
   <div class="panel-body" ng-show="ctrl.client.services.length === 0">
