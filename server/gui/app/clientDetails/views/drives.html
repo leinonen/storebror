@@ -13,6 +13,7 @@
         <th class="col-sm-2">Size</th>
         <th class="col-sm-2">Used</th>
         <th class="col-sm-2">Avail</th>
+        <th class="col-sm-2">Temp</th>
       </tr>
       <tr ng-repeat="disk in ctrl.client.drives.drives" ng-show="ctrl.showFilesystems">
         <td>{{disk.filesystem}}</td>
@@ -20,6 +21,7 @@
         <td>{{disk.size.value}}{{disk.size.unit}}</td>
         <td>{{disk.used.value}}{{disk.used.unit}}</td>
         <td>{{disk.avail.value}}{{disk.avail.unit}}</td>
+        <td>{{disk.temp || '-'}}</td>
       </tr>
       <tr>
         <th>Totals</th>
@@ -27,6 +29,7 @@
         <th>{{ctrl.client.drives.totals.size.value | number:2}}{{ctrl.client.drives.totals.size.unit}}</th>
         <th>{{ctrl.client.drives.totals.used.value | number:2}}{{ctrl.client.drives.totals.used.unit}}</th>
         <th>{{ctrl.client.drives.totals.avail.value | number:2}}{{ctrl.client.drives.totals.avail.unit}}</th>
+        <th></th>
       </tr>
     </table>
   </div>
