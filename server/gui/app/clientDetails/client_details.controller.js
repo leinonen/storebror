@@ -26,7 +26,7 @@
           // Map drive temperatures into the correct drive entry
           for (var i = 0; i < controller.client.drives.drives.length; i++) {
             for (var j = 0; j < controller.client.hddtemp.length; j++) {
-              if (controller.client.drives.drives[i].filesystem === controller.client.hddtemp[j].drive) {
+              if (controller.client.drives.drives[i].filesystem.indexOf(controller.client.hddtemp[j].drive) !== -1) {
                 controller.client.drives.drives[i].temp = controller.client.hddtemp[j].temp;
               }
             }
