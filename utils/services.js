@@ -5,15 +5,15 @@ var Q = require('q');
 
 
 exports.getServices = function () {
-	if (os.platform() === 'linux') {
-		return getServicesLinux();
+	if (os.platform() === 'linux' && os.arch() !== 'arm') {
+		return getServicesLinuxInitctl();
 	} else {
 		return makePromise([]);
 	}
 };
 
 
-function getServicesLinux() {
+function getServicesLinuxInitctl() {
 	return exec('initctl list').then(parseOutput);
 }
 
@@ -34,9 +34,9 @@ function extractInfo(row) {
 	};
 }
 
-function isRunning(service) {
+/*function isRunning(service) {
 	return service.running === true;
-}
+}*/
 
 function byName(a, b) {
 	if (a.name > b.name) {
