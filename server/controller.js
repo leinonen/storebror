@@ -183,7 +183,7 @@ exports.cpuinfo = function (req, res) {
   Client
     .find()
     .exec(function (err, clients) {
-      var actualCpus = clients.map(function (client) {
+/*      var actualCpus = clients.map(function (client) {
         return client.system.cpus;
       });
       var cpus = actualCpus.reduce(function (a, b) {
@@ -195,11 +195,11 @@ exports.cpuinfo = function (req, res) {
       }).reduce(function (a, b) {
         return a + b;
       });
-
+*/
       res.json({
         computers: clients.length,
-        totalCores: cpus.length,
-        totalGHz: totalSpeedMhz / 1000.0
+        totalCores: 0,
+        totalGHz: 0
       });
     });
 };
