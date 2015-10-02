@@ -1,5 +1,5 @@
 body {
-    background: url('images/stressed_linen.png');
+    background-color: #121314;
 }
 .client {
   padding-bottom: 30px;
@@ -11,7 +11,7 @@ body {
 }
 
 .disk-summary .total {
-    color: #ffffff;
+    color: #5bc0de;
 }
 
 .disk-summary .used {
@@ -19,7 +19,7 @@ body {
 }
 
 .disk-summary .avail {
-    color: #7cc35e;
+    color: #84bd00;
 }
 
 .disk-summary td {
@@ -61,5 +61,22 @@ header h1 {
 }
 
 .stale {
-    color: red;
+    color: #d16853;
+}
+
+.panel-success > .panel-heading {
+  background-color: #222326;
+  border-bottom: #84bd00 2px solid;
+}
+
+.panel-info > .panel-heading {
+  background-color: #222326;
+  border-bottom: #5bc0de 2px solid;
+}
+
+.form-control {
+  background-color: #222326;
+  border: #84bd00 1px solid;
+  color: #84bd00;
+
 }
